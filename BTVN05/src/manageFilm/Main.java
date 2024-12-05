@@ -22,7 +22,7 @@ public class Main {
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice){
                 case 1:
-                    System.out.println("Nhập số lượng phim:");
+                    System.out.println("Mời b nhập số movie: ");
                     int n = Integer.parseInt(scanner.nextLine());
                     movies = new Movie[n];
                     for (int i = 0; i < n; i++) {
@@ -30,7 +30,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    System.out.println("Nhập số lượng seri:");
+                    System.out.println("Mời b nhập số series: ");
                     n = Integer.parseInt(scanner.nextLine());
                     series = new Series[n];
                     for (int i = 0; i < n; i++) {
