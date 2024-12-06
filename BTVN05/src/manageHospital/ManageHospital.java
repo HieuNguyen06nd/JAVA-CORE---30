@@ -7,10 +7,26 @@ public class ManageHospital {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Patient patient = inputInfoPatient(scanner);
-        Doctor doctor = inputInfoDoctor(scanner);
-        System.out.println(patient);
-        System.out.println(doctor);
+//        Patient patient = inputInfoPatient(scanner);
+//        Doctor doctor = inputInfoDoctor(scanner);
+
+        System.out.println("Nhap so bac si");
+        int n = Integer.parseInt(scanner.nextLine());
+        Doctor[] doctors = new Doctor[n];
+        for (int i = 0; i < doctors.length; i++) {
+            doctors[i]= inputInfoDoctor(scanner);
+        }
+
+        System.out.println("Nhap so benh nhanh");
+        n = Integer.parseInt(scanner.nextLine());
+        Patient[] patients = new Patient[n];
+        for (int i = 0; i < patients.length; i++) {
+            patients[i]= inputInfoPatient(scanner);
+        }
+
+        printInfo(patients);
+        printInfo(doctors);
+
 
     }
     public static Patient inputInfoPatient(Scanner scanner){
@@ -23,10 +39,8 @@ public class ManageHospital {
         System.out.println("Nhap so benh an");
         int medicalRecordNumber = Integer.parseInt(scanner.nextLine());
 
-        System.out.println("nhap ngay vao vien yyyy/MM/dd");
-        String dateOfAdmission = scanner.nextLine();
 
-        return new Patient(name, age, medicalRecordNumber, dateOfAdmission);
+        return new Patient(name, age, medicalRecordNumber);
     }
     public static Doctor inputInfoDoctor(Scanner scanner){
         System.out.println("nhap ten bac si");
@@ -42,5 +56,11 @@ public class ManageHospital {
         int numberOfWorking = Integer.parseInt(scanner.nextLine());
 
         return new Doctor(name, age, specialty, numberOfWorking);
+    }
+
+    public  static void printInfo(Object[] objects){
+        for (Object i : objects){
+            System.out.println(i);
+        }
     }
 }

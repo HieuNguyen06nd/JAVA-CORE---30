@@ -5,16 +5,16 @@ import java.util.Date;
 
 public class Patient extends Person{
     private int medicalRecordNumber;
-    private String dateOfAdmission ;
+    private LocalDate dateOfAdmission ;
 
     public Patient() {
     }
 
 
-    public Patient(String name, int age, int medicalRecordNumber, String dateOfAdmission) {
+    public Patient(String name, int age, int medicalRecordNumber) {
         super(name, age);
         this.medicalRecordNumber = medicalRecordNumber;
-        this.dateOfAdmission = dateOfAdmission;
+        this.dateOfAdmission = LocalDate.now();
     }
 
     public int getMedicalRecordNumber() {
@@ -23,14 +23,6 @@ public class Patient extends Person{
 
     public void setMedicalRecordNumber(int medicalRecordNumber) {
         this.medicalRecordNumber = medicalRecordNumber;
-    }
-
-    public String getDateOfAdmission() {
-        return dateOfAdmission;
-    }
-
-    public void setDateOfAdmission(String dateOfAdmission) {
-        this.dateOfAdmission = dateOfAdmission;
     }
 
     @Override
@@ -42,4 +34,5 @@ public class Patient extends Person{
                 ", dateOfAdmission=" + dateOfAdmission +
                 '}';
     }
+
 }
