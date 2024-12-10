@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b9ccfaf-2110-404c-bfbe-96f242c45910" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BTVN05/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTVN06/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTVN06/src/StudentBiz.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTVN06/src/StudentIt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTVN06/src/TechStudent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTVN05/src/manageHospital/ManageHospital.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTVN05/src/manageHospital/ManageHospital.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTVN05/src/manageHospital/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTVN05/src/manageHospital/Patient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/IDash.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/IShot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/ISurf.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/Lucian.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/Yasuo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/Lession_Interface/INews.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/Lession_Interface/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Leesion08/src/Lession_Interface/News.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
