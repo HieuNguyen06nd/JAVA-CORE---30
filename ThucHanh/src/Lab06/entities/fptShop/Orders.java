@@ -13,4 +13,13 @@ public class Orders {
 
     private Customer customer;
     private Product product;
+
+    public Orders(Customer customer, Product product, String status, double total) {
+        this.customer = customer;
+        this.id = ++autoId;
+        this.orderDate = LocalDate.now();
+        this.product = product;
+        this.status = status;
+        this.total = total;
+    }
 }

@@ -1,6 +1,8 @@
 package Lab06.views;
 
 import Lab06.entities.Person;
+import Lab06.entities.fptShop.Orders;
+import Lab06.entities.fptShop.Product;
 import Lab06.service.PersonService;
 
 import java.util.ArrayList;
@@ -34,6 +36,30 @@ public class Menu {
                 "4. xem thông tin khách hàng\n " +
                 "5. chỉnh sửa thông tin khách hàng\n");
     }
+    public void selectStaff(Scanner scanner, ArrayList<Product>products, ArrayList<Orders>orders){
+
+        while (true){
+            int choose= Integer.parseInt(scanner.nextLine());
+            switch (choose){
+                case 1:
+                    System.out.println(products);
+                    break;
+                case 2:
+                    System.out.println(orders);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Lua chon k hop le");
+            }
+        }
+    }
+
+
     public void displayCustomer(){
         System.out.println("===MENU CUSTOMER===\n" +
                 "1. Xem thông tin tất cả sp\n" +
