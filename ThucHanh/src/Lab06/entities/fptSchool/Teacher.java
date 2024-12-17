@@ -1,5 +1,6 @@
 package Lab06.entities.fptSchool;
 
+import Lab06.Main;
 import Lab06.entities.Person;
 import Lab06.enums.Major;
 import Lab06.enums.Role;

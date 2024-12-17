@@ -1,4 +1,6 @@
 package Lab06.enums;
 
-public class Major {
+public enum Major {
+    MATH,
+    ENGLISH
 }
