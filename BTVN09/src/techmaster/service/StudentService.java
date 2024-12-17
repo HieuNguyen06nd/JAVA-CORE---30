@@ -17,21 +17,27 @@ public class StudentService {
         String hocLuc = scanner.nextLine();
         return new Student(id,name,age,hocLuc);
     }
+
+    public Student findById( int id, ArrayList<Student>students){
+        for (Student student: students){
+            if (student.getId() ==id){
+                return student;
+            }
+        }
+        return null;
+    }
     public void updateHocLuc(Scanner scanner, ArrayList<Student>students){
         System.out.println("nhap id hoc sinh ");
         int id = Integer.parseInt(scanner.nextLine());
         boolean check = false;
-        for (Student student : students){
-            if (student.getId() ==id){
-                System.out.println("moi nhap hoc luc muon sua");
-                String hocLuc = scanner.nextLine();
-                student.setHocLuc(hocLuc);
-                check=true;
-                break;
-            }
-        }
-        if (!check){
+
+        Student student = findById(id, students);
+
+        if (student == null){
             System.out.println("khong tim thay hoc sinh id: "+id);
+        }else {
+
+
         }
     }
 
@@ -51,4 +57,5 @@ public class StudentService {
             System.out.println("khong tim thay hoc sinh id: "+id);
         }
     }
+
 }

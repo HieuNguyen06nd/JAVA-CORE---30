@@ -5,15 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b9ccfaf-2110-404c-bfbe-96f242c45910" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/IDash.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/IShot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/ISurf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/Lucian.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/LOL/Yasuo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/Lession_Interface/INews.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/Lession_Interface/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Leesion08/src/Lession_Interface/News.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ThucHanh/src/Lab01/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ThucHanh/src/Lab01/entities/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ThucHanh/src/Lab01/service/StudentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ThucHanh/src/Lab03/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ThucHanh/src/Lab03/entities/Worker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ThucHanh/src/Lab03/service/WorkerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTVN09/src/techmaster/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTVN09/src/techmaster/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCode/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCode/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,18 +51,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/nguyenhieu/Documents/JAVA-CORE---30&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/nguyenhieu/Documents/JAVA-CORE---30"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/LeetCode/src" />
       <recent name="C:\Users\nguye\Desktop\JAVA-CORE---30" />
     </key>
   </component>
