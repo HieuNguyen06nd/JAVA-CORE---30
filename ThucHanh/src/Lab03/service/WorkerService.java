@@ -22,9 +22,9 @@ public class WorkerService {
 
         return new Worker(name,age, salary, workPlace);
     }
-    public Worker findById(int id, ArrayList<Worker> workers){
+    public Worker findById(String id, ArrayList<Worker> workers){
         for (Worker worker: workers){
-            if (worker.getId() ==id){
+            if (worker.getId().equals(id)){
                 return worker;
             }
         }
@@ -32,7 +32,7 @@ public class WorkerService {
     }
     public void updateSalary(String status, Scanner scanner, ArrayList<Worker>workers){
         System.out.println("nhap id");
-        int id = Integer.parseInt(scanner.nextLine());
+        String id = scanner.nextLine();
         Worker worker = findById(id,workers);
         if (worker ==null){
             System.out.println("khong ton tai id "+ id);

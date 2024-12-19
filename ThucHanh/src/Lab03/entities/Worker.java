@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Worker {
     private static int autoId;
 
-    private int id;
+    private String id;
     private String name;
     private int age;
     private double salary;
@@ -15,7 +15,7 @@ public class Worker {
     private LocalDate date;
 
     public Worker( String name, int age, double salary, String workPlace) {
-        this.id = ++autoId;
+        this.id ="MNV " + ++autoId;
         this.name = name;
         this.age = age;
         this.salary = salary;
@@ -55,7 +55,7 @@ public class Worker {
         this.workPlace = workPlace;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

@@ -5,7 +5,7 @@ import Lab06.enums.Role;
 public class Person {
     private static int autoId;
 
-    private int id;
+    private String id;
     private String name;
     private String password;
     private String phone;
@@ -15,7 +15,7 @@ public class Person {
 
     public Person(String address, String name, String password, String phone, Role role, String email) {
         this.address = address;
-        this.id = ++autoId;
+        this.id ="FPT"+ ++autoId;
         this.name = name;
         this.password = password;
         this.phone = phone;

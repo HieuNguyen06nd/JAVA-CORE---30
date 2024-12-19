@@ -25,6 +25,8 @@ public class Menu {
             displayTeacher();
         }else if (check.getRole().equals("STUDENT")){
             displayStudent();
+        }else {
+
         }
 
     }

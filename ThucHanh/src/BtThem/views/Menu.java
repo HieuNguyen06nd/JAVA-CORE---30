@@ -31,7 +31,7 @@ public class Menu {
                 System.out.println(clients);
                 break;
             case 3:
-                Receipt receipt= receiptService.inputReceipt(scanner);
+                Receipt receipt= receiptService.inputReceipt(scanner,clients);
                 receipts.add(receipt);
                 break;
             case 4:

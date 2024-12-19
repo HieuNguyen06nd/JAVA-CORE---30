@@ -3,6 +3,7 @@ package BtThem.service;
 import BtThem.entities.Client;
 import BtThem.entities.Receipt;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientService {
@@ -18,5 +19,14 @@ public class ClientService {
         String meterCode = scanner.nextLine();
 
         return new Client(name,homeNumber,meterCode);
+    }
+
+    public Client findById(String id, ArrayList<Client> clients){
+        for (Client client: clients){
+            if (client.getId().equals(id)){
+                return client;
+            }
+        }
+        return null;
     }
 }

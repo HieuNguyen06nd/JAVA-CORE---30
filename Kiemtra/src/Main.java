@@ -1,8 +1,5 @@
-package Lab06;
-
-
-import Lab06.entities.Person;
-import Lab06.views.Menu;
+import entities.User;
+import view.Menu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,11 +7,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Person> people = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
 
         Menu menu = new Menu();
+
         while (true){
-            menu.displayInfo(scanner,people);
+            menu.displayMenu(scanner,users);
         }
+
     }
 }
