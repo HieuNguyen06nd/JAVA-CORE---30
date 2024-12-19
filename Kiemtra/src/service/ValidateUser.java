@@ -27,21 +27,21 @@ public class ValidateUser {
         return matcher.matches();
     }
 
-    public boolean existEmail(String email, ArrayList<User> users){
+    public boolean existEmail(String email, ArrayList<User> users) {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
-                System.out.println("Email đã tồn tại. Vui lòng chọn email khác.");
-                break;
+                return true;
             }
         }
         return false;
     }
-    public void existUsername(String username, ArrayList<User> users){
+    public boolean existUsername(String username, ArrayList<User> users){
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 System.out.println("Username đã tồn tại. Vui lòng chọn username khác.");
                 break;
             }
         }
+        return false;
     }
 }

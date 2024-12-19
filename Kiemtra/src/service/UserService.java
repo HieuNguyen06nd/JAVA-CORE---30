@@ -10,27 +10,40 @@ public class UserService {
     ValidateUser validateUser = new ValidateUser();
 
     public void signUp(Scanner scanner, ArrayList<User> users){
-        System.out.print("Moi nhap userName: ");
-        String userName = scanner.nextLine();
-
-        System.out.print("Moi nhap password: ");
-        String password = scanner.nextLine();
-
-        System.out.print("Moi nhap email: ");
-        String email = scanner.nextLine();
-
-        validateUser.existEmail(email,users);
-        validateUser.existUsername(userName,users);
-
-        if (!validateUser.checkEmail(email)){
-            System.out.println("Email không hợp lệ. Vui lòng nhập lại.");
-        }
-        if (!validateUser.checkPassword(password)) {
-            System.out.println("Mật khẩu không hợp lệ. Mật khẩu cần dài từ 7 đến 15 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 ký tự đặc biệt (. , - _ ;).");
-
+        String username;
+        while (true) {
+            System.out.print("Nhập Username: ");
+            username = scanner.nextLine();
+            if (!validateUser.existUsername(username, users)) {
+                break;
+            } else {
+                System.out.println("Username đã tồn tại, vui lòng nhập lại.");
+            }
         }
 
-        users.add(new User(userName,password,email));
+        String password;
+        do {
+            System.out.print("Nhập mật khẩu (ít nhất 8 ký tự, gồm chữ cái và số 1 ký tự đặc biệt (. , - _ ;): ");
+            password = scanner.nextLine();
+            if (!validateUser.checkPassword(password)) {
+                System.out.println("Mật khẩu không hợp lệ, vui lòng nhập lại.");
+            }
+        } while (!validateUser.checkPassword(password));
+
+        String email;
+        while (true) {
+            System.out.print("Nhập email: ");
+            email = scanner.nextLine();
+            if (validateUser.existEmail(email, users)) {
+                System.out.println("Email đã tồn tại, vui lòng nhập lại.");
+            } else if (!validateUser.checkEmail(email)) {
+                System.out.println("Email không hợp lệ, vui lòng nhập lại.");
+            } else {
+                break;
+            }
+        }
+
+        users.add(new User(username,password,email));
 
         System.out.println("Đăng ký thành công!");
     }
@@ -91,43 +104,58 @@ public class UserService {
     }
 
     public void changeUsername(Scanner scanner, ArrayList<User> users, User user){
-        System.out.print("Nhập username mới: ");
-        String newUsername = scanner.nextLine();
+        while (true) {
+            System.out.print("Nhập username mới: ");
+            String newUsername = scanner.nextLine();
 
-        if (findUserByUsername(newUsername, users) != null) {
-            System.out.println("Username đã tồn tại. Vui lòng thử lại.");
-        } else {
-            user.setUsername(newUsername);
-            System.out.println("Thay đổi username thành công.");
-
-            System.out.println(users);
+            if (findUserByUsername(newUsername, users) != null) {
+                System.out.println("Username đã tồn tại. Vui lòng nhập lại.");
+            }else if (newUsername.equals(user.getUsername())) {
+                System.out.println("Username mới không được trùng với username hiện tại. Vui lòng nhập lại.");
+            }else {
+                user.setUsername(newUsername);
+                System.out.println("Thay đổi username thành công.");
+                break;
+            }
         }
     }
 
     public void changeEmail(Scanner scanner, ArrayList<User> users, User user){
-        System.out.print("Nhập email mới: ");
-        String newEmail = scanner.nextLine();
+        while (true) {
+            System.out.print("Nhập email mới: ");
+            String newEmail = scanner.nextLine();
 
-        if (!validateUser.checkEmail(newEmail)) {
-            System.out.println("Email không hợp lệ. Vui lòng thử lại.");
-        } else if (validateUser.existEmail(newEmail, users)) {
-            System.out.println("Email đã tồn tại. Vui lòng thử lại.");
-        } else {
-            user.setEmail(newEmail);
-            System.out.println("Thay đổi email thành công.");
-            Menu menu = new Menu();
-            menu.loginMenu(scanner, users, user);
+            if (!validateUser.checkEmail(newEmail)) {
+                System.out.println("Email không hợp lệ. Vui lòng thử lại.");
+            }
+            else if (validateUser.existEmail(newEmail, users)) {
+                System.out.println("Email đã tồn tại. Vui lòng thử lại.");
+            }
+            else {
+                user.setEmail(newEmail);
+                System.out.println("Thay đổi email thành công.");
+                break;
+            }
         }
+        Menu menu = new Menu();
+        menu.loginMenu(scanner, users, user);
     }
     public void changePassword(Scanner scanner, ArrayList<User> users, User user){
-        System.out.print("Nhập mật khẩu mới: ");
-        String newPassword = scanner.nextLine();
+        while (true) {
+            System.out.print("Nhập mật khẩu mới: ");
+            String newPassword = scanner.nextLine();
 
-        if (!validateUser.checkPassword(newPassword)) {
-            System.out.println("Mật khẩu cần dài từ 7 đến 15 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 ký tự đặc biệt (. , - _ ;).\n");
-        } else {
-            user.setPassword(newPassword);
-            System.out.println("Thay đổi mật khẩu thành công.");
+            if (!validateUser.checkPassword(newPassword)) {
+                System.out.println("Mật khẩu cần dài từ 7 đến 15 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 ký tự đặc biệt (. , - _ ;).\n");
+            }
+            else if (newPassword.equals(user.getPassword())) {
+                System.out.println("Mật khẩu mới không được trùng với mật khẩu hiện tại. Vui lòng nhập lại.\n");
+            }
+            else {
+                user.setPassword(newPassword);
+                System.out.println("Thay đổi mật khẩu thành công.");
+                break;
+            }
         }
     }
 
