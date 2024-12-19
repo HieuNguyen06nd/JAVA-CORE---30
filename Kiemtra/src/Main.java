@@ -9,6 +9,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ArrayList<User> users = new ArrayList<>();
 
+        User user = new User("hieu", "Anhhieu1.", "anhha@gmail.com");
+        users.add(user);
+
         Menu menu = new Menu();
 
         while (true){
