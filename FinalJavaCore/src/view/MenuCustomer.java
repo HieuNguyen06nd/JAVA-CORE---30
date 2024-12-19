@@ -6,12 +6,11 @@ import service.UserService;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Menu {
+public class MenuCustomer {
     UserService userService= new UserService();
     public void displayMenu(Scanner scanner, ArrayList<User> users){
         System.out.println("1 - Đăng nhập\n" +
-                "2 - Đăng ký\n" +
-                "0 - Thoát chương trình");
+                "2 - Đăng ký");
         System.out.println("Mời lụa chọn");
         selectDisplayMenu(scanner, users);
     }
@@ -24,8 +23,6 @@ public class Menu {
             case 2:
                 userService.signUp(scanner, users);
                 break;
-            case 0:
-                System.exit(1);
             default:
                 System.out.println("Lựa chọn không hợp lệ");
         }

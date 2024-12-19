@@ -9,7 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ArrayList<User> users = new ArrayList<>();
 
-        User user = new User("hieu", "Anhhieu1.", "anhha@gmail.com");
+        User user = new User("admin", "Admin1.", "admin@gmail.com");
         users.add(user);
 
         Menu menu = new Menu();
