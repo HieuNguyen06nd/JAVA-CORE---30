@@ -17,6 +17,9 @@ public class User {
     private int status;
     private LocalDate created_at;
 
+    public User() {
+    }
+
     public User(String email, String username, String phone, String password, Role role) {
         this.email = email;
         this.id = "KH" + ++autoID;

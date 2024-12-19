@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuCustomer {
+
+//    tesst
+    MenuAdmin menuAdmin = new MenuAdmin();
+
+
+
     UserService userService= new UserService();
     public void displayMenu(Scanner scanner, ArrayList<User> users){
         System.out.println("1 - Đăng nhập\n" +

@@ -1,5 +1,6 @@
 package service;
 
+import entities.Student;
 import entities.User;
 import enums.Role;
 import validate.Validate;
@@ -149,6 +150,22 @@ public class UserService {
             System.out.println("Thay đổi mật khẩu thành công.");
         }
     }
+    public void changePhone(Scanner scanner, ArrayList<User> users, User user){
+        System.out.print("Nhập số điện thoại mới: ");
+        String phone = scanner.nextLine();
+        if (!validate.isValidPhone(phone)) {
+            System.out.println("Số điện thoại không hợp lệ, vui lòng nhập lại.");
+        }else {
+            user.setPhone(phone);
+            System.out.println("Thay đổi số điện thoại thành công.");
+        }
+    }
+    public void changeRole(Scanner scanner, ArrayList<User> users, User user){
+        System.out.print("Nhập Role mới: doi update ");
+        String newRole = scanner.nextLine();
+
+    }
+
 
     public User findUserByUsername(String username, ArrayList<User> users) {
         for (User user : users) {
@@ -162,6 +179,36 @@ public class UserService {
     public User findUserByEmail(String email, ArrayList<User> users) {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        return null;
+    }
+    public User findById(String id, ArrayList<User> users){
+        for (User user : users){
+            if (user.getId().equals(id)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public void deleteUser(Scanner scanner,ArrayList<User> users){
+        System.out.print("Nhập id cần xóa: ");
+        String id= scanner.nextLine();
+        User user = findById(id,users);
+        if (user ==null){
+            System.out.println("Không tồn tại user id: "+id);
+        }else {
+            users.remove(user);
+            System.out.println("Đã xóa user id: " + id);
+        }
+
+    }
+
+    public  User findUserByRole(Role role,ArrayList<User> users){
+        for (User user: users){
+            if (user.getRole().equals(role)){
                 return user;
             }
         }

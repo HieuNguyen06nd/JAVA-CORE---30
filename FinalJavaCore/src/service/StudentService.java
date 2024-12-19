@@ -1,8 +1,10 @@
 package service;
 
 import entities.Student;
+import entities.User;
 import validate.Validate;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentService {
@@ -43,4 +45,6 @@ public class StudentService {
 
         return new Student(email, username, phone, password, education_level);
     }
+
+
 }

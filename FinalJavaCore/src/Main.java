@@ -1,7 +1,6 @@
-import entities.Category;
-import entities.Student;
-import entities.User;
+import entities.*;
 import enums.Role;
+import view.MenuAdmin;
 import view.MenuCustomer;
 
 import java.util.ArrayList;
@@ -17,10 +16,16 @@ public class Main {
 
         ArrayList<Category> categories = new ArrayList<>();
         ArrayList<Student> students = new ArrayList<>();
+        ArrayList<Courses>courses =new ArrayList<>();
+        ArrayList<Teacher>teachers =new ArrayList<>();
 
-        MenuCustomer menu = new MenuCustomer();
+        Teacher teacher = new Teacher("anhha@gmail.com", "teacher","0982234222","Anhhieu1." ,3, "ass");
+        teachers.add(teacher);
+        MenuCustomer menuCustomer = new MenuCustomer();
+        MenuAdmin menuAdmin =new MenuAdmin();
         while (true){
-            menu.displayMenu(scanner,users);
+//            menuCustomer.displayMenu(scanner,users);
+            menuAdmin.displayAdmin(scanner, users,teachers,courses);
         }
     }
 }
