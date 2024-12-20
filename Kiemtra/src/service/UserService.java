@@ -23,7 +23,7 @@ public class UserService {
 
         String password;
         do {
-            System.out.print("Nhập mật khẩu (ít nhất 8 ký tự, gồm chữ cái và số 1 ký tự đặc biệt (. , - _ ;): ");
+            System.out.print("Nhập mật khẩu : ");
             password = scanner.nextLine();
             if (!validateUser.checkPassword(password)) {
                 System.out.println("Mật khẩu không hợp lệ, vui lòng nhập lại.");
@@ -49,13 +49,18 @@ public class UserService {
     }
 
     public void singIn(Scanner scanner,ArrayList<User> users){
-        System.out.print("Nhập username: ");
-        String username = scanner.nextLine();
+        User user = null;
 
-        User user  = findUserByUsername(username, users);
-        if (user == null) {
-            System.out.println("Kiểm tra lại username.");
-            return;
+        while (user == null) {
+            System.out.print("Nhập username (hoặc nhập 'exit' để thoát): ");
+            String username = scanner.nextLine();
+            if (exitProgramme(username)) {
+                return;
+            }
+            user = findUserByUsername(username, users);
+            if (user == null) {
+                System.out.println("Kiểm tra lại username.");
+            }
         }
         System.out.print("Nhập password: ");
         String password = scanner.nextLine();
@@ -175,5 +180,12 @@ public class UserService {
             }
         }
         return null;
+    }
+    public boolean exitProgramme(String key) {
+        if (key.equalsIgnoreCase("exit")) {
+            System.out.println("Đã thoát khỏi chương trình.");
+            return true;
+        }
+        return false;
     }
 }
