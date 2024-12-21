@@ -37,6 +37,9 @@ public class Main {
         users.add(student);
         Student student1 = new Student("student@gmail.com", "stu1", "0123456798","Anhhieu1.","2");
         users.add(student1);
+
+
+
         Menu menu = new Menu();
         while (true){
             menu.displayMenu(scanner,users,lessons,user, classRooms, blogs,courses);

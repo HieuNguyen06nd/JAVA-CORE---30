@@ -16,6 +16,7 @@ public class MenuAdmin {
     LessonService lessonService = new LessonService();
     ClassRoomService classRoomService = new ClassRoomService();
     BlogService blogService = new BlogService();
+    CoursesService coursesService =new CoursesService();
 
 
     public void displayAdmin(Scanner scanner,ArrayList<User> users,ArrayList<ClassRoom>classRooms,
@@ -63,7 +64,7 @@ public class MenuAdmin {
             }
         }
     }
-    public void manageCourses(Scanner scanner, ArrayList<Lesson>lessons, ArrayList<ClassRoom>classRooms) {
+    public void manageCourses(Scanner scanner, ArrayList<Courses>courses, ArrayList<User>users) {
         while (true){
             System.out.println("\n====== QUẢN LÝ KHÓA HỌC ======");
             System.out.println("1. Thêm khóa học");
@@ -75,16 +76,15 @@ public class MenuAdmin {
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    lessons.add(lessonService.inputLesson(scanner,classRooms,lessons));
+                    courses.add(coursesService.inputCourse(scanner,users));
                     break;
                 case 2:
-
+                    changeInfoCourse();
                     break;
                 case 3:
 
                     break;
                 case 4:
-                    System.out.println(lessons);
                     break;
                 case 5:
                     return;
@@ -358,16 +358,16 @@ public class MenuAdmin {
         }
 
     }
-    public void changeInfoCourse(Scanner scanner, ArrayList<Lesson> lessons, ArrayList<User> users){
+    public void changeInfoCourse(Scanner scanner, ArrayList<Courses> courses){
         System.out.println("Nhâp id Courses muốn sửa");
         String id = scanner.nextLine();
-        if (lessonService.findById(id, lessons) ==null){
+        if (coursesService.findById(id, courses) ==null){
             System.out.println("Không tồn tại Courses id: "+id);
         }else {
-            Lesson lesson = lessonService.findById(id, lessons);
+            Courses course = coursesService.findById(id, courses);
             while (true){
                 System.out.println("" +
-                        "1 - Thay đổi teacherId\n" +
+                        "1 - Hiển thi khoá học\n" +
                         "2 - Thay đổi tên khóa học \n" +
                         "3 - Thay đổi mô tả khóa học\n" +
                         "4 - Thay đổi giá khóa học\n" +
@@ -379,22 +379,21 @@ public class MenuAdmin {
                 int choose = Integer.parseInt(scanner.nextLine());
                 switch (choose){
                     case 1:
-//                        lessonService.changeTeacher(scanner,course, users);
                         break;
                     case 2:
-//                        lessonService.changeTitle(scanner, course);
+                        coursesService.changeTitle(scanner,course);
                         break;
                     case 3:
-//                        lessonService.changeDescription(scanner,course);
+                        coursesService.changeDescription(scanner,course);
                         break;
                     case 4:
-//                        lessonService.changePrice(scanner,course);
+                        coursesService.changePrice(scanner,course);
                         break;
                     case 5:
-//                        lessonService.changeStartDate(scanner, course);
+                        coursesService.changeStartDate(scanner, course);
                         break;
                     case 6:
-//                       lessonService.changeEndDate(scanner, course);
+                       coursesService.changeEndDate(scanner, course);
                         break;
                     case 7:
                         return;
