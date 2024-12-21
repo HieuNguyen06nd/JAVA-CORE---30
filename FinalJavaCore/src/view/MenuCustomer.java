@@ -1,40 +1,17 @@
 package view;
 
+import entities.Courses;
+import entities.Teacher;
 import entities.User;
+import enums.Role;
 import service.UserService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuCustomer {
-
-//    tesst
-    MenuAdmin menuAdmin = new MenuAdmin();
-
-
-
     UserService userService= new UserService();
-    public void displayMenu(Scanner scanner, ArrayList<User> users){
-        System.out.println("1 - Đăng nhập\n" +
-                "2 - Đăng ký");
-        System.out.println("Mời lụa chọn");
-        selectDisplayMenu(scanner, users);
-    }
-    public void selectDisplayMenu(Scanner scanner, ArrayList<User> users){
-        int choose = Integer.parseInt(scanner.nextLine());
-        switch (choose){
-            case 1:
-                userService.singIn(scanner, users);
-                break;
-            case 2:
-                userService.signUp(scanner, users);
-                break;
-            default:
-                System.out.println("Lựa chọn không hợp lệ");
-        }
-    }
-
-    public void loginMenu(Scanner scanner, ArrayList<User> users, User user){
+    public void displayCustomer(Scanner scanner, ArrayList<User> users, User user){
         System.out.println("1 - Thay đổi username\n" +
                 "2 - Thay đổi email\n" +
                 "3 - Thay đổi mật khẩu\n" +
@@ -52,10 +29,10 @@ public class MenuCustomer {
                 userService.changeEmail(scanner, users,user);
                 break;
             case 3:
-                userService.changePassword(scanner, users, user);
+                userService.changePassword(scanner, user);
                 break;
             case 4:
-                displayMenu(scanner, users);
+//                displayMenu(scanner, users);
                 break;
             case 5:
                 System.out.println(user);

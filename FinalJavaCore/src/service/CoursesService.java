@@ -3,6 +3,7 @@ package service;
 import entities.Courses;
 import entities.Teacher;
 import entities.User;
+import enums.Role;
 import validate.ExistsCheck;
 
 import java.time.LocalDate;
@@ -11,18 +12,7 @@ import java.util.Scanner;
 
 public class CoursesService {
     ExistsCheck existsCheck = new ExistsCheck();
-    public Courses inputCourse(Scanner scanner, ArrayList<Teacher> teachers) {
-
-        String teacherId;
-        while (true) {
-            System.out.print("Nhập teacherId: ");
-            teacherId = scanner.nextLine();
-            if (existsCheck.isValidTeacher(teacherId, teachers)) {
-                break;
-            } else {
-                System.out.println("teacherId không hợp lệ. Vui lòng nhập lại.");
-            }
-        }
+    public Courses inputCourse(Scanner scanner, ArrayList<User> users) {
 
         System.out.print("Nhập tên khóa học: ");
         String title = scanner.nextLine();
@@ -47,21 +37,7 @@ public class CoursesService {
         System.out.print("Nhập ngày kết thúc khóa học (yyyy-MM-dd): ");
         LocalDate endDate = LocalDate.parse(scanner.nextLine());
 
-        return new Courses(title, description, price, teacherId, startDate, endDate);
-    }
-
-    public void changeTeacher(Scanner scanner, Courses course, ArrayList<Teacher> teachers){
-        String teacherId;
-        while (true) {
-            System.out.print("Nhập teacherId moi: ");
-            teacherId = scanner.nextLine();
-            if (existsCheck.isValidTeacher(teacherId, teachers)) {
-                course.setTeacherId(teacherId);
-                break;
-            } else {
-                System.out.println("teacherId không hợp lệ. Vui lòng nhập lại.");
-            }
-        }
+        return new Courses(title, description, price, startDate, endDate);
     }
 
 

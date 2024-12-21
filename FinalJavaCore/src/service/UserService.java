@@ -1,10 +1,9 @@
 package service;
 
-import entities.Student;
-import entities.User;
+import entities.*;
 import enums.Role;
 import validate.Validate;
-import view.MenuCustomer;
+import view.Menu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,12 +13,15 @@ public class UserService {
 
     public void signUp(Scanner scanner, ArrayList<User> users){
         String username;
-        do {
-            System.out.print("Nhập tên người dùng: ");
+        while (true) {
+            System.out.print("Nhập Username: ");
             username = scanner.nextLine();
-            validate.existUsername(username,users);
-        } while (! validate.existUsername(username,users));
-
+            if (!validate.existUsername(username, users)) {
+                break;
+            } else {
+                System.out.println("Username đã tồn tại, vui lòng nhập lại.");
+            }
+        }
         String email;
         do {
             System.out.print("Nhập email: ");
@@ -50,12 +52,13 @@ public class UserService {
 
         Role role =Role.CUSTOMER;
 
-        users.add(new User(username,email, phone,password, role));
+        users.add(new User(email,username, phone,password, role));
 
         System.out.println("Đăng ký thành công!");
     }
 
-    public void singIn(Scanner scanner,ArrayList<User> users){
+    public void singIn(Scanner scanner, ArrayList<User> users, ArrayList<Lesson>lessons,
+                       ArrayList<ClassRoom>classRooms, ArrayList<Blog>blogs,  ArrayList<Courses>courses){
         System.out.print("Nhập username: ");
         String username = scanner.nextLine();
 
@@ -74,7 +77,7 @@ public class UserService {
             int choose = Integer.parseInt(scanner.nextLine());
             switch (choose){
                 case 1:
-                    singIn(scanner , users);
+                    singIn(scanner ,users, lessons, classRooms, blogs,courses);
                     break;
                 case 2:
                     forgetPassword(scanner,users);
@@ -84,8 +87,9 @@ public class UserService {
             }
         }else {
             System.out.println("“Chào mừng "+user.getUsername()+", bạn có thể thực hiện các công việc sau:”");
-            MenuCustomer menu = new MenuCustomer();
-            menu.loginMenu(scanner,users, user);
+            Menu menu = new Menu();
+            menu.loginMenu(scanner,users,lessons, user, classRooms,blogs,courses );
+
         }
     }
 
@@ -135,11 +139,11 @@ public class UserService {
         } else {
             user.setEmail(newEmail);
             System.out.println("Thay đổi email thành công.");
-            MenuCustomer menu = new MenuCustomer();
-            menu.loginMenu(scanner, users, user);
+//            MenuCustomer menu = new MenuCustomer();
+//            menu.loginMenu(scanner, users, user);
         }
     }
-    public void changePassword(Scanner scanner, ArrayList<User> users, User user){
+    public void changePassword(Scanner scanner, User user){
         System.out.print("Nhập mật khẩu mới: ");
         String newPassword = scanner.nextLine();
 
@@ -150,7 +154,7 @@ public class UserService {
             System.out.println("Thay đổi mật khẩu thành công.");
         }
     }
-    public void changePhone(Scanner scanner, ArrayList<User> users, User user){
+    public void changePhone(Scanner scanner, User user){
         System.out.print("Nhập số điện thoại mới: ");
         String phone = scanner.nextLine();
         if (!validate.isValidPhone(phone)) {
@@ -203,7 +207,6 @@ public class UserService {
             users.remove(user);
             System.out.println("Đã xóa user id: " + id);
         }
-
     }
 
     public  User findUserByRole(Role role,ArrayList<User> users){

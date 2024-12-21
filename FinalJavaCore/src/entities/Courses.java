@@ -9,22 +9,19 @@ public class Courses {
     private String title;
     private String description;
     private double price;
-
-    private String teacherId;
 //thoi gian bat dau
     private LocalDate start_date;
 //thoi gian ket thuc
     private LocalDate end_date;
 
-    public Courses( String title, String description, double price, String teacherId, LocalDate start_date, LocalDate end_date) {
+    public Courses( String title, String description, double price, LocalDate start_date, LocalDate end_date) {
         this.id ="COU" + ++autoID;
         this.title = title;
         this.description = description;
-        this.price = price;
-        this.teacherId = teacherId;
         this.start_date = start_date;
         this.end_date = end_date;
     }
+
 
     @Override
     public String toString() {
@@ -33,7 +30,6 @@ public class Courses {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", teacherId='" + teacherId + '\'' +
                 ", start_date=" + start_date +
                 ", end_date=" + end_date +
                 '}';
@@ -66,14 +62,6 @@ public class Courses {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
     }
 
     public LocalDate getStart_date() {

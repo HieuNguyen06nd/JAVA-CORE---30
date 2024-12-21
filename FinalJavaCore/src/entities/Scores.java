@@ -8,16 +8,16 @@ public class Scores {
     private String id;
     private String student_id;
     private String lesson_id;
-    private String course_id;
+    private String class_id;
     private double score;
 
     private LocalDate graded_at;
 
-    public Scores( String student_id, String lesson_id, String course_id, double score) {
+    public Scores( String student_id, String lesson_id, String class_id, double score) {
         this.id ="SC" + ++autoId;
         this.student_id = student_id;
         this.lesson_id = lesson_id;
-        this.course_id = course_id;
+        this.class_id = class_id;
         this.score = score;
         this.graded_at = LocalDate.now();
     }
@@ -43,12 +43,12 @@ public class Scores {
         this.student_id = student_id;
     }
 
-    public String getCourse_id() {
-        return course_id;
+    public String getClass_id() {
+        return class_id;
     }
 
-    public void setCourse_id(String course_id) {
-        this.course_id = course_id;
+    public void setClass_id(String class_id) {
+        this.class_id = class_id;
     }
 
     public double getScore() {

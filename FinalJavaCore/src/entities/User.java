@@ -31,6 +31,20 @@ public class User {
         this.created_at=LocalDate.now();
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", status=" + status +
+                ", created_at=" + created_at +
+                '}';
+    }
+
     public String getId() {
         return id;
     }
