@@ -20,7 +20,7 @@ public class MenuAdmin {
 
 
     public void displayAdmin(Scanner scanner,ArrayList<User> users,ArrayList<ClassRoom>classRooms,
-                             ArrayList<Lesson>lessons, ArrayList<Blog>blogs, ArrayList<Courses>courses){
+                             ArrayList<Lesson>lessons, ArrayList<Blog>blogs, ArrayList<Courses>courses, User user){
         while (true){
             System.out.println("\n====== MENU CHỨC NĂNG ======");
             System.out.println("1. Quản lý Học viên");
@@ -39,7 +39,7 @@ public class MenuAdmin {
                     manageStudents(scanner,users);
                     break;
                 case 2:
-                    manageCourses(scanner,lessons,classRooms);
+                    manageCourses(scanner,courses,user);
                     break;
                 case 3:
                     manageTeacher(scanner,users);
@@ -56,6 +56,9 @@ public class MenuAdmin {
                 case 7:
                    manageLesson(scanner,classRooms,lessons);
                     break;
+                case 8:
+                    manageSearch(scanner, users);
+                    break;
                 case 0:
                     System.exit(1);
                     break;
@@ -64,7 +67,7 @@ public class MenuAdmin {
             }
         }
     }
-    public void manageCourses(Scanner scanner, ArrayList<Courses>courses, ArrayList<User>users) {
+    public void manageCourses(Scanner scanner, ArrayList<Courses>courses,User users) {
         while (true){
             System.out.println("\n====== QUẢN LÝ KHÓA HỌC ======");
             System.out.println("1. Thêm khóa học");
@@ -79,12 +82,13 @@ public class MenuAdmin {
                     courses.add(coursesService.inputCourse(scanner,users));
                     break;
                 case 2:
-                    changeInfoCourse();
+                    changeInfoCourse(scanner,courses);
                     break;
                 case 3:
-
+                    coursesService.deleteCourse(scanner,courses);
                     break;
                 case 4:
+                    printService.printAllCourses(courses);
                     break;
                 case 5:
                     return;
@@ -275,19 +279,21 @@ public class MenuAdmin {
         }
     }
 
-    public void manageSearch(Scanner scanner){
+    public void manageSearch(Scanner scanner, ArrayList<User> users){
         while (true){
             System.out.println("\n====== QUẢN LÝ BLOG ======");
             System.out.println("1. Tìm kiếm user");
             System.out.println("2. Tìm kiếm Blog");
             System.out.println("3. Tìm kiếm Classroom ");
-            System.out.println("4. Tìm kiếm Course");
+            System.out.println("4. Tìm kiếm Course theo id");
             System.out.println("9. Quay lại");
             System.out.print("Chọn chức năng: ");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-
+                    System.out.print("Nhập ID cần tìm: ");
+                    String id = scanner.nextLine();
+                    printService.printUserDetails(id,users);
                     break;
                 case 2:
 

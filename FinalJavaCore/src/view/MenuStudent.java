@@ -1,15 +1,17 @@
 package view;
 
+import entities.ClassRoom;
 import entities.User;
+import service.PrintService;
 import service.UserService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuStudent {
-    MenuAdmin menuAdmin = new MenuAdmin();
     UserService userService = new UserService();
-    public void  displayStudent(Scanner scanner, ArrayList<User>users, User user){
+    PrintService printService = new PrintService();
+    public void  displayStudent(Scanner scanner, ArrayList<User>users, User user, ArrayList<ClassRoom>classRooms){
         while (true){
             System.out.println("\n====== MENU CHỨC NĂNG ======");
             System.out.println("1. Quản lý thông tin cá nhân");
@@ -25,7 +27,8 @@ public class MenuStudent {
                     loginMenu(scanner,users, user);
                     break;
                 case 2:
-
+                    String id = user.getId();
+                    printService.printAllClassRoomsByUser(id,classRooms,users);
                     break;
                 case 3:
 

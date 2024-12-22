@@ -27,7 +27,7 @@ public class Main {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.parse("1995-02-09", formatter);
         LocalDate endDate = LocalDate.parse("1992-09-09", formatter);
-//        courses.add(new Courses("cou 1", "ashdk asjd", 1000, "KH2", startDate, endDate));
+        courses.add(new Courses("cou1", "ashdk asjd", 1000, "KH2", startDate, endDate));
 
 
         Teacher teacher = new Teacher("anhha@gmail.com", "teacher","0982234222","Anhhieu1." ,3, "ass");

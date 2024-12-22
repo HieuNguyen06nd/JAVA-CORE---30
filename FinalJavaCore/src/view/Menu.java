@@ -44,11 +44,11 @@ public class Menu {
                           ArrayList<ClassRoom>classRooms, ArrayList<Blog>blogs, ArrayList<Courses>courses){
         Role role = userService.findUserByRole(user.getRole(),users).getRole();
         if (role.equals(Role.ADMIN)){
-            menuAdmin.displayAdmin(scanner,users,classRooms, lessons, blogs,courses);
+            menuAdmin.displayAdmin(scanner,users,classRooms, lessons, blogs,courses, user);
         }else if (role.equals(Role.TEACHER)){
             menuTeacher.displayTeacher(scanner);
         }else if (role.equals(Role.STUDENT)){
-            menuStudent.displayStudent(scanner, users, user);
+            menuStudent.displayStudent(scanner, users, user, classRooms);
         }else if (role.equals(Role.CUSTOMER)){
             menuCustomer.displayCustomer(scanner,users, user);
         }
