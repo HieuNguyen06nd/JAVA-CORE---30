@@ -1,69 +1,58 @@
 package view;
 
-import entities.User;
+import entities.*;
+import enums.Role;
+import service.AppContext;
+import service.StudentService;
 import service.UserService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    UserService userService= new UserService();
-    public void displayMenu(Scanner scanner, ArrayList<User> users){
+
+    UserService userService = new UserService();
+    MenuAdmin menuAdmin = new MenuAdmin();
+    MenuStudent menuStudent = new MenuStudent();
+
+    // Hiển thị menu chính
+    public void displayMenu() {
+        AppContext appContext = AppContext.getInstance();
         System.out.println("1 - Đăng nhập\n" +
                 "2 - Đăng ký\n" +
                 "0 - Thoát chương trình");
-        System.out.println("Mời lụa chọn");
-        selectDisplayMenu(scanner, users);
+        System.out.println("Mời lựa chọn");
+        selectDisplayMenu(appContext);
     }
-    public void selectDisplayMenu(Scanner scanner, ArrayList<User> users){
-        int choose = Integer.parseInt(scanner.nextLine());
-        switch (choose){
+
+    public void selectDisplayMenu(AppContext appContext) {
+        int choose = Integer.parseInt(appContext.getScanner().nextLine());
+        switch (choose) {
             case 1:
-                userService.singIn(scanner, users);
+                userService.singIn();
                 break;
             case 2:
-                userService.signUp(scanner, users);
+                userService.signUp();
                 break;
             case 0:
                 System.exit(1);
+                break;
             default:
                 System.out.println("Lựa chọn không hợp lệ");
         }
     }
 
-    public void loginMenu(Scanner scanner, ArrayList<User> users, User user){
-        System.out.println("1 - Thay đổi username\n" +
-                "2 - Thay đổi email\n" +
-                "3 - Thay đổi mật khẩu\n" +
-                "4 - Đăng xuất (Sau khi đăng xuất quay về mục yêu cầu đăng nhập hoặc đăng ký)\n" +
-                "0 - Thoát chương trình");
-        selectLoginMenu(scanner, users, user);
-    }
-    public void selectLoginMenu(Scanner scanner,ArrayList<User> users, User user){
-        int choose = Integer.parseInt(scanner.nextLine());
-        switch (choose){
-            case 1:
-                userService.changeUsername(scanner,users, user);
-                break;
-            case 2:
-                userService.changeEmail(scanner, users,user);
-                break;
-            case 3:
-                userService.changePassword(scanner, users, user);
-                break;
-            case 4:
-                displayMenu(scanner, users);
-                break;
-            case 5:
-                System.out.println(user);
-                break;
-            case 6:
-                System.out.println(users);
-                break;
-            case 0:
-                System.exit(1);
-            default:
-                System.out.println("Lựa chọn không hợp lệ");
+    public void loginMenu(AppContext appContext, User user) {
+        Role role = user.getRole();
+
+        if (role.equals(Role.ADMIN)) {
+            menuAdmin.displayAdmin(appContext,user);
+        } else if (role.equals(Role.STUDENT)) {
+            menuStudent.displayStudent(appContext, user);
+        } else if (role.equals(Role.TEACHER)) {
+
+        } else if (role.equals(Role.CUSTOMER)) {
+
         }
     }
 }

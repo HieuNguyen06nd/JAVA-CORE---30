@@ -1,5 +1,5 @@
 package enums;
 
 public enum Major {
-    JAVA, HTML
+    JAVA, HTML, CSS, PHP
 }

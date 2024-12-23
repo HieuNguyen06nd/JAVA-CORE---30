@@ -1,4 +1,4 @@
 package service;
 
-public class AppContext {
+public class   AppContext {
 }

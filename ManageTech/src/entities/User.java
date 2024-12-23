@@ -12,13 +12,15 @@ public class User {
     private String password;
     private String email;
     private Role role;
+    private double budget;
     private LocalDate created_at = LocalDate.now();
 
     public User( String username, String password, String email, Role role) {
-        this.id =""+ autoId;
+        this.id ="KH"+ ++autoId;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.budget = 100000;
         this.role =role;
     }
 
@@ -64,5 +66,13 @@ public class User {
 
     public void setCreated_at() {
         this.created_at = LocalDate.now();
+    }
+
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
     }
 }
