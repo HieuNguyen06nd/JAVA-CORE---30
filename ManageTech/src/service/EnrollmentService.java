@@ -15,7 +15,7 @@ public class EnrollmentService {
     CourseService courseService = new CourseService();
     PrintService printService = new PrintService();
 
-    public void enrollAndAskForPayment(String userId, String courseId, AppContext context) {
+    public void enrollAndAskForPayment(String userId, AppContext context) {
         ArrayList<User> users = context.getUsers();
         Scanner scanner = context.getScanner();
         ArrayList<Course> courses = context.getCourses();
@@ -26,6 +26,8 @@ public class EnrollmentService {
             System.out.println("Người dùng không tồn tại.");
             return;
         }
+        System.out.println("Nhập ID khoá học");
+        String courseId = scanner.nextLine();
 
         Course course = courseService.findById(courseId, courses);
         if (course == null) {

@@ -112,7 +112,9 @@ public class MenuAdmin {
             System.out.println("2. Sửa giáo viên");
             System.out.println("3. Xóa giáo viên");
             System.out.println("4. Hiển thị danh sách giáo viên");
-            System.out.println("5. Quay lại");
+            System.out.println("5. Hiển thị danh sách lớp giảng viên đang dạy");
+            System.out.println("6. Xếp lớp cho giảng viên");
+            System.out.println("9. Quay lại");
             System.out.print("Chọn chức năng: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
@@ -129,7 +131,7 @@ public class MenuAdmin {
                 case 4:
                     printService.printInfo(appContext,Role.TEACHER);
                     break;
-                case 5:
+                case 9:
                     return;
                 default:
                     System.out.println("Chọn không hợp lệ. Vui lòng thử lại.");
@@ -160,7 +162,7 @@ public class MenuAdmin {
                     courseService.deleteCourse(appContext);
                     break;
                 case 4:
-//                    printService.printAllCourses(courses);
+                    printService.printAllCourse(appContext);
                     break;
                 case 5:
                     return;

@@ -1,9 +1,6 @@
 package service;
 
-import entities.Classes;
-import entities.Course;
-import entities.Lesson;
-import entities.User;
+import entities.*;
 import enums.Role;
 import exist.Exist;
 
@@ -16,7 +13,7 @@ public class PrintService {
     CourseService courseService = new CourseService();
 //   user
     public void printInfo(AppContext appContext, Role role) {
-        ArrayList<User> users = appContext.getUsers();  // Lấy danh sách users từ AppContext
+        ArrayList<User> users = appContext.getUsers();
         System.out.println("=== Thông tin người dùng có vai trò " + role + " ===");
         boolean found = false;
 
@@ -169,6 +166,17 @@ public class PrintService {
 
 //    Course
 
+    public void printAllCourse(AppContext context){
+        ArrayList<Course> courses = context.getCourses();
+        for (Course course: courses){
+            System.out.println("=== Chi tiết khóa học ===");
+            System.out.println("ID: " + course.getId());
+            System.out.println("Tên khóa học: " + course.getName());
+            System.out.println("Mô tả: " + course.getDescription());
+            System.out.println("Giá : " + course.getPrice());
+        }
+    }
+
     public void printCourseById(String courseId, AppContext context) {
         ArrayList<Course> courses = context.getCourses();
 
@@ -181,6 +189,16 @@ public class PrintService {
             System.out.println("Tên khóa học: " + course.getName());
             System.out.println("Mô tả: " + course.getDescription());
             System.out.println("Giá : " + course.getPrice());
+        }
+    }
+
+    public void printCourseByUserId(String user_id, AppContext context){
+        ArrayList<Enrollments>enrollments= context.getEnrollments();
+
+        for (Enrollments enrollment: enrollments){
+            if (enrollment.getUser_id().equals(user_id)){
+                printCourseById(enrollment.getCourse_id(),context);
+            }
         }
     }
 

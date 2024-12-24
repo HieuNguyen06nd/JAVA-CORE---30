@@ -3,6 +3,7 @@ package service;
 import entities.User;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,4 +46,26 @@ public class ValidateUser {
         }
         return false;
     }
+
+    public static Integer inputInterger(Scanner scanner){
+        try {
+            int n = Integer.parseInt(scanner.nextLine());
+            return n;
+        }catch (Exception e){
+            System.out.println("Lỗi: "+ e);
+            return null;
+        }
+    }
+
+    public static String inputString(Scanner scanner){
+        try {
+            String n = scanner.nextLine();
+            return n;
+        }catch (Exception e){
+            System.out.println("Lỗi: "+ e);
+            return null;
+        }
+    }
+
+
 }

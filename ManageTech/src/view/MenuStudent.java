@@ -19,9 +19,9 @@ public class MenuStudent {
             System.out.println("\n====== MENU CHỨC NĂNG ======");
             System.out.println("1. Quản lý thông tin cá nhân");
             System.out.println("2. Xem Lớp học");
-            System.out.println("3. Xem khóa học cá nhân");
+            System.out.println("3. Xem khóa học đã đăng ký");
             System.out.println("4. Xem điểm cá nhân theo lớp");
-            System.out.println("5. Xem tất cả các khóa học Sắp mở");
+            System.out.println("5. Xem tất cả các khóa học");
             System.out.println("6. Đăng ký khóa học");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
@@ -35,12 +35,15 @@ public class MenuStudent {
                     printService.printAllClassRoomsByUser(id, context);
                     break;
                 case 3:
-                    // Logic for personal courses
+                    printService.printCourseByUserId(user.getId(), context);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    printService.printAllCourse(context);
                     break;
                 case 6:
-                    System.out.println("Nhap id khoa hoc");
-                    String course_id = scanner.nextLine();
-                    enrollmentService.enrollAndAskForPayment(user.getId(), course_id, context);
+                    enrollmentService.enrollAndAskForPayment(user.getId(), context);
                     break;
                 case 0:
                     System.exit(1);

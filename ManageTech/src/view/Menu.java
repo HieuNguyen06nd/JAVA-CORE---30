@@ -14,8 +14,8 @@ public class Menu {
     UserService userService = new UserService();
     MenuAdmin menuAdmin = new MenuAdmin();
     MenuStudent menuStudent = new MenuStudent();
+    MenuCustomer menuCustomer = new MenuCustomer();
 
-    // Hiển thị menu chính
     public void displayMenu() {
         AppContext appContext = AppContext.getInstance();
         System.out.println("1 - Đăng nhập\n" +
@@ -52,7 +52,7 @@ public class Menu {
         } else if (role.equals(Role.TEACHER)) {
 
         } else if (role.equals(Role.CUSTOMER)) {
-
+            menuCustomer.displayCustomer(appContext,user);
         }
     }
 }
