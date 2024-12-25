@@ -1,5 +1,6 @@
 package view;
 
+import data.DataService;
 import entities.*;
 import entities.Course;
 import enums.Role;
@@ -16,15 +17,12 @@ public class MenuAdmin {
     CourseService courseService = new CourseService();
     LessonService lessonService = new LessonService();
     ClassService classService = new ClassService();
+    DataService dataService = new DataService();
 
 
     public void displayAdmin(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();  // Lấy Scanner từ AppContext
-        ArrayList<User> users = appContext.getUsers();  // Lấy danh sách người dùng từ AppContext
-        ArrayList<Classes> classRooms = appContext.getClasses();  // Lấy danh sách lớp học từ AppContext
-        ArrayList<Lesson> lessons = appContext.getLessons();  // Lấy danh sách bài học từ AppContext
-        ArrayList<Blog> blogs = appContext.getBlogs();  // Lấy danh sách blog từ AppContext
-        ArrayList<Course> courses = appContext.getCourses();  // Lấy danh sách khóa học từ AppContext
+        DataService dataService =new DataService();
 
         while (true) {
             System.out.println("\n====== MENU CHỨC NĂNG ======");

@@ -192,14 +192,16 @@ public class PrintService {
         }
     }
 
-    public void printCourseByUserId(String user_id, AppContext context){
+    public void printCourseByUserId(String user_id, AppContext context, int status){
         ArrayList<Enrollments>enrollments= context.getEnrollments();
 
         for (Enrollments enrollment: enrollments){
-            if (enrollment.getUser_id().equals(user_id)){
+            if (enrollment.getUser_id().equals(user_id) && enrollment.getStatus() ==status){
                 printCourseById(enrollment.getCourse_id(),context);
             }
         }
     }
+
+
 
 }

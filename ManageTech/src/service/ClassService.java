@@ -1,6 +1,7 @@
 package service;
 
 import entities.Classes;
+import entities.Course;
 import entities.User;
 import enums.Role;
 import exist.Exist;
@@ -12,15 +13,26 @@ import java.util.Scanner;
 public class ClassService {
     Exist exist = new Exist();
     UserService userService = new UserService();
+    CourseService courseService = new CourseService();
     public void inputClass(AppContext appContext) {
         ArrayList<Classes> classes = appContext.getClasses();
         Scanner scanner = appContext.getScanner();
+        ArrayList<Course>courses = appContext.getCourses();
 
         System.out.println("Nhập tên lớp: ");
         String name = scanner.nextLine();
 
-        System.out.println("Nhập ID khóa học: ");
-        String courseId = scanner.nextLine();
+        String courseId;
+        while (true) {
+            System.out.println("Nhập ID khóa học: ");
+            courseId = scanner.nextLine();
+            Course course = courseService.findById(courseId, courses);
+            if (course != null) {
+                break;
+            } else {
+                System.out.println("Không tìm thấy khóa học. Vui lòng nhập lại.");
+            }
+        }
 
         String teacherId;
         while (true) {
@@ -73,8 +85,28 @@ public class ClassService {
             }
         }
 
-        System.out.println("Nhập lịch học: ");
-        String schedule = scanner.nextLine();
+        String schedule = "";
+        while (true) {
+            System.out.println("Chọn lịch học cho lớp học: ");
+            System.out.println("1. Lịch học: Thứ 2, 4, 6");
+            System.out.println("2. Lịch học: Thứ 3, 5, 7");
+            String choice = scanner.nextLine();
+
+            if (choice.equals("1")) {
+                schedule = "Thứ 2, 4, 6";
+            } else if (choice.equals("2")) {
+                schedule = "Thứ 3, 5, 7";
+            } else {
+                System.out.println("Lựa chọn không hợp lệ, vui lòng chọn lại.");
+                continue;
+            }
+
+            if (exist.isScheduleConflict(new Classes(name, courseId, teacherId, studentIdList, startDate, endDate, schedule), schedule, classes)) {
+                System.out.println("Lịch học này bị xung đột với các lớp học khác. Vui lòng chọn lịch học khác.");
+            } else {
+                break;
+            }
+        }
 
         Classes newClass = new Classes(name, courseId, teacherId, studentIdList, startDate, endDate, schedule);
         classes.add(newClass);

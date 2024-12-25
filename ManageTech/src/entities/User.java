@@ -20,8 +20,17 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.budget = 100000;
+        this.budget = 1000;
         this.role =role;
+    }
+    public User(String id, String username, String password, String email, Role role, double budget, LocalDate created_at) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.budget = budget;
+        this.created_at = created_at; // Đảm bảo tạo từ LocalDate
     }
 
     public String getId() {
@@ -74,5 +83,18 @@ public class User {
 
     public void setBudget(double budget) {
         this.budget = budget;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", budget=" + budget +
+                ", created_at=" + created_at.toString() + // Chuyển đổi LocalDate thành String
+                '}';
     }
 }

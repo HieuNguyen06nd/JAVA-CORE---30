@@ -1,5 +1,6 @@
 package view;
 
+import data.DataService;
 import entities.*;
 import enums.Role;
 import service.AppContext;
@@ -15,6 +16,8 @@ public class Menu {
     MenuAdmin menuAdmin = new MenuAdmin();
     MenuStudent menuStudent = new MenuStudent();
     MenuCustomer menuCustomer = new MenuCustomer();
+    MenuTeacher menuTeacher = new MenuTeacher();
+    DataService dataService = new DataService();
 
     public void displayMenu() {
         AppContext appContext = AppContext.getInstance();
@@ -50,7 +53,7 @@ public class Menu {
         } else if (role.equals(Role.STUDENT)) {
             menuStudent.displayStudent(appContext, user);
         } else if (role.equals(Role.TEACHER)) {
-
+            menuTeacher.displayTeacher(appContext, user);
         } else if (role.equals(Role.CUSTOMER)) {
             menuCustomer.displayCustomer(appContext,user);
         }

@@ -81,5 +81,22 @@ public class Exist {
         }
         return false;
     }
+
+    public boolean isScheduleConflict(Classes classRoom, String newSchedule, ArrayList<Classes> classes) {
+        for (Classes otherClass : classes) {
+            if (!otherClass.getId().equals(classRoom.getId())) {
+                if (otherClass.getSchedule().equals(newSchedule)) {
+                    if (otherClass.getTeacher_id().equals(classRoom.getTeacher_id())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
 }
 

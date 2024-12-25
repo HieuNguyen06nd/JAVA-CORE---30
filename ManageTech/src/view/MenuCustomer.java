@@ -36,7 +36,7 @@ public class MenuCustomer {
                 printService.printAllCourse(context);
                 break;
             case 3:
-                enrollmentService.enrollAndAskForPayment(user.getId(), context);
+                enrollmentService.enrollCourse(user.getId(), context);
                 break;
             case 4:
                 printService.printInfo(context, Role.TEACHER);

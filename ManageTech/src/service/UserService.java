@@ -48,7 +48,7 @@ public class UserService {
             }
         }
 
-        users.add(new User(username, password, email, Role.ADMIN));
+        users.add(new User(username, password, email, Role.CUSTOMER));
         System.out.println("Đăng ký thành công!");
     }
 

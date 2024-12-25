@@ -1,5 +1,6 @@
 package service;
 
+import entities.ATMCard;
 import entities.Course;
 import entities.Enrollments;
 import entities.User;
@@ -14,8 +15,7 @@ public class EnrollmentService {
     UserService userService = new UserService();
     CourseService courseService = new CourseService();
     PrintService printService = new PrintService();
-
-    public void enrollAndAskForPayment(String userId, AppContext context) {
+    public void enrollCourse(String userId, AppContext context) {
         ArrayList<User> users = context.getUsers();
         Scanner scanner = context.getScanner();
         ArrayList<Course> courses = context.getCourses();
@@ -26,7 +26,8 @@ public class EnrollmentService {
             System.out.println("Người dùng không tồn tại.");
             return;
         }
-        System.out.println("Nhập ID khoá học");
+
+        System.out.println("Nhập ID khoá học:");
         String courseId = scanner.nextLine();
 
         Course course = courseService.findById(courseId, courses);
@@ -34,31 +35,7 @@ public class EnrollmentService {
             System.out.println("Khóa học không tồn tại.");
             return;
         }
-        printService.printCourseById(courseId, context);
 
-        System.out.print("Bạn có muốn thanh toán và đăng ký khóa học này không? (yes/no): ");
-        String choice = scanner.nextLine();
-
-        if (choice.equalsIgnoreCase("yes")) {
-            if (user.getBudget() < course.getPrice()) {
-                System.out.println("Ngân sách không đủ để thanh toán khóa học.");
-                return;
-            }
-
-            user.setBudget(user.getBudget() - course.getPrice());
-            System.out.println("Thanh toán thành công! Bạn đã đăng ký khóa học: " + course.getName());
-            System.out.println("Ngân sách còn lại: " + user.getBudget() + " VNĐ");
-
-            enrollCourse(userId, courseId, enrollments);
-
-            user.setRole(Role.STUDENT);
-            System.out.println("Role của bạn đã được thay đổi thành STUDENT.");
-        } else {
-            System.out.println("Đăng ký bị hủy. Bạn không thanh toán.");
-        }
-    }
-
-    private void enrollCourse(String userId, String courseId, ArrayList<Enrollments> enrollments) {
         for (Enrollments enrollment : enrollments) {
             if (enrollment.getUser_id().equals(userId) && enrollment.getCourse_id().equals(courseId)) {
                 System.out.println("Bạn đã đăng ký khóa học này rồi.");
@@ -69,5 +46,116 @@ public class EnrollmentService {
         Enrollments newEnrollment = new Enrollments(userId, courseId, 0);
         enrollments.add(newEnrollment);
         System.out.println("Bạn đã đăng ký khóa học thành công, nhưng chưa thanh toán.");
+        System.out.print("Bạn có muốn thanh toán ngay bây giờ không? (yes/no): ");
+        String choice = scanner.nextLine();
+
+        if (choice.equalsIgnoreCase("yes")) {
+            makePayment(userId, context);
+        } else {
+            System.out.println("Bạn có thể thanh toán sau.");
+        }
     }
+
+    public void makePayment(String userId, AppContext context) {
+        ArrayList<User> users = context.getUsers();
+        Scanner scanner = context.getScanner();
+        ArrayList<Course> courses = context.getCourses();
+        ArrayList<Enrollments> enrollments = context.getEnrollments();
+
+        User user = userService.findById(userId, users);
+        if (user == null) {
+            System.out.println("Người dùng không tồn tại.");
+            return;
+        }
+
+        System.out.println("Nhập ID khoá học bạn đã đăng ký để thanh toán:");
+        String courseId = scanner.nextLine();
+
+
+        boolean isEnrolled = false;
+        for (Enrollments enrollment : enrollments) {
+            if (enrollment.getUser_id().equals(userId) && enrollment.getCourse_id().equals(courseId)) {
+                isEnrolled = true;
+                break;
+            }
+        }
+
+        if (!isEnrolled) {
+            System.out.println("Bạn chưa đăng ký khóa học này.");
+            return;
+        }
+
+        Course course = courseService.findById(courseId, courses);
+        if (course == null) {
+            System.out.println("Khóa học không tồn tại.");
+            return;
+        }
+
+        if (user.getBudget() < course.getPrice()) {
+            System.out.println("Ngân sách không đủ để thanh toán khóa học.");
+            return;
+        }
+
+        user.setBudget(user.getBudget() - course.getPrice());
+        System.out.println("Thanh toán thành công! Bạn đã thanh toán cho khóa học: " + course.getName());
+        System.out.println("Ngân sách còn lại: " + user.getBudget() + " VNĐ");
+
+
+        for (Enrollments enrollment : enrollments) {
+            if (enrollment.getUser_id().equals(userId) && enrollment.getCourse_id().equals(courseId)) {
+                enrollment.setStatus(1);
+                break;
+            }
+        }
+
+        System.out.println("Đăng ký và thanh toán thành công.");
+        user.setRole(Role.STUDENT);
+    }
+
+    public void rechargeBudget(String userId, AppContext context) {
+        ArrayList<User> users = context.getUsers();
+        Scanner scanner = context.getScanner();
+
+        User user = userService.findById(userId, users);
+        if (user == null) {
+            System.out.println("Người dùng không tồn tại.");
+            return;
+        }
+
+        System.out.println("Nhập số tiền bạn muốn nạp vào ngân sách:");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+
+        if (amount <= 0) {
+            System.out.println("Số tiền nạp vào phải lớn hơn 0.");
+            return;
+        }
+
+        user.setBudget(user.getBudget() + amount);
+        System.out.println("Nạp tiền thành công! Số tiền trong ngân sách của bạn hiện tại: " + user.getBudget() + " VNĐ.");
+    }
+
+    public ATMCard enterATMCardInfo(String userId) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Nhập thông tin thẻ ATM cho người dùng " + userId);
+
+        System.out.print("Nhập số thẻ ATM: ");
+        String cardNumber = scanner.nextLine();
+
+        System.out.print("Nhập ngày hết hạn (MM/YY): ");
+        String expirationDate = scanner.nextLine();
+
+        System.out.print("Nhập mã PIN: ");
+        String pin = scanner.nextLine();
+
+        System.out.print("Nhập tên chủ thẻ: ");
+        String cardHolderName = scanner.nextLine();
+
+        ATMCard atmCard = new ATMCard(cardNumber, expirationDate, pin, cardHolderName, userId);
+        System.out.println("Thông tin thẻ ATM đã được lưu thành công!");
+
+        return atmCard;
+    }
+
 }

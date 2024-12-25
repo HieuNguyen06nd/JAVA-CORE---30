@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Lesson {
     private static int autoId;
 
@@ -8,6 +11,7 @@ public class Lesson {
     private String title;
     private String content;
     private int order;
+
 
     public Lesson( String class_id,String title, String content, int order) {
         this.id ="LESS"+ ++autoId;

@@ -3,6 +3,7 @@ package service;
 import entities.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AppContext {
@@ -29,6 +30,7 @@ public class AppContext {
         this.classes= new ArrayList<>();
         this.blogs = new ArrayList<>();
         this.enrollments = new ArrayList<>();
+        this.scores = new ArrayList<>();
     }
 
 
@@ -72,6 +74,24 @@ public class AppContext {
     }
     public ArrayList<Enrollments> getEnrollments() {
         return enrollments;
+    }
+    public ArrayList<Score> getScores() {
+        return scores;
+    }
+
+    private final List<Object> services = new ArrayList<>();
+
+    public void registerService(Object service) {
+        services.add(service);
+    }
+
+    public <T> T getService(Class<T> serviceClass) {
+        for (Object service : services) {
+            if (serviceClass.isInstance(service)) {
+                return serviceClass.cast(service);
+            }
+        }
+        throw new RuntimeException("Dịch vụ không tồn tại: " + serviceClass.getSimpleName());
     }
 
 }

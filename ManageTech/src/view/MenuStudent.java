@@ -19,10 +19,12 @@ public class MenuStudent {
             System.out.println("\n====== MENU CHỨC NĂNG ======");
             System.out.println("1. Quản lý thông tin cá nhân");
             System.out.println("2. Xem Lớp học");
-            System.out.println("3. Xem khóa học đã đăng ký");
+            System.out.println("3. Xem khóa học đã đăng ký thành công");
             System.out.println("4. Xem điểm cá nhân theo lớp");
             System.out.println("5. Xem tất cả các khóa học");
             System.out.println("6. Đăng ký khóa học");
+            System.out.println("7. Thanh toán khóa học");
+            System.out.println("8. Khóa học chưa thanh toán");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
             int choice = Integer.parseInt(scanner.nextLine());
@@ -35,7 +37,7 @@ public class MenuStudent {
                     printService.printAllClassRoomsByUser(id, context);
                     break;
                 case 3:
-                    printService.printCourseByUserId(user.getId(), context);
+                    printService.printCourseByUserId(user.getId(), context, 1);
                     break;
                 case 4:
                     break;
@@ -43,7 +45,13 @@ public class MenuStudent {
                     printService.printAllCourse(context);
                     break;
                 case 6:
-                    enrollmentService.enrollAndAskForPayment(user.getId(), context);
+                    enrollmentService.enrollCourse(user.getId(), context);
+                    break;
+                case 7:
+                    enrollmentService.makePayment(user.getId(), context);
+                    break;
+                case 8:
+                    printService.printCourseByUserId(user.getId(), context, 0);
                     break;
                 case 0:
                     System.exit(1);
