@@ -1,6 +1,5 @@
 package service;
 
-import entities.ATMCard;
 import entities.Course;
 import entities.Enrollments;
 import entities.User;
@@ -135,27 +134,5 @@ public class EnrollmentService {
         System.out.println("Nạp tiền thành công! Số tiền trong ngân sách của bạn hiện tại: " + user.getBudget() + " VNĐ.");
     }
 
-    public ATMCard enterATMCardInfo(String userId) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Nhập thông tin thẻ ATM cho người dùng " + userId);
-
-        System.out.print("Nhập số thẻ ATM: ");
-        String cardNumber = scanner.nextLine();
-
-        System.out.print("Nhập ngày hết hạn (MM/YY): ");
-        String expirationDate = scanner.nextLine();
-
-        System.out.print("Nhập mã PIN: ");
-        String pin = scanner.nextLine();
-
-        System.out.print("Nhập tên chủ thẻ: ");
-        String cardHolderName = scanner.nextLine();
-
-        ATMCard atmCard = new ATMCard(cardNumber, expirationDate, pin, cardHolderName, userId);
-        System.out.println("Thông tin thẻ ATM đã được lưu thành công!");
-
-        return atmCard;
-    }
 
 }

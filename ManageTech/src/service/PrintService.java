@@ -128,7 +128,6 @@ public class PrintService {
 
         boolean hasClass = false;
 
-        // Nếu người dùng là giáo viên, tìm các lớp mà họ là giảng viên
         if (user.getRole() == Role.TEACHER) {
             System.out.println("\nLớp học giảng dạy:");
             for (Classes classRoom : classes) {
@@ -138,8 +137,6 @@ public class PrintService {
                 }
             }
         }
-
-        // Nếu người dùng là học viên, tìm các lớp mà họ là học viên
         if (user.getRole() == Role.STUDENT) {
             System.out.println("\nLớp học tham gia:");
             for (Classes classRoom : classes) {

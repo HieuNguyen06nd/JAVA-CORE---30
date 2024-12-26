@@ -46,13 +46,12 @@ public class TeacherService {
             System.out.print("Nhập email cho giảng viên: ");
             email = scanner.nextLine();
             if (email.contains("@") && email.contains(".")) {
-                break; // Nếu email hợp lệ, thoát khỏi vòng lặp
+                break;
             } else {
                 System.out.println("Email không hợp lệ. Vui lòng thử lại.");
             }
         }
 
-        // Nhập salary cho Teacher
         double salary;
         while (true) {
             System.out.print("Nhập lương của giảng viên: ");

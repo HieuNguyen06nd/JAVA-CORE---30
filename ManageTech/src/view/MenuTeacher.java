@@ -3,9 +3,7 @@ package view;
 
 import entities.User;
 import enums.Role;
-import service.AppContext;
-import service.EnrollmentService;
-import service.PrintService;
+import service.*;
 
 import java.util.Scanner;
 
@@ -13,6 +11,8 @@ public class MenuTeacher {
     PrintService printService = new PrintService();
     EnrollmentService enrollmentService = new EnrollmentService();
     MenuStudent menu = new MenuStudent();
+    LessonService lessonService = new LessonService();
+    BlogService blogService = new BlogService();
 
     public void displayTeacher(AppContext context, User user){
         while (true) {
@@ -23,6 +23,8 @@ public class MenuTeacher {
             System.out.println("4. Xem lịch dạy");
             System.out.println("5. Tạo bài học cho Class");
             System.out.println("6. Xem thông tin học sinh mình dạy");
+            System.out.println("7. Xem thông tin lương");
+            System.out.println("8. Đăng bài lên Blog");
             System.out.println("9. Quay lại");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
@@ -46,7 +48,16 @@ public class MenuTeacher {
                 printService.printInfo(context, Role.TEACHER);
                 break;
             case 5:
+                lessonService.inputLesson(context);
+                break;
+            case 6:
+                lessonService.inputLesson(context);
+                break;
+            case 7:
 
+                break;
+            case 8:
+                blogService.inpuBlog(context,user);
                 break;
             case 9:
                 return;

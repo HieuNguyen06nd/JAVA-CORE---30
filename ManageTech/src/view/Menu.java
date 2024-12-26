@@ -17,7 +17,6 @@ public class Menu {
     MenuStudent menuStudent = new MenuStudent();
     MenuCustomer menuCustomer = new MenuCustomer();
     MenuTeacher menuTeacher = new MenuTeacher();
-    DataService dataService = new DataService();
 
     public void displayMenu() {
         AppContext appContext = AppContext.getInstance();

@@ -24,7 +24,7 @@ public class StudentService {
                 }
             }
             if (!exists) {
-                break; // Nếu không trùng, thoát khỏi vòng lặp
+                break;
             } else {
                 System.out.println("Username đã tồn tại, vui lòng nhập lại.");
             }
@@ -44,7 +44,7 @@ public class StudentService {
             System.out.print("Nhập email cho sinh viên: ");
             email = scanner.nextLine();
             if (email.contains("@") && email.contains(".")) {
-                break; // Nếu email hợp lệ, thoát khỏi vòng lặp
+                break;
             } else {
                 System.out.println("Email không hợp lệ. Vui lòng thử lại.");
             }
