@@ -53,7 +53,45 @@ public class PrintService {
         System.out.println("Vai trò: " + user.getRole());
     }
 
-//   Lesson
+    public void printTeachingSchedule(AppContext appContext) {
+        Scanner scanner = appContext.getScanner();
+        ArrayList<Classes> classes = appContext.getClasses();
+
+        System.out.print("Nhập ID giảng viên để xem lịch dạy: ");
+        String teacherId = scanner.nextLine();
+
+        ArrayList<Classes> teachingClasses = new ArrayList<>();
+        for (Classes classItem : classes) {
+            if (classItem.getTeacher_id().equals(teacherId)) {
+                teachingClasses.add(classItem);
+            }
+        }
+
+        if (teachingClasses.isEmpty()) {
+            System.out.println("Giảng viên với ID " + teacherId + " không có lớp học nào.");
+            return;
+        }
+
+        System.out.println("Lịch dạy của giảng viên " + teacherId + ":");
+        for (Classes classItem : teachingClasses) {
+            System.out.println("Lớp: " + classItem.getName());
+            System.out.println("Mã khóa học: " + classItem.getCourse_id());
+            System.out.println("Ngày bắt đầu: " + classItem.getStart_date());
+            System.out.println("Ngày kết thúc: " + classItem.getEnd_date());
+            String schedule = classItem.getSchedule();
+            if ("1".equals(schedule)) {
+                System.out.println("Lịch học: 1 (Thứ 2, 4, 6)");
+            } else if ("2".equals(schedule)) {
+                System.out.println("Lịch học: 2 (Thứ 3, 5, 7)");
+            } else {
+                System.out.println("Lịch học không xác định.");
+            }
+            System.out.println("------------------------------------------------");
+        }
+    }
+
+
+    //   Lesson
     public void printLessonByClass(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
         ArrayList<Lesson> lessons = appContext.getLessons();
@@ -199,6 +237,25 @@ public class PrintService {
         }
     }
 
+    public void printAllBlogs(AppContext context) {
+        ArrayList<Blog> blogs = context.getBlogs();
+
+        if (blogs.isEmpty()) {
+            System.out.println("Hiện tại không có blog nào.");
+            return;
+        }
+
+        System.out.println("Danh sách các blog:");
+        System.out.println("--------------------------------------------------");
+        for (Blog blog : blogs) {
+            System.out.println("ID Blog: " + blog.getId());
+            System.out.println("Title: " + blog.getTitle());
+            System.out.println("Content: " + blog.getContent());
+            System.out.println("Tác giả (ID): " + blog.getUser_Id());
+            System.out.println("Trạng thái: " + (blog.isStatus() ? "Đăng" : "Hủy Đăng"));
+            System.out.println("--------------------------------------------------");
+        }
+    }
 
 
 }

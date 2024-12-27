@@ -17,12 +17,12 @@ public class MenuAdmin {
     CourseService courseService = new CourseService();
     LessonService lessonService = new LessonService();
     ClassService classService = new ClassService();
+    BlogService blogService = new BlogService();
     DataService dataService = new DataService();
 
 
     public void displayAdmin(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();  // Lấy Scanner từ AppContext
-        DataService dataService =new DataService();
 
         while (true) {
             System.out.println("\n====== MENU CHỨC NĂNG ======");
@@ -31,7 +31,6 @@ public class MenuAdmin {
             System.out.println("3. Quản lý Giáo viên");
             System.out.println("4. Quản lý Blog");
             System.out.println("5. Quản lý Class");
-            System.out.println("6. Quản lý Lesson");
             System.out.println("7. Tìm kiếm");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
@@ -47,13 +46,10 @@ public class MenuAdmin {
                     manageTeacher(appContext);
                     break;
                 case 4:
-
+                    manageBlog(appContext, user);
                     break;
                 case 5:
                     manageClass(appContext);
-                    break;
-                case 6:
-                    manageLesson(appContext);
                     break;
                 case 7:
 
@@ -256,6 +252,43 @@ public class MenuAdmin {
         }
     }
 
+    public void manageBlog(AppContext appContext, User user) {
+        Scanner scanner = appContext.getScanner();
+        ArrayList<Blog> blogs = appContext.getBlogs();
+
+        while (true) {
+            System.out.println("\n====== QUẢN LÝ BLOG ======");
+            System.out.println("1. Tạo blog");
+            System.out.println("2. Đăng/ huyr đăng blog");
+            System.out.println("3. Xóa blog theo ID");
+            System.out.println("7. Hiển thị danh sách blog");
+            System.out.println("9. Quay lại");
+            System.out.print("Chọn chức năng: ");
+
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    blogs.add(blogService.inpuBlog(appContext,user));
+                    break;
+                case 2:
+                    blogService.changeBlogStatus(appContext);
+                    break;
+                case 3:
+                    blogService.deleteBlog(appContext);
+                    break;
+                case 7:
+                    printService.printAllBlogs(appContext);
+                    break;
+                case 9:
+                    return;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+            }
+        }
+    }
+
+
 
     public void changeInfo(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
@@ -303,6 +336,5 @@ public class MenuAdmin {
             }
         }
     }
-
 
 }

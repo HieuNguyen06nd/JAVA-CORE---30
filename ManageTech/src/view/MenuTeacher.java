@@ -1,6 +1,7 @@
 package view;
 
 
+import entities.Score;
 import entities.User;
 import enums.Role;
 import service.*;
@@ -13,16 +14,15 @@ public class MenuTeacher {
     MenuStudent menu = new MenuStudent();
     LessonService lessonService = new LessonService();
     BlogService blogService = new BlogService();
+    ScoreService scoreService= new ScoreService();
 
     public void displayTeacher(AppContext context, User user){
         while (true) {
             System.out.println("\n====== MENU CHỨC NĂNG ======");
             System.out.println("1. Quản lý thông tin cá nhân");
-            System.out.println("2. Xem tất cả các khóa học");
             System.out.println("3. Chấm điểm cho học sinh");
             System.out.println("4. Xem lịch dạy");
             System.out.println("5. Tạo bài học cho Class");
-            System.out.println("6. Xem thông tin học sinh mình dạy");
             System.out.println("7. Xem thông tin lương");
             System.out.println("8. Đăng bài lên Blog");
             System.out.println("9. Quay lại");
@@ -38,19 +38,13 @@ public class MenuTeacher {
             case 1:
                 menu.loginMenu(context,user);
                 break;
-            case 2:
-                printService.printAllCourse(context);
-                break;
             case 3:
-                enrollmentService.enrollCourse(user.getId(), context);
+               scoreService.inputScoreForLesson(context,user);
                 break;
             case 4:
-                printService.printInfo(context, Role.TEACHER);
+                printService.printTeachingSchedule(context);
                 break;
             case 5:
-                lessonService.inputLesson(context);
-                break;
-            case 6:
                 lessonService.inputLesson(context);
                 break;
             case 7:
