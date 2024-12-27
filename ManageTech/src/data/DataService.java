@@ -23,11 +23,13 @@ public class DataService {
         List<Major> majors= new ArrayList<>();
         majors.add(Major.CSS);
 //        KH3
-        users.add(new Teacher("teacher","Admin1.", "admin@gmail.com", Role.TEACHER,1000, "2 nam", "jajasj", majors));
+        users.add(new Teacher("teacher","Admin1.", "admin@gmail.com", Role.TEACHER,1000, "2", "jajasj", majors));
 //      KH4
         users.add(new Student("student1","Admin1.", "student@gmail.com", Role.STUDENT, "12/12"));
 //        KH5
         users.add(new Student("student2","Admin1.", "student@gmail.com", Role.STUDENT, "12/12"));
+
+        users.add(new Teacher("teacher2","Admin1.", "admin@gmail.com", Role.TEACHER,1000, "2", "jajasj", majors));
 
 //        course
         ArrayList<Course>courses = context.getCourses();
@@ -50,17 +52,28 @@ public class DataService {
         LocalDate endDate = LocalDate.parse(input2, formatter);
 //      CLASS1
         classes.add(new Classes("Class java", "COU1", "KH3",studentList,startDate, endDate,"1"));
+        classes.add(new Classes("Class html", "COU1", "KH3",studentList,startDate, endDate,"1"));
+        classes.add(new Classes("Class css", "COU2", "KH6",studentList,startDate, endDate,"1"));
 
 
 // lesson
         ArrayList<Lesson>lessons =context.getLessons();
 //        LESS1
         lessons.add(new Lesson("CLASS1", "Bai giang 1", "noi dung bai gianrg", 1));
+        lessons.add(new Lesson("CLASS1", "Bai giang 2", "noi dung bai gianr22", 2));
+        lessons.add(new Lesson("CLASS2", "Bai giang 1", "noi dung bai gianrg", 1));
 
 //       Blog
         ArrayList<Blog>blogs = context.getBlogs();
 //        BLOG1
         blogs.add(new Blog("blog 1", "noi dung blog", "KH1"));
+
+
+        ArrayList<Score>scores = context.getScores();
+        scores.add(new Score("KH2", "LESS1", 9, "KH3", LocalDate.now(), null));
+        scores.add(new Score("KH4", "LESS1", 9, "KH3", LocalDate.now(), null));
+        scores.add(new Score("KH5", "LESS1", 9, "KH3", LocalDate.now(), null));
+        scores.add(new Score("KH2", "LESS3", 9, "KH6", LocalDate.now(), null));
     }
 
 }

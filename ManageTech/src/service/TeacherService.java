@@ -130,4 +130,19 @@ public class TeacherService {
         }
     }
 
+    public double calculateSalary(Teacher teacher) {
+        double totalSalary = teacher.getSalary();
+
+        // Thêm lương theo kinh nghiệm
+        int yearsOfExperience = Integer.parseInt(teacher.getExperience().split(" ")[0]);
+        double bonusByExperience = yearsOfExperience * 1000;  // Giả sử mỗi năm kinh nghiệm thêm 1000
+        totalSalary += bonusByExperience;
+
+        return totalSalary;
+    }
+    public void printTeacherSalary(Teacher teacher) {
+        double salary = calculateSalary(teacher);
+        System.out.println("Lương của giảng viên " + teacher.getUsername() + " là: " + salary);
+    }
+
 }

@@ -125,6 +125,12 @@ public class MenuAdmin {
                 case 4:
                     printService.printInfo(appContext,Role.TEACHER);
                     break;
+                case 5:
+                    printService.printTeachingSchedule(appContext);
+                    break;
+                case 6:
+
+                    break;
                 case 9:
                     return;
                 default:

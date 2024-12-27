@@ -18,7 +18,7 @@ public class MenuCustomer {
             System.out.println("1. Quản lý thông tin cá nhân");
             System.out.println("2. Xem tất cả các khóa học");
             System.out.println("3. Đăng ký khóa học");
-            System.out.println("4. Xem tất cả giảng viên");
+            System.out.println("4. Xem tất cả giảng viên của trung tâm");
             System.out.println("9. Quay lại");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
@@ -40,9 +40,6 @@ public class MenuCustomer {
                 break;
             case 4:
                 printService.printInfo(context, Role.TEACHER);
-                break;
-            case 5:
-
                 break;
             case 9:
                 return;
