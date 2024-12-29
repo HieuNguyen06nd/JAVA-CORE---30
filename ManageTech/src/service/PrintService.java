@@ -11,6 +11,8 @@ public class PrintService {
     Exist exist = new Exist();
     UserService userService = new UserService();
     CourseService courseService = new CourseService();
+    LessonService lessonService = new LessonService();
+    ClassService classService = new ClassService();
 //   user
     public void printInfo(AppContext appContext, Role role) {
         ArrayList<User> users = appContext.getUsers();
@@ -257,6 +259,42 @@ public class PrintService {
             System.out.println("--------------------------------------------------");
         }
     }
+
+
+    public void viewScoreByClass(AppContext appContext) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Classes> classes = appContext.getClasses();
+        ArrayList<Score> scores = appContext.getScores();
+
+        ArrayList<User> users = appContext.getUsers();
+        System.out.print("Nhập ID lớp để xem điểm: ");
+        String classId = scanner.nextLine();
+
+        Classes classObj = classService.findById(classId, classes);
+        if (classObj == null) {
+            System.out.println("Lớp học không tồn tại.");
+            return;
+        }
+
+        boolean found = false;
+
+        for (Score score : scores) {
+            Lesson lesson = lessonService.findById(score.getLesson_id(), appContext.getLessons());
+            User user = userService.findById(score.getStudent_id(), users);
+            if (lesson.getClass_id().equals(classId)){
+                System.out.println("Học sinh: " + score.getStudent_id() +
+                        " - Tên: " +user.getUsername() +
+                        " - Điểm: " + score.getScore() +
+                        " - Bài học: " + lesson.getTitle());
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không có điểm cho lớp này.");
+        }
+    }
+
 
 
 }

@@ -2,10 +2,12 @@ package view;
 
 
 import entities.Score;
+import entities.Teacher;
 import entities.User;
 import enums.Role;
 import service.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuTeacher {
@@ -15,6 +17,8 @@ public class MenuTeacher {
     LessonService lessonService = new LessonService();
     BlogService blogService = new BlogService();
     ScoreService scoreService= new ScoreService();
+    UserService userService= new UserService();
+    TeacherService teacherService = new TeacherService();
 
     public void displayTeacher(AppContext context, User user){
         while (true) {
@@ -33,7 +37,9 @@ public class MenuTeacher {
     }
     public void selectMenu(AppContext context, User user){
         Scanner scanner = context.getScanner();
+        ArrayList<User>users = context.getUsers();
         int choose = Integer.parseInt(scanner.nextLine());
+        Teacher teacher = (Teacher) userService.findById(user.getId(),users);
         switch (choose){
             case 1:
                 menu.loginMenu(context,user);
@@ -48,7 +54,7 @@ public class MenuTeacher {
                 lessonService.inputLesson(context);
                 break;
             case 7:
-
+                teacherService.printTeacherSalary(teacher);
                 break;
             case 8:
                 blogService.inpuBlog(context,user);
