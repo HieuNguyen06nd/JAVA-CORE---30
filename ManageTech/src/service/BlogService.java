@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BlogService {
-    UserService userService = new UserService();
 
     public Blog inpuBlog(AppContext context, User user) {
         Scanner scanner = context.getScanner();

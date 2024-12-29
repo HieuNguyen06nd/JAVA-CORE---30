@@ -49,10 +49,6 @@ public class AppContext {
     public ArrayList<User> getUsers() {
         return users;
     }
-
-    public void addUser(User user) {
-        users.add(user);
-    }
     public ArrayList<Teacher> getTeachers() {
         return teachers;
     }
