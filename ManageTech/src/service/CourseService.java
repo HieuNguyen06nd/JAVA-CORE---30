@@ -3,6 +3,7 @@ package service;
 import entities.Course;
 import enums.Mode;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,12 +25,12 @@ public class CourseService {
         int modeChoice = Integer.parseInt(scanner.nextLine());
         Mode mode = (modeChoice == 1) ? Mode.ONLINE : Mode.OFFLINE;
 
-        double price = -1;
-        while (price < 0) {
+        BigDecimal price = null;
+        while (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
             System.out.print("Nhập giá khóa học: ");
             try {
-                price = Double.parseDouble(scanner.nextLine());
-                if (price < 0) {
+                price = new BigDecimal(scanner.nextLine());
+                if (price.compareTo(BigDecimal.ZERO) < 0) {
                     System.out.println("Giá khóa học không thể nhỏ hơn 0. Vui lòng nhập lại.");
                 }
             } catch (NumberFormatException e) {
@@ -90,8 +91,8 @@ public class CourseService {
         String newPriceStr = scanner.nextLine();
         if (!newPriceStr.isEmpty()) {
             try {
-                double newPrice = Double.parseDouble(newPriceStr);
-                if (newPrice < 0) {
+                BigDecimal newPrice = new BigDecimal(newPriceStr);
+                if (newPrice.compareTo(BigDecimal.ZERO) < 0) {
                     System.out.println("Giá khóa học không thể nhỏ hơn 0. Giữ nguyên giá cũ.");
                 } else {
                     course.setPrice(newPrice);

@@ -2,6 +2,7 @@ package entities;
 
 import enums.Role;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class User {
@@ -12,7 +13,7 @@ public class User {
     private String password;
     private String email;
     private Role role;
-    private double budget;
+    private BigDecimal budget;
     private LocalDate created_at = LocalDate.now();
 
     public User( String username, String password, String email, Role role) {
@@ -20,10 +21,10 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.budget = 1000;
+        this.budget = new BigDecimal(10000);
         this.role =role;
     }
-    public User(String id, String username, String password, String email, Role role, double budget, LocalDate created_at) {
+    public User(String id, String username, String password, String email, Role role, BigDecimal budget, LocalDate created_at) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -77,11 +78,11 @@ public class User {
         this.created_at = LocalDate.now();
     }
 
-    public double getBudget() {
+    public BigDecimal getBudget() {
         return budget;
     }
 
-    public void setBudget(double budget) {
+    public void setBudget(BigDecimal budget) {
         this.budget = budget;
     }
 

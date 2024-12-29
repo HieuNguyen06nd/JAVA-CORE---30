@@ -4,16 +4,14 @@ import entities.Course;
 import entities.Enrollments;
 import entities.User;
 import enums.Role;
-import exist.Exist;
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EnrollmentService {
-    Exist exist = new Exist();
-    UserService userService = new UserService();
-    CourseService courseService = new CourseService();
-    PrintService printService = new PrintService();
+    private UserService userService = new UserService();
+    private CourseService courseService = new CourseService();
+
     public void enrollCourse(String userId, AppContext context) {
         ArrayList<User> users = context.getUsers();
         Scanner scanner = context.getScanner();
@@ -26,7 +24,7 @@ public class EnrollmentService {
             return;
         }
 
-        System.out.println("Nhập ID khoá học:");
+        System.out.println("Nhập ID khóa học:");
         String courseId = scanner.nextLine();
 
         Course course = courseService.findById(courseId, courses);
@@ -67,9 +65,8 @@ public class EnrollmentService {
             return;
         }
 
-        System.out.println("Nhập ID khoá học bạn đã đăng ký để thanh toán:");
+        System.out.println("Nhập ID khóa học bạn đã đăng ký để thanh toán:");
         String courseId = scanner.nextLine();
-
 
         boolean isEnrolled = false;
         for (Enrollments enrollment : enrollments) {
@@ -90,15 +87,14 @@ public class EnrollmentService {
             return;
         }
 
-        if (user.getBudget() < course.getPrice()) {
+        if (user.getBudget().compareTo(course.getPrice()) < 0) {
             System.out.println("Ngân sách không đủ để thanh toán khóa học.");
             return;
         }
 
-        user.setBudget(user.getBudget() - course.getPrice());
+        user.setBudget(user.getBudget().subtract(course.getPrice()));
         System.out.println("Thanh toán thành công! Bạn đã thanh toán cho khóa học: " + course.getName());
         System.out.println("Ngân sách còn lại: " + user.getBudget() + " VNĐ");
-
 
         for (Enrollments enrollment : enrollments) {
             if (enrollment.getUser_id().equals(userId) && enrollment.getCourse_id().equals(courseId)) {
@@ -122,17 +118,15 @@ public class EnrollmentService {
         }
 
         System.out.println("Nhập số tiền bạn muốn nạp vào ngân sách:");
-        double amount = scanner.nextDouble();
+        BigDecimal amount = scanner.nextBigDecimal();
         scanner.nextLine();
 
-        if (amount <= 0) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             System.out.println("Số tiền nạp vào phải lớn hơn 0.");
             return;
         }
 
-        user.setBudget(user.getBudget() + amount);
+        user.setBudget(user.getBudget().add(amount));
         System.out.println("Nạp tiền thành công! Số tiền trong ngân sách của bạn hiện tại: " + user.getBudget() + " VNĐ.");
     }
-
-
 }

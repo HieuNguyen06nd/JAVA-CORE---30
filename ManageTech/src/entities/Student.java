@@ -2,6 +2,7 @@ package entities;
 
 import enums.Role;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Student extends User{
@@ -12,7 +13,7 @@ public class Student extends User{
         this.education_level = education_level;
     }
 
-    public Student(String id, String username, String password, String email, Role role, double budget, LocalDate createdAt) {
+    public Student(String id, String username, String password, String email, Role role, BigDecimal budget, LocalDate createdAt) {
         super(id, username, password, email, role, budget, createdAt); // Gọi constructor của lớp User
     }
 

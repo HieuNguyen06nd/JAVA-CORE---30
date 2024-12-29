@@ -2,16 +2,18 @@ package entities;
 
 import enums.Mode;
 
+import java.math.BigDecimal;
+
 public class Course {
     private static int autoId;
 
     private String id;
     private String name;
     private String description;
-    private double price;
+    private BigDecimal price;
     private Mode mode;
 
-    public Course( String name, String description,double price, Mode mode) {
+    public Course( String name, String description,BigDecimal price, Mode mode) {
         this.id ="COU" + ++autoId;
         this.name = name;
         this.description = description;
@@ -19,11 +21,11 @@ public class Course {
         this.mode = mode;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

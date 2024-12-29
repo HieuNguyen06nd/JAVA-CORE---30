@@ -135,6 +135,8 @@ public class PrintService {
                 System.out.println("ID KHÓA học: " + classRoom.getCourse_id());
                 System.out.println("Tên lớp học: " + classRoom.getName());
                 System.out.println("Giảng viên: " + classRoom.getTeacher_id());
+                System.out.println("Ngày bắt đầu: " + classRoom.getStart_date());
+                System.out.println("Ngày kết thúc: " + classRoom.getEnd_date());
 
                 System.out.println("Danh sách học viên:");
                 if (classRoom.getStudent_id() != null && !classRoom.getStudent_id().isEmpty()) {
@@ -142,7 +144,6 @@ public class PrintService {
                 } else {
                     System.out.println("  Chưa có học viên nào.");
                 }
-
                 found = true;
             }
         }

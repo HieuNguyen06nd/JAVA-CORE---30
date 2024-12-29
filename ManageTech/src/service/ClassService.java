@@ -3,6 +3,7 @@ package service;
 import entities.Classes;
 import entities.Course;
 import entities.User;
+import enums.Constain;
 import enums.Role;
 import exist.Exist;
 
@@ -90,15 +91,17 @@ public class ClassService {
             System.out.println("Chọn lịch học cho lớp học: ");
             System.out.println("1. Lịch học: Thứ 2, 4, 6");
             System.out.println("2. Lịch học: Thứ 3, 5, 7");
-            String choice = scanner.nextLine();
-
-            if (choice.equals("1")) {
-                schedule = "Thứ 2, 4, 6";
-            } else if (choice.equals("2")) {
-                schedule = "Thứ 3, 5, 7";
-            } else {
-                System.out.println("Lựa chọn không hợp lệ, vui lòng chọn lại.");
-                continue;
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case Constain.MON_WED_FRI:
+                    schedule = "Thứ 2, 4, 6";
+                    break;
+                case Constain.TUE_THU_SAT:
+                    schedule = "Thứ 3, 5, 7";
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ, vui lòng chọn lại.");
+                    continue;
             }
 
             if (exist.isScheduleConflict(new Classes(name, courseId, teacherId, studentIdList, startDate, endDate, schedule), schedule, classes)) {
