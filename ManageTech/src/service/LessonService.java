@@ -68,7 +68,6 @@ public class LessonService {
 
         while (true) {
             System.out.println("Chọn mục muốn thay đổi:");
-            System.out.println("1. Thay đổi class_id");
             System.out.println("2. Thay đổi title");
             System.out.println("3. Thay đổi nội dung");
             System.out.println("4. Thay đổi thứ tự");
@@ -77,20 +76,6 @@ public class LessonService {
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
-                case 1:
-                    String newClassId;
-                    while (true) {
-                        System.out.print("Nhập class_id mới: ");
-                        newClassId = scanner.nextLine();
-                        if (!exist.isClassExist(newClassId, appContext.getClasses())) {
-                            System.out.println("Class_id không tồn tại. Vui lòng nhập lại.");
-                        } else {
-                            lessonToUpdate.setClass_id(newClassId);
-                            System.out.println("Thay đổi class_id thành công.");
-                            break;
-                        }
-                    }
-                    break;
                 case 2:
                     // Thay đổi title
                     System.out.print("Nhập title mới: ");
