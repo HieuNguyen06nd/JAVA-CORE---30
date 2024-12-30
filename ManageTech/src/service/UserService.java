@@ -5,10 +5,17 @@ import enums.Role;
 import view.Menu;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserService {
     ValidateUser validateUser = new ValidateUser();
+
+    public UserService(List<User> users) {
+    }
+
+    public UserService() {
+    }
 
     public void signUp() {
         AppContext appContext = AppContext.getInstance();

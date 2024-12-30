@@ -263,7 +263,7 @@ public class MenuAdmin {
         while (true) {
             System.out.println("\n====== QUẢN LÝ BLOG ======");
             System.out.println("1. Tạo blog");
-            System.out.println("2. Đăng/ huyr đăng blog");
+            System.out.println("2. Đăng/ huy đăng blog");
             System.out.println("3. Xóa blog theo ID");
             System.out.println("7. Hiển thị danh sách blog");
             System.out.println("9. Quay lại");

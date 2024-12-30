@@ -24,6 +24,7 @@ public class User {
         this.budget = new BigDecimal(10000);
         this.role =role;
     }
+
     public User(String id, String username, String password, String email, Role role, BigDecimal budget, LocalDate created_at) {
         this.id = id;
         this.username = username;
@@ -31,7 +32,7 @@ public class User {
         this.email = email;
         this.role = role;
         this.budget = budget;
-        this.created_at = created_at; // Đảm bảo tạo từ LocalDate
+        this.created_at = created_at;
     }
 
     public String getId() {

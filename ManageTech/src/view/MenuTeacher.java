@@ -61,6 +61,8 @@ public class MenuTeacher {
                 break;
             case 9:
                 return;
+            case 99:
+
             case 0:
                 System.exit(1);
             default:

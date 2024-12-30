@@ -1,16 +1,18 @@
 package view;
 
-import data.DataService;
+import data.Data;
 import entities.*;
 import enums.Role;
 import service.AppContext;
-import service.StudentService;
 import service.UserService;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
+
 
 public class Menu {
+    private List<User> users;
+
+
 
     UserService userService = new UserService();
     MenuAdmin menuAdmin = new MenuAdmin();
@@ -20,6 +22,8 @@ public class Menu {
 
     public void displayMenu() {
         AppContext appContext = AppContext.getInstance();
+        users = appContext.getUsers();
+        userService = new UserService(users);
         System.out.println("1 - Đăng nhập\n" +
                 "2 - Đăng ký\n" +
                 "0 - Thoát chương trình");
