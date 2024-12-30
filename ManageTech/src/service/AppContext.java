@@ -1,5 +1,6 @@
 package service;
 
+import data.Data;
 import entities.*;
 
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AppContext {
+    private Data data = new Data();
+
     private static AppContext instance;
     private Scanner scanner;
     private ArrayList<User> users;
@@ -31,6 +34,11 @@ public class AppContext {
         this.blogs = new ArrayList<>();
         this.enrollments = new ArrayList<>();
         this.scores = new ArrayList<>();
+
+        List<User> loadedUsers = data.readUsersFromJsonFile("data.txt");
+        if (loadedUsers != null) {
+            this.users.addAll(loadedUsers);
+        }
     }
 
 

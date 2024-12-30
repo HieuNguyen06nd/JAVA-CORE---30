@@ -35,7 +35,7 @@ public class DataService {
 //        course
         ArrayList<Course>courses = context.getCourses();
 //        COU1
-        courses.add(new Course("khoa hoc java", "haaops ahas",  new BigDecimal("1929"), Mode.OFFLINE));
+        courses.add(new Course("khoa hoc java", "haaops ahas",  new BigDecimal("19209"), Mode.OFFLINE));
 //        COU2
         courses.add(new Course("khoa hoc Back end", "haaops ahas",  new BigDecimal("1929"), Mode.ONLINE));
 //        COU3
