@@ -18,8 +18,6 @@ public class MenuAdmin {
     LessonService lessonService = new LessonService();
     ClassService classService = new ClassService();
     BlogService blogService = new BlogService();
-    DataService dataService = new DataService();
-
 
     public void displayAdmin(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();  // Lấy Scanner từ AppContext
