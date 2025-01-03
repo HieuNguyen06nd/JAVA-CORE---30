@@ -40,7 +40,7 @@ public class MenuStudent {
                     printService.printCourseByUserId(user.getId(), context, 1);
                     break;
                 case 4:
-//                    printService.viewScoreByClass(context);
+                    printService.printStudentScoresByUser(context, user);
                     break;
                 case 6:
                     printService.printAllCourse(context);

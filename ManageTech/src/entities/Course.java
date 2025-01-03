@@ -14,11 +14,19 @@ public class Course {
     private Mode mode;
 
     public Course( String name, String description,BigDecimal price, Mode mode) {
-        this.id ="COU" + ++autoId;
+        this.id =generateId();
         this.name = name;
         this.description = description;
         this.price = price;
         this.mode = mode;
+    }
+
+    public Course() {
+        this.id = generateId(); // Tạo ID tự động ngay cả khi sử dụng constructor không tham số
+    }
+
+    private String generateId() {
+        return "COU" + ++autoId;
     }
 
     public BigDecimal getPrice() {

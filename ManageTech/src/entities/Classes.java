@@ -17,7 +17,7 @@ public class Classes {
     private String schedule;
 
     public Classes(String name, String course_id, String teacher_id, List<String> student_id, LocalDate start_date, LocalDate end_date, String schedule) {
-        this.id ="CLASS"+  ++autoId;
+        this.id =generateId();
         this.name = name;
         this.course_id = course_id;
         this.teacher_id = teacher_id;
@@ -25,6 +25,13 @@ public class Classes {
         this.start_date = start_date;
         this.end_date = end_date;
         this.schedule = schedule;
+    }
+    public Classes() {
+        this.id = generateId(); // Tạo ID tự động ngay cả khi sử dụng constructor không tham số
+    }
+
+    private String generateId() {
+        return "CLASS" + ++autoId;
     }
 
     public String getId() {

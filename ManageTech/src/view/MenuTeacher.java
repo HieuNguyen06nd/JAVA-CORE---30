@@ -25,6 +25,7 @@ public class MenuTeacher {
         while (true) {
             System.out.println("\n====== MENU CHỨC NĂNG ======");
             System.out.println("1. Quản lý thông tin cá nhân");
+            System.out.println("2. Xem Diểm của học vien mk dạy theo lớp");
             System.out.println("3. Chấm điểm cho học sinh");
             System.out.println("4. Xem lịch dạy");
             System.out.println("5. Tạo bài học cho Class");
@@ -45,8 +46,11 @@ public class MenuTeacher {
             case 1:
                 menu.loginMenu(context,user);
                 break;
+            case 2:
+                printService.printStudentScoresByClassAndLesson(context, user);
+                break;
             case 3:
-               scoreService.inputScoreForLesson(context,user);
+               scoreService.scoreStudentsForLesson(context,user);
                 break;
             case 4:
                 printService.printTeachingSchedule(context);

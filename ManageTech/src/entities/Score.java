@@ -14,7 +14,7 @@ public class Score {
     private LocalDate update_at;
 
     public Score( String student_id, String lesson_id, double score, String teacher_id, LocalDate created_at, LocalDate update_at) {
-        this.id ="S"+ ++autoId;
+        this.id =generateId();
         this.student_id = student_id;
         this.lesson_id = lesson_id;
         this.score = score;
@@ -22,6 +22,15 @@ public class Score {
         this.created_at = created_at;
         this.update_at = update_at;
     }
+
+    public Score() {
+        this.id = generateId(); // Tạo ID tự động ngay cả khi sử dụng constructor không tham số
+    }
+
+    private String generateId() {
+        return "S" + ++autoId;
+    }
+
 
     public String getId() {
         return id;

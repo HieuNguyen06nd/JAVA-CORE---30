@@ -1,11 +1,7 @@
 package service;
 
-import entities.Course;
-import entities.User;
-import data.JsonHandler;
-import com.fasterxml.jackson.core.type.TypeReference;
+import entities.*;
 
-import java.io.IOException;
 import java.util.*;
 
 public class AppContext {
@@ -69,6 +65,7 @@ public class AppContext {
                 .orElseThrow(() -> new RuntimeException("Dịch vụ không tồn tại: " + serviceClass.getSimpleName()));
     }
 
+    // Phương thức quản lý Users
     public void setUsers(List<User> users) {
         if (users == null) {
             throw new IllegalArgumentException("Danh sách users không được null.");
@@ -81,6 +78,7 @@ public class AppContext {
         return getList(User.class);
     }
 
+    // Phương thức quản lý Courses
     public void setCourses(List<Course> courses) {
         if (courses == null) {
             throw new IllegalArgumentException("Danh sách courses không được null.");
@@ -93,71 +91,68 @@ public class AppContext {
         return getList(Course.class);
     }
 
-    public <T> T findById(Class<T> clazz, String id) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("ID không được null hoặc rỗng.");
+    // Phương thức quản lý Classes
+    public void setClasses(List<Classes> classes) {
+        if (classes == null) {
+            throw new IllegalArgumentException("Danh sách classes không được null.");
         }
-        return getList(clazz).stream()
-                .filter(item -> {
-                    if (item instanceof User) {
-                        return ((User) item).getId().equals(id);
-                    } else if (item instanceof Course) {
-                        return ((Course) item).getId().equals(id);
-                    }
-                    return false;
-                })
-                .findFirst()
-                .orElse(null);
+        clearList(Classes.class);
+        getList(Classes.class).addAll(classes);
     }
 
-    public <T> void updateItem(Class<T> clazz, T item) {
-        if (item == null) {
-            throw new IllegalArgumentException("Đối tượng không được null.");
-        }
-        List<T> list = getList(clazz);
-        int index = list.indexOf(item);
-        if (index != -1) {
-            list.set(index, item);
-        } else {
-            throw new RuntimeException("Đối tượng không tồn tại trong danh sách.");
-        }
+    public List<Classes> getClasses() {
+        return getList(Classes.class);
     }
 
-    public <T> void removeById(Class<T> clazz, String id) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("ID không được null hoặc rỗng.");
+    // Phương thức quản lý Lessons
+    public void setLessons(List<Lesson> lessons) {
+        if (lessons == null) {
+            throw new IllegalArgumentException("Danh sách lessons không được null.");
         }
-        T item = findById(clazz, id);
-        if (item != null) {
-            removeFromList(clazz, item);
-        } else {
-            throw new RuntimeException("Đối tượng không tồn tại trong danh sách.");
-        }
+        clearList(Lesson.class);
+        getList(Lesson.class).addAll(lessons);
     }
 
-    public <T> void loadDataFromFile(String filePath, Class<T> clazz) throws IOException {
-        if (JsonHandler.isFileReadable(filePath)) {
-            // Đọc dữ liệu từ file JSON và ép kiểu thành List<T>
-            List<T> data = JsonHandler.readFromFile(filePath, new TypeReference<List<T>>() {});
-            if (data != null) {
-                // Xóa danh sách hiện tại và thêm dữ liệu mới
-                clearList(clazz);
-                getList(clazz).addAll(data);
-            }
-        } else {
-            System.out.println("File " + filePath + " không tồn tại hoặc không thể đọc. Tạo tệp mới.");
-            JsonHandler.writeToFile(filePath, new ArrayList<>(), true);
-        }
+    public List<Lesson> getLessons() {
+        return getList(Lesson.class);
     }
 
-    public <T> void saveDataToFile(String filePath, Class<T> clazz) throws IOException {
-        // Lấy danh sách dữ liệu từ dataStore
-        List<T> data = getList(clazz);
-        if (!data.isEmpty()) {
-            // Ghi dữ liệu vào file JSON
-            JsonHandler.writeToFile(filePath, data, true);
-        } else {
-            System.out.println("Danh sách " + clazz.getSimpleName() + " trống, không ghi vào tệp.");
+    // Phương thức quản lý Enrollments
+    public void setEnrollments(List<Enrollments> enrollments) {
+        if (enrollments == null) {
+            throw new IllegalArgumentException("Danh sách enrollments không được null.");
         }
+        clearList(Enrollments.class);
+        getList(Enrollments.class).addAll(enrollments);
+    }
+
+    public List<Enrollments> getEnrollments() {
+        return getList(Enrollments.class);
+    }
+
+    // Phương thức quản lý Scores
+    public void setScores(List<Score> scores) {
+        if (scores == null) {
+            throw new IllegalArgumentException("Danh sách scores không được null.");
+        }
+        clearList(Score.class);
+        getList(Score.class).addAll(scores);
+    }
+
+    public List<Score> getScores() {
+        return getList(Score.class);
+    }
+
+    // Phương thức quản lý Blogs
+    public void setBlogs(List<Blog> blogs) {
+        if (blogs == null) {
+            throw new IllegalArgumentException("Danh sách blogs không được null.");
+        }
+        clearList(Blog.class);
+        getList(Blog.class).addAll(blogs);
+    }
+
+    public List<Blog> getBlogs() {
+        return getList(Blog.class);
     }
 }

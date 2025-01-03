@@ -14,11 +14,19 @@ public class Lesson {
 
 
     public Lesson( String class_id,String title, String content, int order) {
-        this.id ="LESS"+ ++autoId;
+        this.id =generateId();
         this.class_id = class_id;
         this.title = title;
         this.content = content;
         this.order = order;
+    }
+
+    public Lesson() {
+        this.id = generateId(); // Tạo ID tự động ngay cả khi sử dụng constructor không tham số
+    }
+
+    private String generateId() {
+        return "LESS" + ++autoId;
     }
 
     public String getTitle() {

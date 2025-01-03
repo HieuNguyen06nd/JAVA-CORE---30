@@ -10,69 +10,91 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class ScoreService {
-    Exist exist = new Exist();
-    LessonService lessonService = new LessonService();
-    public void inputScoreForLesson(AppContext appContext, User user) {
-        Scanner scanner = new Scanner(System.in);
-        List<Lesson> lessons = appContext.getList(Lesson.class);
 
-        String teacher_id = user.getId();
+    public void scoreStudentsForLesson(AppContext context, User currentUser) {
+        Scanner scanner = context.getScanner();
+        List<Classes> classes = context.getList(Classes.class); // Lấy danh sách lớp học
+        List<Lesson> lessons = context.getList(Lesson.class); // Lấy danh sách bài học
+        List<Score> scores = context.getList(Score.class); // Lấy danh sách điểm
+        List<User> users = context.getList(User.class); // Lấy danh sách người dùng
 
-        Lesson lesson= null;
-        String lessonId;
-        while (true) {
-            System.out.print("Nhập ID bài học: ");
-            lessonId = scanner.nextLine();
-            lesson =lessonService.findById(lessonId,lessons);
-            if (lesson != null) {
-                break;
-            } else {
-                System.out.println("Bài học không tồn tại! Vui lòng nhập lại.");
-            }
+        // Nhập ID lớp học
+        System.out.print("Nhập ID lớp học: ");
+        String classId = scanner.nextLine();
+
+        // Tìm lớp học theo ID
+        Classes classRoom = findById(classId, classes, Classes::getId);
+        if (classRoom == null) {
+            System.out.println("Không tìm thấy lớp học với ID: " + classId);
+            return;
         }
 
-        String studentId;
-        while (true) {
-            System.out.print("Nhập ID học sinh: ");
-            studentId = scanner.nextLine();
-            if (exist.isStudentInClass(studentId, appContext)) {
-                break;
-            } else {
-                System.out.println("Học sinh không có trong lớp học này! Vui lòng nhập lại.");
-            }
-            break;
+        // Kiểm tra xem giáo viên hiện tại có dạy lớp này không
+        if (!classRoom.getTeacher_id().equals(currentUser.getId())) {
+            System.out.println("Bạn không dạy lớp học này.");
+            return;
         }
 
-        Score existingScore = findScoreByStudentAndLesson(studentId, lessonId, appContext);
-        double score;
-        if (existingScore != null) {
-            System.out.println("Học sinh đã có điểm cho bài học này.");
-            while (true) {
-                System.out.print("Nhập điểm mới cho học sinh (0 - 10): ");
-                score = Double.parseDouble(scanner.nextLine());
-                if (score >= 0 && score <= 10) {
-                    existingScore.setScore(score);
-                    existingScore.setUpdate_at(LocalDate.now());
-                    System.out.println("Điểm của học sinh đã được cập nhật thành công.");
-                    break;
-                } else {
-                    System.out.println("Điểm không hợp lệ, vui lòng nhập lại.");
-                }
+        // Nhập ID bài học
+        System.out.print("Nhập ID bài học: ");
+        String lessonId = scanner.nextLine();
+
+        // Tìm bài học theo ID
+        Lesson lesson = findById(lessonId, lessons, Lesson::getId);
+        if (lesson == null || !lesson.getClass_id().equals(classId)) {
+            System.out.println("Không tìm thấy bài học với ID: " + lessonId + " trong lớp học này.");
+            return;
+        }
+
+        // Lấy danh sách học sinh trong lớp
+        List<String> studentIds = classRoom.getStudent_id();
+        if (studentIds == null || studentIds.isEmpty()) {
+            System.out.println("Lớp học không có học sinh nào.");
+            return;
+        }
+
+        // Chấm điểm cho từng học sinh
+        System.out.println("=== Chấm điểm cho bài học: " + lesson.getTitle() + " ===");
+        for (String studentId : studentIds) {
+            // Tìm học sinh theo ID
+            User student = findById(studentId, users, User::getId);
+            if (student == null) {
+                System.out.println("Không tìm thấy học sinh với ID: " + studentId);
+                continue;
             }
-        } else {
-            while (true) {
-                System.out.print("Nhập điểm cho học sinh (0 - 10): ");
-                score = Double.parseDouble(scanner.nextLine());
-                if (score >= 0 && score <= 10) {
-                    Score newScore = new Score(studentId, lessonId, score, teacher_id, LocalDate.now(), LocalDate.now());
-                    appContext.getList(Score.class).add(newScore);
-                    System.out.println("Đã nhập điểm thành công cho học sinh.");
-                    break;
-                } else {
-                    System.out.println("Điểm không hợp lệ, vui lòng nhập lại.");
-                }
+
+            // Nhập điểm cho học sinh
+            System.out.print("Nhập điểm cho học sinh " + student.getUsername() + " (" + studentId + "): ");
+            double scoreValue;
+            try {
+                scoreValue = Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Điểm không hợp lệ. Vui lòng nhập lại.");
+                continue;
+            }
+
+            // Tìm xem học sinh đã có điểm cho bài học này chưa
+            Score existingScore = findScoreByStudentAndLesson(studentId, lessonId, context);
+            if (existingScore != null) {
+                // Cập nhật điểm nếu đã tồn tại
+                existingScore.setScore(scoreValue);
+                existingScore.setUpdate_at(LocalDate.now()); // Cập nhật thời gian sửa đổi
+                System.out.println("Đã cập nhật điểm cho học sinh " + student.getUsername());
+            } else {
+                // Thêm điểm mới nếu chưa tồn tại
+                Score newScore = new Score(
+                        studentId,
+                        lessonId,
+                        scoreValue,
+                        currentUser.getId(), // teacher_id là ID của giáo viên hiện tại
+                        LocalDate.now(), // created_at là thời gian hiện tại
+                        LocalDate.now() // update_at là thời gian hiện tại
+                );
+                scores.add(newScore);
+                System.out.println("Đã thêm điểm cho học sinh " + student.getUsername());
             }
         }
     }
@@ -81,6 +103,17 @@ public class ScoreService {
         for (Score score : appContext.getList(Score.class)) {
             if (score.getStudent_id().equals(studentId) && score.getLesson_id().equals(lessonId)) {
                 return score;
+            }
+        }
+        return null;
+    }
+    public static <T> T findById(String id, List<T> list, Function<T, String> idGetter) {
+        if (id == null || list == null || idGetter == null) {
+            return null;
+        }
+        for (T item : list) {
+            if (id.equals(idGetter.apply(item))) {
+                return item;
             }
         }
         return null;

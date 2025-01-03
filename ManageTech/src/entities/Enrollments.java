@@ -10,10 +10,18 @@ public class Enrollments {
     private int status;
 
     public Enrollments( String user_id, String course_id, int status) {
-        this.id ="EN" +  ++ autoId;
+        this.id =generateId();
         this.user_id = user_id;
         this.course_id = course_id;
         this.status = status;
+    }
+
+    public Enrollments() {
+        this.id = generateId(); // Tạo ID tự động ngay cả khi sử dụng constructor không tham số
+    }
+
+    private String generateId() {
+        return "EN" + ++autoId;
     }
 
     public String getId() {

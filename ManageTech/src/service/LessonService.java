@@ -3,6 +3,7 @@ package service;
 import entities.Classes;
 import entities.Lesson;
 import exist.Exist;
+import exist.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 public class LessonService {
     Exist exist = new Exist();
+    Utils utils = new Utils();
 
     public void inputLesson(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
@@ -39,7 +41,7 @@ public class LessonService {
             try {
                 order = Integer.parseInt(scanner.nextLine());
 
-                if (exist.isOrderExist(classId, order, (ArrayList<Lesson>) lessons)) {
+                if (exist.isOrderExist(classId, order, lessons)) {
                     System.out.println("Thứ tự bài học đã tồn tại trong lớp. Vui lòng nhập lại.");
                 } else {
                     break;
@@ -68,13 +70,12 @@ public class LessonService {
         }
 
         while (true) {
-            System.out.println("Chọn mục muốn thay đổi:");
             System.out.println("2. Thay đổi title");
             System.out.println("3. Thay đổi nội dung");
             System.out.println("4. Thay đổi thứ tự");
             System.out.println("5. Quay lại");
             System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = utils.inputInt(scanner, "Chọn chức năng: ");
 
             switch (choice) {
                 case 2:

@@ -1,9 +1,11 @@
 package service;
 
+import entities.Student;
 import entities.Teacher;
 import enums.Major;
 import enums.Role;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,9 +16,26 @@ public class TeacherService {
         Scanner scanner = appContext.getScanner();
         List<Teacher> teachers = appContext.getList(Teacher.class);
 
+        String username = inputUsername(scanner, teachers);
+        String password = inputPassword(scanner);
+        String email = inputEmail(scanner);
+        BigDecimal salary = inputSalary(scanner);
+
+        System.out.print("Nhập kinh nghiệm giảng dạy: ");
+        String experience = scanner.nextLine();
+
+        System.out.print("Nhập tiểu sử giảng viên: ");
+        String bio = scanner.nextLine();
+
+        List<Major> selectedMajors = selectMajors();
+
+        return new Teacher(username, password, email, Role.TEACHER, salary, experience, bio, selectedMajors);
+    }
+
+    private String inputUsername(Scanner scanner, List<Teacher> teachers) {
         String username;
         while (true) {
-            System.out.print("Nhập Username cho giảng viên: ");
+            System.out.print("Nhập Username cho sinh viên: ");
             username = scanner.nextLine();
             boolean exists = false;
             for (Teacher teacher : teachers) {
@@ -31,7 +50,10 @@ public class TeacherService {
                 System.out.println("Username đã tồn tại, vui lòng nhập lại.");
             }
         }
+        return username;
+    }
 
+    private String inputPassword(Scanner scanner) {
         String password;
         do {
             System.out.print("Nhập mật khẩu: ");
@@ -40,25 +62,29 @@ public class TeacherService {
                 System.out.println("Mật khẩu phải có ít nhất 6 ký tự.");
             }
         } while (password.length() < 6);
+        return password;
+    }
 
+    private String inputEmail(Scanner scanner) {
         String email;
         while (true) {
             System.out.print("Nhập email cho giảng viên: ");
             email = scanner.nextLine();
             if (email.contains("@") && email.contains(".")) {
-                break;
+                return email;
             } else {
                 System.out.println("Email không hợp lệ. Vui lòng thử lại.");
             }
         }
+    }
 
-        double salary;
+    private BigDecimal inputSalary(Scanner scanner) {
         while (true) {
             System.out.print("Nhập lương của giảng viên: ");
             try {
-                salary = Double.parseDouble(scanner.nextLine());
-                if (salary > 0) {
-                    break;
+                BigDecimal salary = new BigDecimal(scanner.nextLine());
+                if (salary.compareTo(BigDecimal.ZERO) > 0) {
+                    return salary;
                 } else {
                     System.out.println("Lương phải lớn hơn 0. Vui lòng thử lại.");
                 }
@@ -66,17 +92,6 @@ public class TeacherService {
                 System.out.println("Lương không hợp lệ, vui lòng nhập lại.");
             }
         }
-
-        System.out.print("Nhập kinh nghiệm giảng dạy: ");
-        String experience = scanner.nextLine();
-
-        System.out.print("Nhập tiểu sử giảng viên: ");
-        String bio = scanner.nextLine();
-
-        List<Major> selectedMajors = selectMajors();
-
-        Teacher teacher = new Teacher(username, password, email, Role.TEACHER, salary, experience, bio, selectedMajors);
-        return teacher;
     }
     private List<Major> selectMajors() {
         AppContext appContext = AppContext.getInstance();
@@ -131,18 +146,31 @@ public class TeacherService {
     }
 
     public double calculateSalary(Teacher teacher) {
-        double totalSalary = teacher.getSalary();
+        BigDecimal totalSalary = teacher.getSalary();
 
-        // Thêm lương theo kinh nghiệm
-        int yearsOfExperience = Integer.parseInt(teacher.getExperience().split(" ")[0]);
-        double bonusByExperience = yearsOfExperience * 1000;  // Giả sử mỗi năm kinh nghiệm thêm 1000
-        totalSalary += bonusByExperience;
+        // Tính toán thưởng dựa trên kinh nghiệm
+        try {
+            int yearsOfExperience = Integer.parseInt(teacher.getExperience().split(" ")[0]);
 
-        return totalSalary;
+            // Tính thưởng kinh nghiệm ( sử mỗi năm thêm 1000)
+            BigDecimal bonusByExperience = new BigDecimal(yearsOfExperience * 1000);
+
+            // Cộng thưởng vào tổng lương
+            totalSalary = totalSalary.add(bonusByExperience);
+        } catch (NumberFormatException e) {
+            System.out.println("Lỗi: Kinh nghiệm giảng dạy không hợp lệ. Không thể tính thưởng kinh nghiệm.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Lỗi: Định dạng kinh nghiệm không hợp lệ. Không thể tính thưởng kinh nghiệm.");
+        }
+
+        // Trả về tổng lương dưới dạng double (nếu cần)
+        return totalSalary.doubleValue();
     }
+
     public void printTeacherSalary(Teacher teacher) {
         double salary = calculateSalary(teacher);
-        System.out.println("Lương của giảng viên " + teacher.getUsername() + " là: " + salary);
+        String message = String.format("Lương của giảng viên %s là: %.2f", teacher.getUsername(), salary);
+        System.out.println(message);
     }
 
 }

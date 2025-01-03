@@ -6,9 +6,9 @@ import entities.User;
 import enums.Role;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class EnrollmentService {
     private UserService userService = new UserService();
@@ -29,7 +29,7 @@ public class EnrollmentService {
         System.out.println("Nhập ID khóa học:");
         String courseId = scanner.nextLine();
 
-        Course course = courseService.findById(courseId, (ArrayList<Course>) courses);
+        Course course = courseService.findById(courseId, courses, Course::getId);
         if (course == null) {
             System.out.println("Khóa học không tồn tại.");
             return;
@@ -83,7 +83,7 @@ public class EnrollmentService {
             return;
         }
 
-        Course course = courseService.findById(courseId, (ArrayList<Course>) courses);
+        Course course = courseService.findById(courseId, courses, Course::getId);
         if (course == null) {
             System.out.println("Khóa học không tồn tại.");
             return;

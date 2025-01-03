@@ -6,6 +6,7 @@ import entities.User;
 import enums.Constain;
 import enums.Role;
 import exist.Exist;
+import exist.Utils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Scanner;
 
 public class ClassService {
     Exist exist = new Exist();
+    Utils utils = new Utils();
     UserService userService = new UserService();
     CourseService courseService = new CourseService();
     public void inputClass(AppContext appContext) {
@@ -28,7 +30,7 @@ public class ClassService {
         while (true) {
             System.out.println("Nhập ID khóa học: ");
             courseId = scanner.nextLine();
-            Course course = courseService.findById(courseId, courses);
+            Course course = courseService.findById(courseId, courses, Course::getId);
             if (course != null) {
                 break;
             } else {
@@ -67,8 +69,7 @@ public class ClassService {
 
         LocalDate startDate;
         while (true) {
-            System.out.println("Nhập ngày bắt đầu (yyyy-mm-dd): ");
-            startDate = LocalDate.parse(scanner.nextLine());
+            startDate= utils.inputDate(scanner, "Nhập ngày bắt đầu (yyyy-mm-dd): ");
             if (startDate.isAfter(LocalDate.now())) {
                 break;
             } else {
@@ -78,8 +79,7 @@ public class ClassService {
 
         LocalDate endDate;
         while (true) {
-            System.out.println("Nhập ngày kết thúc (yyyy-mm-dd): ");
-            endDate = LocalDate.parse(scanner.nextLine());
+            endDate = utils.inputDate(scanner, "Nhập ngày kết thúc (yyyy-mm-dd): ");
             if (endDate.isAfter(startDate)) {
                 break;
             } else {

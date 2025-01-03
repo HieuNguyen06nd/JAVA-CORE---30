@@ -2,6 +2,7 @@ package service;
 
 import entities.User;
 import enums.Role;
+import exist.Utils;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 public class UserService {
     ValidateUser validateUser = new ValidateUser();
+    Utils utils= new Utils();
 
     public UserService() {
         // Constructor không tham số
@@ -88,7 +90,7 @@ public class UserService {
             System.out.println("1 - Đăng nhập lại\n" +
                     "2 - Quên mật khẩu");
             System.out.println("Mời lựa chọn");
-            int choose = Integer.parseInt(scanner.nextLine());
+            int choose = utils.inputInt(scanner, "Mời lựa chọn: ");
             switch (choose) {
                 case 1:
                     signIn(); // Gọi lại phương thức signIn
@@ -100,7 +102,8 @@ public class UserService {
                     System.out.println("Lựa chọn không hợp lệ");
             }
         } else {
-            System.out.println("Chào mừng " + user.getUsername() + ", bạn có thể thực hiện các công việc sau:");
+            String message = String.format("Chào mừng %s, bạn có thể thực hiện các công việc sau:", user.getUsername());
+            System.out.println(message);
             Menu menu = new Menu();
             menu.loginMenu(appContext, user); // Hiển thị menu đăng nhập
         }
@@ -178,6 +181,15 @@ public class UserService {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
 
+        System.out.print("Nhập mật khẩu hiện tại: ");
+        String currentPassword = scanner.nextLine();
+
+        if (!user.getPassword().equals(currentPassword)) {
+            System.out.println("Mật khẩu hiện tại không đúng.");
+            return;
+        }
+
+        // Nhập mật khẩu mới
         while (true) {
             System.out.print("Nhập mật khẩu mới: ");
             String newPassword = scanner.nextLine();
@@ -201,10 +213,10 @@ public class UserService {
         System.out.println("1 - Admin");
         System.out.println("2 - Teacher");
         System.out.println("3 - Student");
-        int roleChoice = Integer.parseInt(scanner.nextLine());
+        int choose = utils.inputInt(scanner, "Mời lựa chọn: ");
 
         Role newRole = null;
-        switch (roleChoice) {
+        switch (choose) {
             case 1:
                 newRole = Role.ADMIN;
                 break;

@@ -3,15 +3,16 @@ package entities;
 import enums.Major;
 import enums.Role;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Teacher extends User {
-    private double salary;
+    private BigDecimal salary;
     private String experience;
     private String bio;
     private List<Major> majors;
 
-    public Teacher(String username, String password, String email, Role role, double salary, String experience, String bio, List<Major> majors) {
+    public Teacher(String username, String password, String email, Role role, BigDecimal salary, String experience, String bio, List<Major> majors) {
         super(username, password, email, role);
         this.salary = salary;
         this.experience = experience;
@@ -23,7 +24,7 @@ public class Teacher extends User {
     }
 
     // Các phương thức getter và setter
-    public double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 

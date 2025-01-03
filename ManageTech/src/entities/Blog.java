@@ -14,12 +14,20 @@ public class Blog {
     private boolean status;
 
     public Blog(String title, String content, String user_Id) {
-        this.id = "BLOG"+ ++autoId;
+        this.id = generateId();
         this.title = title;
         this.content = content;
         this.user_Id = user_Id;
         this.published_at =LocalDate.now();
         this.status = false;
+    }
+
+    public Blog() {
+        this.id = generateId(); // Tạo ID tự động ngay cả khi sử dụng constructor không tham số
+    }
+
+    private String generateId() {
+        return "BLOG" + ++autoId;
     }
 
     public String getId() {
