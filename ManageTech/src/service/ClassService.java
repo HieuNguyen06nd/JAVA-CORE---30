@@ -9,6 +9,7 @@ import exist.Exist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClassService {
@@ -16,9 +17,9 @@ public class ClassService {
     UserService userService = new UserService();
     CourseService courseService = new CourseService();
     public void inputClass(AppContext appContext) {
-        ArrayList<Classes> classes = appContext.getClasses();
+        List<Classes> classes = appContext.getList(Classes.class);
         Scanner scanner = appContext.getScanner();
-        ArrayList<Course>courses = appContext.getCourses();
+        List<Course>courses = appContext.getList(Course.class);
 
         System.out.println("Nhập tên lớp: ");
         String name = scanner.nextLine();
@@ -118,8 +119,8 @@ public class ClassService {
     }
 
     public void updateStudentToClass(AppContext appContext, String action) {
-        ArrayList<Classes> classRooms = appContext.getClasses();
-        ArrayList<User> users = appContext.getUsers();
+        List<Classes> classRooms = appContext.getList(Classes.class);
+        List<User> users = appContext.getList(User.class);
         Scanner scanner = appContext.getScanner();
 
         System.out.println("Nhập ID lớp học: ");
@@ -150,7 +151,7 @@ public class ClassService {
     }
 
     public void deleteClassRoom(AppContext appContext) {
-        ArrayList<Classes> classes = appContext.getClasses();
+        List<Classes> classes = appContext.getList(Classes.class);
         Scanner scanner = appContext.getScanner();
 
         System.out.println("Nhập ID lớp học cần xóa:");
@@ -167,8 +168,7 @@ public class ClassService {
 
     public void changeTeacherInClass(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Classes> classes = appContext.getClasses();
-        ArrayList<User> users = appContext.getUsers();
+        List<Classes> classes = appContext.getList(Classes.class);
         System.out.println("Nhập ID lớp học cần thay đổi giáo viên:");
         String classId = scanner.nextLine();
 
@@ -191,7 +191,7 @@ public class ClassService {
         }
     }
 
-    public Classes findById(String classId, ArrayList<Classes> classes) {
+    public Classes findById(String classId, List<Classes> classes) {
         for (Classes classItem : classes) {
             if (classItem.getId().equals(classId)) {
                 return classItem;

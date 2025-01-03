@@ -4,13 +4,14 @@ import entities.Student;
 import enums.Role;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class StudentService {
     public Student inputStudent() {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<Student> students = appContext.getStudents();
+        List<Student> students = appContext.getList(Student.class);
 
         String username;
         while (true) {

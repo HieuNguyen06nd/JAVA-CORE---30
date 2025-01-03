@@ -1,12 +1,11 @@
 package view;
 
-import data.DataService;
 import entities.*;
 import entities.Course;
 import enums.Role;
 import service.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuAdmin {
@@ -63,7 +62,7 @@ public class MenuAdmin {
 
     public void manageStudents(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class);
 
         while (true) {
             System.out.println("\n====== QUẢN LÝ HỌC VIÊN ======");
@@ -97,7 +96,7 @@ public class MenuAdmin {
     }
     public void manageTeacher(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class);
         while (true){
             System.out.println("\n====== QUẢN LÝ GIÁO VIÊN ======");
             System.out.println("1. Thêm giáo viên");
@@ -139,7 +138,7 @@ public class MenuAdmin {
     }
     public void manageCourses(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Course> courses = appContext.getCourses();
+        List<Course> courses = appContext.getList(Course.class);
         while (true) {
             System.out.println("\n====== QUẢN LÝ KHÓA HỌC ======");
             System.out.println("1. Thêm khóa học");
@@ -154,7 +153,7 @@ public class MenuAdmin {
                     courseService.inputCourse(appContext);
                     break;
                 case 2:
-                    courseService.changeInfoCourse();
+                    courseService.changeInfoCourse(appContext);
                     break;
                 case 3:
                     courseService.deleteCourse(appContext);
@@ -171,8 +170,6 @@ public class MenuAdmin {
     }
     public void manageLesson(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Classes> classes = appContext.getClasses();
-        ArrayList<Lesson> lessons = appContext.getLessons();
 
         while (true) {
             System.out.println("\n====== QUẢN LÝ LESSON ======");
@@ -258,7 +255,7 @@ public class MenuAdmin {
 
     public void manageBlog(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Blog> blogs = appContext.getBlogs();
+        List<Blog> blogs = appContext.getList(Blog.class);
 
         while (true) {
             System.out.println("\n====== QUẢN LÝ BLOG ======");
@@ -296,7 +293,7 @@ public class MenuAdmin {
 
     public void changeInfo(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class);
 
         System.out.println("Nhập id user muốn sửa");
         String id = scanner.nextLine();

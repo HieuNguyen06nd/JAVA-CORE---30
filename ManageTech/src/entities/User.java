@@ -25,6 +25,13 @@ public class User {
         this.role =role;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public User() {
+    }
+
     public User(String id, String username, String password, String email, Role role, BigDecimal budget, LocalDate created_at) {
         this.id = id;
         this.username = username;

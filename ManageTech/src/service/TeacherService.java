@@ -12,7 +12,7 @@ public class TeacherService {
     public Teacher inputTeacher() {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<Teacher> teachers = appContext.getTeachers();
+        List<Teacher> teachers = appContext.getList(Teacher.class);
 
         String username;
         while (true) {

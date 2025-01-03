@@ -8,6 +8,7 @@ import enums.Role;
 import service.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuTeacher {
@@ -37,7 +38,7 @@ public class MenuTeacher {
     }
     public void selectMenu(AppContext context, User user){
         Scanner scanner = context.getScanner();
-        ArrayList<User>users = context.getUsers();
+        List<User> users = context.getList(User.class);
         int choose = Integer.parseInt(scanner.nextLine());
         Teacher teacher = (Teacher) userService.findById(user.getId(),users);
         switch (choose){

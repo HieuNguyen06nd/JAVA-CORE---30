@@ -1,29 +1,31 @@
 package view;
 
-import data.Data;
-import entities.*;
+import entities.User;
 import enums.Role;
 import service.AppContext;
 import service.UserService;
 
-import java.util.List;
-
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Menu {
-    private List<User> users;
 
+    private final UserService userService;
+    private final MenuAdmin menuAdmin;
+    private final MenuStudent menuStudent;
+    private final MenuCustomer menuCustomer;
+    private final MenuTeacher menuTeacher;
 
-
-    UserService userService = new UserService();
-    MenuAdmin menuAdmin = new MenuAdmin();
-    MenuStudent menuStudent = new MenuStudent();
-    MenuCustomer menuCustomer = new MenuCustomer();
-    MenuTeacher menuTeacher = new MenuTeacher();
+    public Menu() {
+        this.userService = new UserService();
+        this.menuAdmin = new MenuAdmin();
+        this.menuStudent = new MenuStudent();
+        this.menuCustomer = new MenuCustomer();
+        this.menuTeacher = new MenuTeacher();
+    }
 
     public void displayMenu() {
         AppContext appContext = AppContext.getInstance();
-        users = appContext.getUsers();
-        userService = new UserService(users);
         System.out.println("1 - Đăng nhập\n" +
                 "2 - Đăng ký\n" +
                 "0 - Thoát chương trình");
@@ -32,33 +34,56 @@ public class Menu {
     }
 
     public void selectDisplayMenu(AppContext appContext) {
-        int choose = Integer.parseInt(appContext.getScanner().nextLine());
-        switch (choose) {
-            case 1:
-                userService.singIn();
-                break;
-            case 2:
-                userService.signUp();
-                break;
-            case 0:
-                System.exit(1);
-                break;
-            default:
-                System.out.println("Lựa chọn không hợp lệ");
+        Scanner scanner = appContext.getScanner();
+        try {
+            int choose = Integer.parseInt(scanner.nextLine());
+            switch (choose) {
+                case 1:
+                    userService.signIn();
+                    break;
+                case 2:
+                    userService.signUp();
+                    break;
+                case 0:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                    displayMenu(); // Hiển thị lại menu
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập số.");
+            displayMenu(); // Hiển thị lại menu
         }
     }
 
     public void loginMenu(AppContext appContext, User user) {
-        Role role = user.getRole();
+        if (user == null) {
+            System.out.println("Lỗi: Người dùng không tồn tại.");
+            return;
+        }
 
-        if (role.equals(Role.ADMIN)) {
-            menuAdmin.displayAdmin(appContext,user);
-        } else if (role.equals(Role.STUDENT)) {
-            menuStudent.displayStudent(appContext, user);
-        } else if (role.equals(Role.TEACHER)) {
-            menuTeacher.displayTeacher(appContext, user);
-        } else if (role.equals(Role.CUSTOMER)) {
-            menuCustomer.displayCustomer(appContext,user);
+        Role role = user.getRole();
+        if (role == null) {
+            System.out.println("Lỗi: Vai trò của người dùng không xác định.");
+            return;
+        }
+
+        switch (role) {
+            case ADMIN:
+                menuAdmin.displayAdmin(appContext, user);
+                break;
+            case STUDENT:
+                menuStudent.displayStudent(appContext, user);
+                break;
+            case TEACHER:
+                menuTeacher.displayTeacher(appContext, user);
+                break;
+            case CUSTOMER:
+                menuCustomer.displayCustomer(appContext, user);
+                break;
+            default:
+                System.out.println("Lỗi: Vai trò không hợp lệ.");
         }
     }
 }

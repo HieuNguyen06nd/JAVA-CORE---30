@@ -4,8 +4,10 @@ import entities.Course;
 import entities.Enrollments;
 import entities.User;
 import enums.Role;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class EnrollmentService {
@@ -13,10 +15,10 @@ public class EnrollmentService {
     private CourseService courseService = new CourseService();
 
     public void enrollCourse(String userId, AppContext context) {
-        ArrayList<User> users = context.getUsers();
+        List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
         Scanner scanner = context.getScanner();
-        ArrayList<Course> courses = context.getCourses();
-        ArrayList<Enrollments> enrollments = context.getEnrollments();
+        List<Course> courses = context.getList(Course.class); // Lấy danh sách courses từ AppContext
+        List<Enrollments> enrollments = context.getList(Enrollments.class); // Lấy danh sách enrollments từ AppContext
 
         User user = userService.findById(userId, users);
         if (user == null) {
@@ -27,7 +29,7 @@ public class EnrollmentService {
         System.out.println("Nhập ID khóa học:");
         String courseId = scanner.nextLine();
 
-        Course course = courseService.findById(courseId, courses);
+        Course course = courseService.findById(courseId, (ArrayList<Course>) courses);
         if (course == null) {
             System.out.println("Khóa học không tồn tại.");
             return;
@@ -54,10 +56,10 @@ public class EnrollmentService {
     }
 
     public void makePayment(String userId, AppContext context) {
-        ArrayList<User> users = context.getUsers();
+        List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
         Scanner scanner = context.getScanner();
-        ArrayList<Course> courses = context.getCourses();
-        ArrayList<Enrollments> enrollments = context.getEnrollments();
+        List<Course> courses = context.getList(Course.class); // Lấy danh sách courses từ AppContext
+        List<Enrollments> enrollments = context.getList(Enrollments.class); // Lấy danh sách enrollments từ AppContext
 
         User user = userService.findById(userId, users);
         if (user == null) {
@@ -81,7 +83,7 @@ public class EnrollmentService {
             return;
         }
 
-        Course course = courseService.findById(courseId, courses);
+        Course course = courseService.findById(courseId, (ArrayList<Course>) courses);
         if (course == null) {
             System.out.println("Khóa học không tồn tại.");
             return;
@@ -108,7 +110,7 @@ public class EnrollmentService {
     }
 
     public void rechargeBudget(String userId, AppContext context) {
-        ArrayList<User> users = context.getUsers();
+        List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
         Scanner scanner = context.getScanner();
 
         User user = userService.findById(userId, users);

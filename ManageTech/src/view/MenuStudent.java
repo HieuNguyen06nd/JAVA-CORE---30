@@ -11,8 +11,7 @@ import java.util.Scanner;
 
 public class MenuStudent {
     AppContext appContext = AppContext.getInstance();
-    List<User> users =appContext.getUsers() ;
-    UserService userService = new UserService(users);
+    UserService userService = new UserService();
     PrintService printService = new PrintService();
     EnrollmentService enrollmentService = new EnrollmentService();
 
@@ -41,7 +40,7 @@ public class MenuStudent {
                     printService.printCourseByUserId(user.getId(), context, 1);
                     break;
                 case 4:
-                    printService.viewScoreByClass(context);
+//                    printService.viewScoreByClass(context);
                     break;
                 case 6:
                     printService.printAllCourse(context);

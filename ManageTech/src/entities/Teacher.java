@@ -5,13 +5,19 @@ import enums.Role;
 
 import java.util.List;
 
-public class Teacher extends User{
+public class Teacher extends User {
     private double salary;
     private String experience;
     private String bio;
     private List<Major> majors;
 
-    public Teacher(String username, String password, String email, Role role, double salary, String experience, String bio,  List<Major> majors) {
+    // Constructor không tham số
+    public Teacher() {
+        super(); // Gọi constructor không tham số của lớp cha (User)
+    }
+
+    // Constructor có tham số
+    public Teacher(String username, String password, String email, Role role, double salary, String experience, String bio, List<Major> majors) {
         super(username, password, email, Role.TEACHER);
         this.salary = salary;
         this.experience = experience;
@@ -19,6 +25,7 @@ public class Teacher extends User{
         this.majors = majors;
     }
 
+    // Getters and Setters
     public double getSalary() {
         return salary;
     }

@@ -5,9 +5,10 @@ import enums.Role;
 import service.AppContext;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Exist {
-    public boolean isClassExist(String classId, ArrayList<Classes> classRooms) {
+    public boolean isClassExist(String classId, List<Classes> classRooms) {
         for (Classes classes : classRooms) {
             if (classes.getId().equals(classId)) {
                 return true;
@@ -15,7 +16,7 @@ public class Exist {
         }
         return false;
     }
-    public boolean isOrderExist(String classId, int order, ArrayList<Lesson> lessons) {
+    public boolean isOrderExist(String classId, int order, List<Lesson> lessons) {
         for (Lesson lesson : lessons) {
             if (lesson.getClass_id().equals(classId) && lesson.getOrder() == order) {
                 return true;
@@ -25,7 +26,7 @@ public class Exist {
     }
 
     public boolean isCourseExist(String courseId, AppContext appContext) {
-        ArrayList<Course> courses = appContext.getCourses();
+        List<Course> courses = appContext.getList(Course.class);
 
         for (Course course : courses) {
             if (course.getId().equals(courseId)) {
@@ -36,7 +37,7 @@ public class Exist {
     }
 
     public boolean isStudentInClass(String studentId, AppContext appContext) {
-        ArrayList<Classes> classes = appContext.getClasses();
+        List<Classes> classes = appContext.getList(Classes.class);
 
         for (Classes classItem : classes) {
             if (classItem.getStudent_id().contains(studentId)) {
@@ -47,7 +48,7 @@ public class Exist {
     }
 
     public boolean isStudent(String studentId, AppContext appContext) {
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class);
 
         for (User user : users) {
             if (user.getId().equals(studentId)) {
@@ -64,7 +65,7 @@ public class Exist {
     }
 
     public boolean isValidRole(String id,AppContext appContext, Role role) {
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class);
         for (User user : users) {
             if (user.getId().equals(id) && user.getRole().equals(role)) {
                 return true;
@@ -82,7 +83,7 @@ public class Exist {
         return false;
     }
 
-    public boolean isScheduleConflict(Classes classRoom, String newSchedule, ArrayList<Classes> classes) {
+    public boolean isScheduleConflict(Classes classRoom, String newSchedule, List<Classes> classes) {
         for (Classes otherClass : classes) {
             if (!otherClass.getId().equals(classRoom.getId())) {
                 if (otherClass.getSchedule().equals(newSchedule)) {

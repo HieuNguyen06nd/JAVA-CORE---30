@@ -16,8 +16,7 @@ public class ScoreService {
     LessonService lessonService = new LessonService();
     public void inputScoreForLesson(AppContext appContext, User user) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Classes> classes = appContext.getClasses();
-        ArrayList<Lesson> lessons = appContext.getLessons();
+        List<Lesson> lessons = appContext.getList(Lesson.class);
 
         String teacher_id = user.getId();
 
@@ -68,7 +67,7 @@ public class ScoreService {
                 score = Double.parseDouble(scanner.nextLine());
                 if (score >= 0 && score <= 10) {
                     Score newScore = new Score(studentId, lessonId, score, teacher_id, LocalDate.now(), LocalDate.now());
-                    appContext.getScores().add(newScore);
+                    appContext.getList(Score.class).add(newScore);
                     System.out.println("Đã nhập điểm thành công cho học sinh.");
                     break;
                 } else {
@@ -79,7 +78,7 @@ public class ScoreService {
     }
 
     public Score findScoreByStudentAndLesson(String studentId, String lessonId, AppContext appContext) {
-        for (Score score : appContext.getScores()) {
+        for (Score score : appContext.getList(Score.class)) {
             if (score.getStudent_id().equals(studentId) && score.getLesson_id().equals(lessonId)) {
                 return score;
             }

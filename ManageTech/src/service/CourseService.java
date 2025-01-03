@@ -4,14 +4,14 @@ import entities.Course;
 import enums.Mode;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CourseService {
 
     public void inputCourse(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Course> courses = appContext.getCourses();
+        List<Course> courses = appContext.getList(Course.class); // Lấy danh sách courses từ AppContext
 
         System.out.println("Nhập tên khóa học: ");
         String name = scanner.nextLine();
@@ -38,21 +38,20 @@ public class CourseService {
             }
         }
 
-        Course course = new Course(name, description,price, mode);
+        Course course = new Course(name, description, price, mode);
         courses.add(course);
 
         System.out.println("Khóa học " + name + " đã được thêm thành công!");
     }
 
-    public void changeInfoCourse() {
-        AppContext appContext = AppContext.getInstance();
+    public void changeInfoCourse(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Course> courses = appContext.getCourses();
+        List<Course> courses = appContext.getList(Course.class); // Lấy danh sách courses từ AppContext
 
         System.out.println("Nhập ID khóa học cần sửa:");
         String courseId = scanner.nextLine();
 
-        Course course =findById(courseId, courses);
+        Course course = findById(courseId, courses);
         if (course == null) {
             System.out.println("Khóa học không tồn tại với ID: " + courseId);
             return;
@@ -107,7 +106,7 @@ public class CourseService {
 
     public void deleteCourse(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Course> courses = appContext.getCourses();
+        List<Course> courses = appContext.getList(Course.class); // Lấy danh sách courses từ AppContext
 
         System.out.println("Nhập ID khóa học cần xóa: ");
         String courseId = scanner.nextLine();
@@ -122,13 +121,13 @@ public class CourseService {
         int confirm = Integer.parseInt(scanner.nextLine());
         if (confirm == 1) {
             courses.remove(course);
-            System.out.println(" Đã xóa thành công!" + courseId);
+            System.out.println("Đã xóa thành công khóa học với ID: " + courseId);
         } else {
             System.out.println("Hủy bỏ xóa.");
         }
     }
 
-    public Course findById(String id,ArrayList<Course> courses){
+    public Course findById(String id, List<Course> courses) {
         for (Course course : courses) {
             if (course.getId().equals(id)) {
                 return course;
@@ -136,5 +135,4 @@ public class CourseService {
         }
         return null;
     }
-
 }

@@ -5,6 +5,7 @@ import enums.Role;
 import exist.Exist;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PrintService {
@@ -13,9 +14,10 @@ public class PrintService {
     CourseService courseService = new CourseService();
     LessonService lessonService = new LessonService();
     ClassService classService = new ClassService();
-//   user
+
+    // User
     public void printInfo(AppContext appContext, Role role) {
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
         System.out.println("=== Thông tin người dùng có vai trò " + role + " ===");
         boolean found = false;
 
@@ -37,10 +39,10 @@ public class PrintService {
         }
     }
 
-    public void printUserDetails(String userId, AppContext  context) {
-        ArrayList<User>users = context.getUsers();
+    public void printUserDetails(String userId, AppContext context) {
+        List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
 
-        User user = userService.findById(userId,users);
+        User user = userService.findById(userId, users);
 
         if (user == null) {
             System.out.println("Không tìm thấy người dùng với ID: " + userId);
@@ -57,12 +59,12 @@ public class PrintService {
 
     public void printTeachingSchedule(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Classes> classes = appContext.getClasses();
+        List<Classes> classes = appContext.getList(Classes.class); // Lấy danh sách classes từ AppContext
 
         System.out.print("Nhập ID giảng viên để xem lịch dạy: ");
         String teacherId = scanner.nextLine();
 
-        ArrayList<Classes> teachingClasses = new ArrayList<>();
+        List<Classes> teachingClasses = new ArrayList<>();
         for (Classes classItem : classes) {
             if (classItem.getTeacher_id().equals(teacherId)) {
                 teachingClasses.add(classItem);
@@ -92,12 +94,10 @@ public class PrintService {
         }
     }
 
-
-    //   Lesson
+    // Lesson
     public void printLessonByClass(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Lesson> lessons = appContext.getLessons();
-
+        List<Lesson> lessons = appContext.getList(Lesson.class); // Lấy danh sách lessons từ AppContext
 
         System.out.print("Nhập ID lớp học để hiển thị bài học: ");
         String classId = scanner.nextLine();
@@ -108,7 +108,7 @@ public class PrintService {
             if (lesson.getClass_id().equals(classId)) {
                 System.out.println("ID: " + lesson.getId());
                 System.out.println("Tiêu đề: " + lesson.getTitle());
-                System.out.println("Nooij dung: " + lesson.getContent());
+                System.out.println("Nội dung: " + lesson.getContent());
                 System.out.println("Thứ tự: " + lesson.getOrder());
                 found = true;
             }
@@ -118,10 +118,10 @@ public class PrintService {
         }
     }
 
-//    class
+    // Class
     public void printInfoClass(AppContext context) {
-        ArrayList<Classes> classes = context.getClasses();
-        Scanner scanner =context.getScanner();
+        List<Classes> classes = context.getList(Classes.class); // Lấy danh sách classes từ AppContext
+        Scanner scanner = context.getScanner();
 
         System.out.println("Nhập khóa học ID:");
         String courseId = scanner.nextLine();
@@ -130,7 +130,6 @@ public class PrintService {
         boolean found = false;
 
         for (Classes classRoom : classes) {
-
             if (classRoom != null && classRoom.getCourse_id().equals(courseId)) {
                 System.out.println("--------------------------------");
                 System.out.println("ID Lớp học: " + classRoom.getId());
@@ -156,10 +155,10 @@ public class PrintService {
     }
 
     public void printAllClassRoomsByUser(String userId, AppContext context) {
-        ArrayList<User> users = context.getUsers();
-        ArrayList<Classes> classes = context.getClasses();
+        List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
+        List<Classes> classes = context.getList(Classes.class); // Lấy danh sách classes từ AppContext
 
-        User user = userService.findById(userId,users);
+        User user = userService.findById(userId, users);
 
         System.out.println("=== Danh sách Lớp học của người dùng ===");
         System.out.println("Thông tin người dùng:");
@@ -189,9 +188,10 @@ public class PrintService {
         }
 
         if (!hasClass) {
-            System.out.println("Ban không tham gia hoặc giảng dạy bất kỳ lớp học nào.");
+            System.out.println("Bạn không tham gia hoặc giảng dạy bất kỳ lớp học nào.");
         }
     }
+
     private void printClassRoomSummary(Classes classRoom) {
         System.out.println("--------------------------------");
         System.out.println("ID Lớp học: " + classRoom.getId());
@@ -201,24 +201,22 @@ public class PrintService {
         System.out.println("--------------------------------");
     }
 
-
-//    Course
-
-    public void printAllCourse(AppContext context){
-        ArrayList<Course> courses = context.getCourses();
-        for (Course course: courses){
+    // Course
+    public void printAllCourse(AppContext context) {
+        List<Course> courses = context.getList(Course.class); // Lấy danh sách courses từ AppContext
+        for (Course course : courses) {
             System.out.println("=== Chi tiết khóa học ===");
             System.out.println("ID: " + course.getId());
             System.out.println("Tên khóa học: " + course.getName());
             System.out.println("Mô tả: " + course.getDescription());
-            System.out.println("Giá : " + course.getPrice());
+            System.out.println("Giá: " + course.getPrice());
         }
     }
 
     public void printCourseById(String courseId, AppContext context) {
-        ArrayList<Course> courses = context.getCourses();
+        List<Course> courses = context.getList(Course.class); // Lấy danh sách courses từ AppContext
 
-        Course course = courseService.findById(courseId, courses);
+        Course course = courseService.findById(courseId, (ArrayList<Course>) courses);
         if (course == null) {
             System.out.println("Không tìm thấy khóa học với ID: " + courseId);
         } else {
@@ -226,22 +224,22 @@ public class PrintService {
             System.out.println("ID: " + course.getId());
             System.out.println("Tên khóa học: " + course.getName());
             System.out.println("Mô tả: " + course.getDescription());
-            System.out.println("Giá : " + course.getPrice());
+            System.out.println("Giá: " + course.getPrice());
         }
     }
 
-    public void printCourseByUserId(String user_id, AppContext context, int status){
-        ArrayList<Enrollments>enrollments= context.getEnrollments();
+    public void printCourseByUserId(String user_id, AppContext context, int status) {
+        List<Enrollments> enrollments = context.getList(Enrollments.class); // Lấy danh sách enrollments từ AppContext
 
-        for (Enrollments enrollment: enrollments){
-            if (enrollment.getUser_id().equals(user_id) && enrollment.getStatus() ==status){
-                printCourseById(enrollment.getCourse_id(),context);
+        for (Enrollments enrollment : enrollments) {
+            if (enrollment.getUser_id().equals(user_id) && enrollment.getStatus() == status) {
+                printCourseById(enrollment.getCourse_id(), context);
             }
         }
     }
 
     public void printAllBlogs(AppContext context) {
-        ArrayList<Blog> blogs = context.getBlogs();
+        List<Blog> blogs = context.getList(Blog.class); // Lấy danh sách blogs từ AppContext
 
         if (blogs.isEmpty()) {
             System.out.println("Hiện tại không có blog nào.");
@@ -259,42 +257,4 @@ public class PrintService {
             System.out.println("--------------------------------------------------");
         }
     }
-
-
-    public void viewScoreByClass(AppContext appContext) {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Classes> classes = appContext.getClasses();
-        ArrayList<Score> scores = appContext.getScores();
-
-        ArrayList<User> users = appContext.getUsers();
-        System.out.print("Nhập ID lớp để xem điểm: ");
-        String classId = scanner.nextLine();
-
-        Classes classObj = classService.findById(classId, classes);
-        if (classObj == null) {
-            System.out.println("Lớp học không tồn tại.");
-            return;
-        }
-
-        boolean found = false;
-
-        for (Score score : scores) {
-            Lesson lesson = lessonService.findById(score.getLesson_id(), appContext.getLessons());
-            User user = userService.findById(score.getStudent_id(), users);
-            if (lesson.getClass_id().equals(classId)){
-                System.out.println("Học sinh: " + score.getStudent_id() +
-                        " - Tên: " +user.getUsername() +
-                        " - Điểm: " + score.getScore() +
-                        " - Bài học: " + lesson.getTitle());
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Không có điểm cho lớp này.");
-        }
-    }
-
-
-
 }

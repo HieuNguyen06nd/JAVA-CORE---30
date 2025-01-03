@@ -4,14 +4,13 @@ import entities.Blog;
 import entities.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BlogService {
 
     public Blog inpuBlog(AppContext context, User user) {
         Scanner scanner = context.getScanner();
-        ArrayList<User> users = context.getUsers();
-
         System.out.print("Nhập title: ");
         String title = scanner.nextLine();
 
@@ -25,7 +24,7 @@ public class BlogService {
 
     public void changeBlogStatus(AppContext context) {
         Scanner scanner = context.getScanner();
-        ArrayList<Blog>blogs = context.getBlogs();
+        List<Blog>blogs = context.getList(Blog.class);
         System.out.print("Nhập ID blog để thay đổi trạng thái: ");
         String blogId = scanner.nextLine();
 
@@ -45,7 +44,7 @@ public class BlogService {
 
     public void deleteBlog(AppContext context) {
         Scanner scanner = context.getScanner();
-        ArrayList<Blog>blogs = context.getBlogs();
+        List<Blog> blogs = context.getList(Blog.class);
 
         System.out.print("Nhập ID blog để xóa: ");
         String blogId = scanner.nextLine();
@@ -58,7 +57,7 @@ public class BlogService {
             System.out.println("Không tìm thấy blog với ID đã nhập.");
         }
     }
-    public Blog findById(String id, ArrayList<Blog>blogs){
+    public Blog findById(String id, List<Blog>blogs){
         for (Blog blog: blogs){
             if (blog.getId().equalsIgnoreCase(id)){
                 return blog;

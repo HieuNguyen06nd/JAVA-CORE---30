@@ -11,22 +11,20 @@ import java.util.Scanner;
 public class UserService {
     ValidateUser validateUser = new ValidateUser();
 
-    public UserService(List<User> users) {
-    }
-
     public UserService() {
+        // Constructor không tham số
     }
 
     public void signUp() {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
 
         String username;
         while (true) {
             System.out.print("Nhập Username: ");
             username = scanner.nextLine();
-            if (!validateUser.existUsername(username, users)) {
+            if (!validateUser.existUsername(username, (ArrayList<User>) users)) {
                 break;
             } else {
                 System.out.println("Username đã tồn tại, vui lòng nhập lại.");
@@ -35,7 +33,7 @@ public class UserService {
 
         String password;
         do {
-            System.out.print("Nhập mật khẩu : ");
+            System.out.print("Nhập mật khẩu: ");
             password = scanner.nextLine();
             if (!validateUser.checkPassword(password)) {
                 System.out.println("Mật khẩu không hợp lệ, vui lòng nhập lại.");
@@ -46,7 +44,7 @@ public class UserService {
         while (true) {
             System.out.print("Nhập email: ");
             email = scanner.nextLine();
-            if (validateUser.existEmail(email, users)) {
+            if (validateUser.existEmail(email, (ArrayList<User>) users)) {
                 System.out.println("Email đã tồn tại, vui lòng nhập lại.");
             } else if (!validateUser.checkEmail(email)) {
                 System.out.println("Email không hợp lệ, vui lòng nhập lại.");
@@ -59,26 +57,28 @@ public class UserService {
         System.out.println("Đăng ký thành công!");
     }
 
-    public void singIn() {
+    public void signIn() {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
 
         User user = null;
 
         while (user == null) {
             System.out.print("Nhập username (hoặc nhập 'exit' để thoát): ");
-            String username = scanner.nextLine();
+            String username = scanner.nextLine().trim(); // Loại bỏ khoảng trắng thừa
             if (exitProgramme(username)) {
                 return;
             }
-            user = findUserByUsername(username, users);
+            user = findUserByUsername(username, users); // Tìm user trong danh sách users
             if (user == null) {
                 System.out.println("Kiểm tra lại username.");
             }
         }
+
         System.out.print("Nhập password: ");
         String password = scanner.nextLine();
+
         if (!user.getPassword().equals(password)) {
             System.out.println("Sai password");
             System.out.println("1 - Đăng nhập lại\n" +
@@ -87,10 +87,10 @@ public class UserService {
             int choose = Integer.parseInt(scanner.nextLine());
             switch (choose) {
                 case 1:
-                    singIn();
+                    signIn(); // Gọi lại phương thức signIn
                     break;
                 case 2:
-                    forgetPassword();
+                    forgetPassword(user); // Gọi phương thức quên mật khẩu
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ");
@@ -98,20 +98,20 @@ public class UserService {
         } else {
             System.out.println("Chào mừng " + user.getUsername() + ", bạn có thể thực hiện các công việc sau:");
             Menu menu = new Menu();
-            menu.loginMenu(appContext, user);
+            menu.loginMenu(appContext, user); // Hiển thị menu đăng nhập
         }
     }
 
-    public void forgetPassword() {
+    public void forgetPassword(User user) {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
 
         System.out.print("Nhập email: ");
         String email = scanner.nextLine();
 
-        User user = findUserByEmail(email, users);
-        if (user == null) {
+        User foundUser = findUserByEmail(email, users);
+        if (foundUser == null) {
             System.out.println("Tài khoản không tồn tại.");
         } else {
             System.out.print("Nhập mật khẩu mới: ");
@@ -120,7 +120,7 @@ public class UserService {
             if (!validateUser.checkPassword(newPassword)) {
                 System.out.println("Mật khẩu không hợp lệ.");
             } else {
-                user.setPassword(newPassword);
+                foundUser.setPassword(newPassword);
                 System.out.println("Đổi mật khẩu thành công.");
             }
         }
@@ -129,7 +129,7 @@ public class UserService {
     public void changeUsername(User user) {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
 
         while (true) {
             System.out.print("Nhập username mới: ");
@@ -150,7 +150,7 @@ public class UserService {
     public void changeEmail(User user) {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
 
         while (true) {
             System.out.print("Nhập email mới: ");
@@ -158,7 +158,7 @@ public class UserService {
 
             if (!validateUser.checkEmail(newEmail)) {
                 System.out.println("Email không hợp lệ. Vui lòng thử lại.");
-            } else if (validateUser.existEmail(newEmail, users)) {
+            } else if (validateUser.existEmail(newEmail, (ArrayList<User>) users)) {
                 System.out.println("Email đã tồn tại. Vui lòng thử lại.");
             } else {
                 user.setEmail(newEmail);
@@ -170,11 +170,9 @@ public class UserService {
         menu.loginMenu(appContext, user);
     }
 
-
     public void changePassword(User user) {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
 
         while (true) {
             System.out.print("Nhập mật khẩu mới: ");
@@ -221,32 +219,32 @@ public class UserService {
         System.out.println("Role đã được cập nhật.");
     }
 
-    public void deleteUser(){
+    public void deleteUser() {
         AppContext appContext = AppContext.getInstance();
         Scanner scanner = appContext.getScanner();
-        ArrayList<User> users = appContext.getUsers();
+        List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
+
         System.out.print("Nhập id cần xóa: ");
         String id = scanner.nextLine().toUpperCase();
-        User user = findById(id,users);
-        if (user ==null){
-            System.out.println("Không tồn tại user_id : "+ id);
-        }else {
+        User user = findById(id, users);
+        if (user == null) {
+            System.out.println("Không tồn tại user_id: " + id);
+        } else {
             users.remove(user);
-            System.out.println("Xóa thành công user_id: "+id);
+            System.out.println("Xóa thành công user_id: " + id);
         }
-
     }
 
-    public User findUserByUsername(String username, ArrayList<User> users) {
+    public User findUserByUsername(String username, List<User> users) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 return user;
             }
         }
-        return null;
+        return null; // Trả về null nếu không tìm thấy
     }
 
-    public User findUserByEmail(String email, ArrayList<User> users) {
+    public User findUserByEmail(String email, List<User> users) {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
                 return user;
@@ -255,7 +253,7 @@ public class UserService {
         return null;
     }
 
-    public User findById(String id, ArrayList<User> users) {
+    public User findById(String id, List<User> users) {
         for (User user : users) {
             if (user.getId().equals(id)) {
                 return user;

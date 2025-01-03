@@ -5,6 +5,7 @@ import entities.Lesson;
 import exist.Exist;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LessonService {
@@ -12,14 +13,14 @@ public class LessonService {
 
     public void inputLesson(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Lesson> lessons = appContext.getLessons();
-        ArrayList<Classes> classes = appContext.getClasses();
+        List<Lesson> lessons = appContext.getList(Lesson.class);
+        List<Classes> classes = appContext.getList(Classes.class);
 
         String classId;
         while (true) {
             System.out.print("Nhập class_id: ");
             classId = scanner.nextLine();
-            if (!exist.isClassExist(classId, classes)) {
+            if (!exist.isClassExist(classId, (ArrayList<Classes>) classes)) {
                 System.out.println("Class_id không tồn tại. Vui lòng nhập lại.");
             } else {
                 break;
@@ -38,7 +39,7 @@ public class LessonService {
             try {
                 order = Integer.parseInt(scanner.nextLine());
 
-                if (exist.isOrderExist(classId, order, lessons)) {
+                if (exist.isOrderExist(classId, order, (ArrayList<Lesson>) lessons)) {
                     System.out.println("Thứ tự bài học đã tồn tại trong lớp. Vui lòng nhập lại.");
                 } else {
                     break;
@@ -55,7 +56,7 @@ public class LessonService {
 
     public void changeLesson(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Lesson> lessons = appContext.getLessons();
+        List<Lesson> lessons = appContext.getList(Lesson.class);
 
         System.out.print("Nhập id bài học muốn sửa: ");
         String id = scanner.nextLine();
@@ -115,7 +116,7 @@ public class LessonService {
 
     public void deleteLesson(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
-        ArrayList<Lesson> lessons = appContext.getLessons();
+        List<Lesson> lessons = appContext.getList(Lesson.class);
 
         System.out.println("Danh sách bài học hiện tại: ");
         for (Lesson lesson : lessons) {
@@ -136,9 +137,9 @@ public class LessonService {
     }
 
     public void swapLessonOrders(AppContext appContext) {
-        ArrayList<Lesson> lessons = appContext.getLessons();
+        List<Lesson> lessons = appContext.getList(Lesson.class);
         Scanner scanner = appContext.getScanner();
-        ArrayList<Classes> classes = appContext.getClasses();
+        List<Classes> classes = appContext.getList(Classes.class);
 
         System.out.print("Nhập class_id của lớp học mà bạn muốn hoán đổi bài học: ");
         String classId = scanner.nextLine();
@@ -182,7 +183,7 @@ public class LessonService {
 
 
 
-    public  Lesson findById(String id, ArrayList<Lesson>lessons){
+    public  Lesson findById(String id, List<Lesson>lessons){
         for (Lesson lesson:lessons){
             if (lesson.getId().equalsIgnoreCase(id)){
                 return lesson;

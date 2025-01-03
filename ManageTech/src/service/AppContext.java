@@ -1,46 +1,20 @@
 package service;
 
-import data.Data;
-import entities.*;
+import entities.User;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class AppContext {
-    private Data data = new Data();
-
     private static AppContext instance;
     private Scanner scanner;
-    private ArrayList<User> users;
-    private ArrayList<Teacher> teachers;
-    private ArrayList<Score> scores;
-    private ArrayList<Course>courses;
-    private ArrayList<Student> students;
-    private ArrayList<Lesson> lessons;
-    private ArrayList<Classes>classes;
-    private ArrayList<Blog> blogs;
-    private ArrayList<Enrollments> enrollments;
-
+    private Map<Class<?>, List<?>> dataStore; // Sử dụng Map để quản lý danh sách
+    private final List<Object> services; // Danh sách các dịch vụ
 
     private AppContext() {
         this.scanner = new Scanner(System.in);
-        this.users = new ArrayList<>();
-        this.teachers = new ArrayList<>();
-        this.students = new ArrayList<>();
-        this.lessons = new ArrayList<>();
-        this.courses = new ArrayList<>();
-        this.classes= new ArrayList<>();
-        this.blogs = new ArrayList<>();
-        this.enrollments = new ArrayList<>();
-        this.scores = new ArrayList<>();
-
-        List<User> loadedUsers = data.readUsersFromJsonFile("data.txt");
-        if (loadedUsers != null) {
-            this.users.addAll(loadedUsers);
-        }
+        this.dataStore = new HashMap<>();
+        this.services = new ArrayList<>();
     }
-
 
     public static AppContext getInstance() {
         if (instance == null) {
@@ -49,43 +23,37 @@ public class AppContext {
         return instance;
     }
 
-
     public Scanner getScanner() {
         return scanner;
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-    public ArrayList<Teacher> getTeachers() {
-        return teachers;
-    }
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-    public ArrayList<Classes> getClasses() {
-        return classes;
-    }
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
-    public ArrayList<Lesson> getLessons() {
-        return lessons;
+    @SuppressWarnings("unchecked")
+    public <T> List<T> getList(Class<T> clazz) {
+        return (List<T>) dataStore.computeIfAbsent(clazz, k -> new ArrayList<>());
     }
 
-    public ArrayList<Blog> getBlogs() {
-        return blogs;
-    }
-    public ArrayList<Enrollments> getEnrollments() {
-        return enrollments;
-    }
-    public ArrayList<Score> getScores() {
-        return scores;
+    public <T> void addToList(Class<T> clazz, T item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Đối tượng không được null.");
+        }
+        getList(clazz).add(item);
     }
 
-    private final List<Object> services = new ArrayList<>();
+    public <T> void removeFromList(Class<T> clazz, T item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Đối tượng không được null.");
+        }
+        getList(clazz).remove(item);
+    }
+
+    public <T> void clearList(Class<T> clazz) {
+        dataStore.remove(clazz);
+    }
 
     public void registerService(Object service) {
+        if (service == null) {
+            throw new IllegalArgumentException("Dịch vụ không được null.");
+        }
         services.add(service);
     }
 
@@ -98,4 +66,16 @@ public class AppContext {
         throw new RuntimeException("Dịch vụ không tồn tại: " + serviceClass.getSimpleName());
     }
 
+    public void setUsers(List<User> users) {
+        if (users == null) {
+            throw new IllegalArgumentException("Danh sách users không được null.");
+        }
+        // Xóa danh sách users hiện tại và thêm danh sách mới
+        clearList(User.class);
+        getList(User.class).addAll(users);
+    }
+
+    public List<User> getUsers() {
+        return getList(User.class);
+    }
 }
