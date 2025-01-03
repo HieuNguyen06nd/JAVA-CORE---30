@@ -2,6 +2,7 @@ package view;
 
 import entities.User;
 import enums.Role;
+import exist.Utils;
 import service.AppContext;
 import service.UserService;
 
@@ -15,6 +16,7 @@ public class Menu {
     private final MenuStudent menuStudent;
     private final MenuCustomer menuCustomer;
     private final MenuTeacher menuTeacher;
+    Utils utils = new Utils();
 
     public Menu() {
         this.userService = new UserService();
@@ -36,7 +38,7 @@ public class Menu {
     public void selectDisplayMenu(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
         try {
-            int choose = Integer.parseInt(scanner.nextLine());
+            int choose = utils.inputInt(scanner, " Mời lựa chọn...");
             switch (choose) {
                 case 1:
                     userService.signIn();

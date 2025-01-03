@@ -3,6 +3,7 @@ package view;
 import entities.*;
 import entities.Course;
 import enums.Role;
+import exist.Utils;
 import service.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class MenuAdmin {
     LessonService lessonService = new LessonService();
     ClassService classService = new ClassService();
     BlogService blogService = new BlogService();
+    Utils utils = new Utils();
 
     public void displayAdmin(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();  // Lấy Scanner từ AppContext
@@ -72,7 +74,7 @@ public class MenuAdmin {
             System.out.println("4. Hiển thị danh sách học viên");
             System.out.println("5. Quay lại");
             System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choose = utils.inputInt(scanner, " Mời lựa chọn...");
 
             switch (choice) {
                 case 1:

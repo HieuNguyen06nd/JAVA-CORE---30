@@ -5,6 +5,7 @@ import entities.Score;
 import entities.Teacher;
 import entities.User;
 import enums.Role;
+import exist.Utils;
 import service.*;
 
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import java.util.Scanner;
 
 public class MenuTeacher {
     PrintService printService = new PrintService();
-    EnrollmentService enrollmentService = new EnrollmentService();
     MenuStudent menu = new MenuStudent();
     LessonService lessonService = new LessonService();
     BlogService blogService = new BlogService();
     ScoreService scoreService= new ScoreService();
     UserService userService= new UserService();
     TeacherService teacherService = new TeacherService();
+    Utils utils = new Utils();
 
     public void displayTeacher(AppContext context, User user){
         while (true) {
@@ -40,7 +41,7 @@ public class MenuTeacher {
     public void selectMenu(AppContext context, User user){
         Scanner scanner = context.getScanner();
         List<User> users = context.getList(User.class);
-        int choose = Integer.parseInt(scanner.nextLine());
+        int choose = utils.inputInt(scanner, " Mời lựa chọn...");
         Teacher teacher = (Teacher) userService.findById(user.getId(),users);
         switch (choose){
             case 1:

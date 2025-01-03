@@ -2,6 +2,7 @@ package view;
 
 import entities.User;
 import enums.Role;
+import exist.Utils;
 import service.AppContext;
 import service.EnrollmentService;
 import service.PrintService;
@@ -12,6 +13,8 @@ public class MenuCustomer {
     PrintService printService = new PrintService();
     EnrollmentService enrollmentService = new EnrollmentService();
     MenuStudent menu = new MenuStudent();
+    Utils utils = new Utils();
+
     public void displayCustomer(AppContext context, User user){
         while (true){
             System.out.println("\n====== MENU CHỨC NĂNG ======");
@@ -27,7 +30,7 @@ public class MenuCustomer {
     }
     public void selectMenu(AppContext context, User user){
         Scanner scanner = context.getScanner();
-        int choose = Integer.parseInt(scanner.nextLine());
+        int choose = utils.inputInt(scanner, " Mời lựa chọn...");
         switch (choose){
             case 1:
                 menu.loginMenu(context,user);

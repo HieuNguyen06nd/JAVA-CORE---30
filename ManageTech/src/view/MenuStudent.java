@@ -1,6 +1,7 @@
 package view;
 
 import entities.User;
+import exist.Utils;
 import service.AppContext;
 import service.EnrollmentService;
 import service.PrintService;
@@ -14,6 +15,7 @@ public class MenuStudent {
     UserService userService = new UserService();
     PrintService printService = new PrintService();
     EnrollmentService enrollmentService = new EnrollmentService();
+    Utils utils = new Utils();
 
     public void displayStudent(AppContext context, User user) {
         Scanner scanner = context.getScanner();
@@ -27,8 +29,8 @@ public class MenuStudent {
             System.out.println("7. Thanh toán khóa học");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(scanner.nextLine());
-            switch (choice) {
+            int choose = utils.inputInt(scanner, " Mời lựa chọn...");
+            switch (choose) {
                 case 1:
                     loginMenu(context, user);
                     break;
@@ -60,7 +62,6 @@ public class MenuStudent {
     }
 
     public void loginMenu(AppContext context, User user) {
-        Scanner scanner = context.getScanner();
         System.out.println("1 - Thay đổi username\n" +
                 "2 - Thay đổi email\n" +
                 "3 - Thay đổi mật khẩu\n" +
@@ -72,7 +73,7 @@ public class MenuStudent {
     public void selectLoginMenu(AppContext context, User user) {
         Scanner scanner = context.getScanner();
 
-        int choose = Integer.parseInt(scanner.nextLine());
+        int choose = utils.inputInt(scanner, " Mời lựa chọn...");
         switch (choose) {
             case 1:
                 userService.changeUsername(user);

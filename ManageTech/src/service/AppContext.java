@@ -32,38 +32,10 @@ public class AppContext {
         return (List<T>) dataStore.computeIfAbsent(clazz, k -> new ArrayList<>());
     }
 
-    public <T> void addToList(Class<T> clazz, T item) {
-        if (item == null) {
-            throw new IllegalArgumentException("Đối tượng không được null.");
-        }
-        getList(clazz).add(item);
-    }
-
-    public <T> void removeFromList(Class<T> clazz, T item) {
-        if (item == null) {
-            throw new IllegalArgumentException("Đối tượng không được null.");
-        }
-        getList(clazz).remove(item);
-    }
-
     public <T> void clearList(Class<T> clazz) {
         dataStore.remove(clazz);
     }
 
-    public void registerService(Object service) {
-        if (service == null) {
-            throw new IllegalArgumentException("Dịch vụ không được null.");
-        }
-        services.add(service);
-    }
-
-    public <T> T getService(Class<T> serviceClass) {
-        return services.stream()
-                .filter(serviceClass::isInstance)
-                .map(serviceClass::cast)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Dịch vụ không tồn tại: " + serviceClass.getSimpleName()));
-    }
 
     // Phương thức quản lý Users
     public void setUsers(List<User> users) {
