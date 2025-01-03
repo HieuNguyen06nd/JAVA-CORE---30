@@ -5,4 +5,11 @@
   "user_Id" : "USER1",
   "published_at" : [ 2025, 1, 4 ],
   "status" : true
+}, {
+  "id" : "BLOG2",
+  "title" : "Blgo hay hay",
+  "content" : "blgo game",
+  "user_Id" : "USER1",
+  "published_at" : [ 2025, 1, 4 ],
+  "status" : true
 } ]
