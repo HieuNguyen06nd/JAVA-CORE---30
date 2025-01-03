@@ -11,50 +11,31 @@ public class Teacher extends User {
     private String bio;
     private List<Major> majors;
 
-    // Constructor không tham số
-    public Teacher() {
-        super(); // Gọi constructor không tham số của lớp cha (User)
-    }
-
-    // Constructor có tham số
     public Teacher(String username, String password, String email, Role role, double salary, String experience, String bio, List<Major> majors) {
-        super(username, password, email, Role.TEACHER);
+        super(username, password, email, role);
         this.salary = salary;
         this.experience = experience;
         this.bio = bio;
         this.majors = majors;
     }
-
-    // Getters and Setters
-    public double getSalary() {
-        return salary;
+    public Teacher() {
+        super(); // Gọi constructor mặc định của lớp cha (User)
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    // Các phương thức getter và setter
+    public double getSalary() {
+        return salary;
     }
 
     public String getExperience() {
         return experience;
     }
 
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
-
     public String getBio() {
         return bio;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
     public List<Major> getMajors() {
         return majors;
-    }
-
-    public void setMajors(List<Major> majors) {
-        this.majors = majors;
     }
 }

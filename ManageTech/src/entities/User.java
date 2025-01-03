@@ -1,49 +1,65 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import enums.Role;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class User {
-    private static int autoId;
+    private static int autoId = 0; // Biến static để tự động tăng ID
 
-    private String id;
+    private String id; // Trường id
     private String username;
     private String password;
     private String email;
     private Role role;
     private BigDecimal budget;
-    private LocalDate created_at = LocalDate.now();
+    private LocalDate created_at;
 
-    public User( String username, String password, String email, Role role) {
-        this.id ="KH"+ ++autoId;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.budget = new BigDecimal(10000);
-        this.role =role;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    // Constructor mặc định
     public User() {
+        this.id = generateId(); // Tạo ID mới
+        this.budget = new BigDecimal(10000); // Khởi tạo budget
+        this.created_at = LocalDate.now(); // Khởi tạo created_at
     }
 
-    public User(String id, String username, String password, String email, Role role, BigDecimal budget, LocalDate created_at) {
-        this.id = id;
+    // Constructor có tham số
+    public User(String username, String password, String email, Role role) {
+        this.id = generateId(); // Tạo ID mới
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
-        this.budget = budget;
-        this.created_at = created_at;
+        this.budget = new BigDecimal(10000); // Khởi tạo budget
+        this.created_at = LocalDate.now(); // Khởi tạo created_at
     }
 
+    // Phương thức tạo ID tự động
+    private String generateId() {
+        return "USER" + ++autoId;
+    }
+
+    // Cập nhật autoId dựa trên danh sách users
+    public static void updateAutoId(List<User> users) {
+        int maxId = users.stream()
+                .map(user -> user.getId().replace("USER", ""))
+                .mapToInt(Integer::parseInt)
+                .max()
+                .orElse(0);
+        autoId = maxId;
+    }
+
+    // Getter và Setter
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -78,14 +94,6 @@ public class User {
         this.role = role;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at() {
-        this.created_at = LocalDate.now();
-    }
-
     public BigDecimal getBudget() {
         return budget;
     }
@@ -94,16 +102,11 @@ public class User {
         this.budget = budget;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", budget=" + budget +
-                ", created_at=" + created_at.toString() + // Chuyển đổi LocalDate thành String
-                '}';
+    public LocalDate getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDate created_at) {
+        this.created_at = created_at;
     }
 }

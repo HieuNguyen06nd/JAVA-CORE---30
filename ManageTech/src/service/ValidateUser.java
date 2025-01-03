@@ -3,6 +3,7 @@ package service;
 import entities.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +30,7 @@ public class ValidateUser {
         return matcher.matches();
     }
 
-    public boolean existEmail(String email, ArrayList<User> users) {
+    public boolean existEmail(String email, List<User> users) {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
                 return true;
@@ -37,7 +38,7 @@ public class ValidateUser {
         }
         return false;
     }
-    public boolean existUsername(String username, ArrayList<User> users){
+    public boolean existUsername(String username, List<User> users){
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 System.out.println("Username đã tồn tại. Vui lòng chọn username khác.");

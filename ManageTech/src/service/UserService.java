@@ -20,17 +20,19 @@ public class UserService {
         Scanner scanner = appContext.getScanner();
         List<User> users = appContext.getList(User.class); // Lấy danh sách users từ AppContext
 
+        // Nhập username
         String username;
         while (true) {
             System.out.print("Nhập Username: ");
             username = scanner.nextLine();
             if (!validateUser.existUsername(username, (ArrayList<User>) users)) {
-                break;
+                break; // Thoát vòng lặp nếu username hợp lệ
             } else {
                 System.out.println("Username đã tồn tại, vui lòng nhập lại.");
             }
         }
 
+        // Nhập mật khẩu
         String password;
         do {
             System.out.print("Nhập mật khẩu: ");
@@ -40,6 +42,7 @@ public class UserService {
             }
         } while (!validateUser.checkPassword(password));
 
+        // Nhập email
         String email;
         while (true) {
             System.out.print("Nhập email: ");
@@ -49,11 +52,12 @@ public class UserService {
             } else if (!validateUser.checkEmail(email)) {
                 System.out.println("Email không hợp lệ, vui lòng nhập lại.");
             } else {
-                break;
+                break; // Thoát vòng lặp nếu email hợp lệ
             }
         }
 
-        users.add(new User(username, password, email, Role.CUSTOMER));
+        // Thêm người dùng mới
+        users.add(new User(username, password, email, Role.STUDENT));
         System.out.println("Đăng ký thành công!");
     }
 
