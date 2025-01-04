@@ -1,25 +1,25 @@
 [ {
   "id" : "CLASS1",
-  "name" : "Class java",
+  "name" : "[Java Full Stack 30] Web căn bản",
   "course_id" : "COU1",
   "teacher_id" : "USER3",
-  "student_id" : [ ],
+  "student_id" : [ "USER2" ],
   "start_date" : [ 2025, 1, 9 ],
   "end_date" : [ 2025, 3, 9 ],
   "schedule" : "Thứ 2, 4, 6"
 }, {
   "id" : "CLASS2",
-  "name" : "hoc java-html",
+  "name" : "[Java Full Stack 30] Java Core",
   "course_id" : "COU1",
   "teacher_id" : "USER3",
-  "student_id" : [ "USER2" ],
+  "student_id" : [ "USER2", "USER7", "USER6", "USER4" ],
   "start_date" : [ 2025, 7, 9 ],
   "end_date" : [ 2025, 9, 9 ],
   "schedule" : "Thứ 3, 5, 7"
 }, {
-  "id" : "CLASS4",
-  "name" : "Class sql",
-  "course_id" : "COU2",
+  "id" : "CLASS3",
+  "name" : "[Java Full Stack 30] Database",
+  "course_id" : "COU1",
   "teacher_id" : "USER5",
   "student_id" : [ "USER7", "USER6", "USER4" ],
   "start_date" : [ 2025, 2, 9 ],

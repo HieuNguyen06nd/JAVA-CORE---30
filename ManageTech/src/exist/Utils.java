@@ -28,4 +28,22 @@ public class Utils {
         }
     }
 
+    public static String truncateString(String str, int maxWidth) {
+        if (str.length() > maxWidth) {
+            return str.substring(0, maxWidth - 3) + "..."; // Cắt bớt và thêm dấu "..."
+        }
+        return String.format("%-" + maxWidth + "s", str); // Căn trái và thêm khoảng trắng nếu cần
+    }
+
+    // Phương thức xuống dòng cho chuỗi dài
+    public static String wrapString(String str, int maxWidth) {
+        StringBuilder result = new StringBuilder();
+        int length = str.length();
+        for (int i = 0; i < length; i += maxWidth) {
+            int end = Math.min(i + maxWidth, length);
+            result.append(str, i, end).append("\n");
+        }
+        return result.toString().trim(); // Loại bỏ dòng trống cuối cùng
+    }
+
 }

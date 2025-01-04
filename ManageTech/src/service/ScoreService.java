@@ -20,8 +20,10 @@ public class ScoreService {
         List<Lesson> lessons = context.getList(Lesson.class); // Lấy danh sách bài học
         List<Score> scores = context.getList(Score.class); // Lấy danh sách điểm
         List<User> users = context.getList(User.class); // Lấy danh sách người dùng
+        PrintService printService = new PrintService();
 
         // Nhập ID lớp học
+        printService.printClassesForTeacher(context, currentUser);
         System.out.print("Nhập ID lớp học: ");
         String classId = scanner.nextLine();
 
@@ -37,6 +39,7 @@ public class ScoreService {
             System.out.println("Bạn không dạy lớp học này.");
             return;
         }
+        printService.displayLessonsWithStudentsAndScores(context, classId);
 
         // Nhập ID bài học
         System.out.print("Nhập ID bài học: ");
@@ -67,7 +70,7 @@ public class ScoreService {
             }
 
             // Nhập điểm cho học sinh
-            System.out.print("Nhập điểm cho học sinh " + student.getUsername() + " (" + studentId + "): ");
+            System.out.print("Nhập điểm cho học sinh " + student.getUsername() + " (" + studentId + ") (Nhập '99' nếu học sinh nghỉ): ");
             double scoreValue;
             try {
                 scoreValue = Double.parseDouble(scanner.nextLine());
@@ -76,27 +79,59 @@ public class ScoreService {
                 continue;
             }
 
+            // Kiểm tra nếu học sinh nghỉ (điểm là 99)
+            if (scoreValue == 99) {
+                System.out.println("Học sinh " + student.getUsername() + " nghỉ học. Điểm được ghi là 99.");
+            }
+
             // Tìm xem học sinh đã có điểm cho bài học này chưa
             Score existingScore = findScoreByStudentAndLesson(studentId, lessonId, context);
             if (existingScore != null) {
                 // Cập nhật điểm nếu đã tồn tại
                 existingScore.setScore(scoreValue);
                 existingScore.setUpdate_at(LocalDate.now()); // Cập nhật thời gian sửa đổi
-                System.out.println("Đã cập nhật điểm cho học sinh " + student.getUsername());
+                System.out.println("Đã cập nhật điểm cho học sinh: " + student.getUsername());
             } else {
                 // Thêm điểm mới nếu chưa tồn tại
                 Score newScore = new Score(
                         studentId,
                         lessonId,
                         scoreValue,
-                        currentUser.getId(), // teacher_id là ID của giáo viên hiện tại
-                        LocalDate.now(), // created_at là thời gian hiện tại
-                        LocalDate.now() // update_at là thời gian hiện tại
+                        currentUser.getId(),
+                        LocalDate.now(),
+                        LocalDate.now()
                 );
                 scores.add(newScore);
-                System.out.println("Đã thêm điểm cho học sinh " + student.getUsername());
+                System.out.println("Đã thêm điểm cho học sinh: " + student.getUsername());
             }
         }
+    }
+
+    public void calculateAverageScoreForStudent(AppContext context, String studentId) {
+        // Lấy danh sách bài học và điểm từ AppContext
+        List<Lesson> lessons = context.getList(Lesson.class);
+        List<Score> scores = context.getList(Score.class);
+
+        double totalScore = 0;
+        int totalLessons = 0;
+
+        for (Lesson lesson : lessons) {
+            // Tìm điểm của học sinh trong bài học này
+            Score score = findScoreByStudentAndLesson(studentId, lesson.getId(), context);
+            if (score != null && score.getScore() != 99) { // Bỏ qua điểm 99
+                totalScore += score.getScore();
+                totalLessons++;
+            }
+        }
+
+        // Tính điểm trung bình
+        double averageScore = (totalLessons > 0) ? totalScore / totalLessons : 0;
+
+        // Hiển thị kết quả
+        System.out.println("=== Điểm trung bình của học sinh " + studentId + " ===");
+        System.out.println("Tổng số bài học có điểm (không tính điểm nghỉ): " + totalLessons);
+        System.out.println("Điểm trung bình: " + String.format("%.2f", averageScore));
+        System.out.println("----------------------------------------");
     }
 
     public Score findScoreByStudentAndLesson(String studentId, String lessonId, AppContext appContext) {

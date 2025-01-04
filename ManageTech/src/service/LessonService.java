@@ -2,6 +2,7 @@ package service;
 
 import entities.Classes;
 import entities.Lesson;
+import entities.User;
 import exist.Exist;
 import exist.Utils;
 
@@ -56,9 +57,10 @@ public class LessonService {
         System.out.println("Bài học đã được thêm thành công!");
     }
 
-    public void changeLesson(AppContext appContext) {
+    public void changeLesson(AppContext appContext, User currentUser) {
         Scanner scanner = appContext.getScanner();
         List<Lesson> lessons = appContext.getList(Lesson.class);
+        List<Classes> classes = appContext.getList(Classes.class);
 
         System.out.print("Nhập id bài học muốn sửa: ");
         String id = scanner.nextLine();
@@ -66,6 +68,19 @@ public class LessonService {
         Lesson lessonToUpdate = findById(id, lessons);
         if (lessonToUpdate == null) {
             System.out.println("Không tìm thấy bài học với id: " + id);
+            return;
+        }
+
+        // Tìm lớp học mà bài học thuộc về
+        Classes classOfLesson = findByIdClass(lessonToUpdate.getClass_id(), classes);
+        if (classOfLesson == null) {
+            System.out.println("Không tìm thấy lớp học của bài học này.");
+            return;
+        }
+
+        // Kiểm tra xem giáo viên hiện tại có phải là giáo viên phụ trách lớp không
+        if (!classOfLesson.getTeacher_id().equals(currentUser.getId())) {
+            System.out.println("Bạn không có quyền sửa bài học trong lớp này.");
             return;
         }
 
@@ -83,7 +98,7 @@ public class LessonService {
                     System.out.print("Nhập title mới: ");
                     String newTitle = scanner.nextLine();
                     lessonToUpdate.setTitle(newTitle);
-                    System.out.println("Thay đổi nội dung thành công.");
+                    System.out.println("Thay đổi title thành công.");
                     break;
                 case 3:
                     // Thay đổi nội dung
@@ -115,9 +130,10 @@ public class LessonService {
         }
     }
 
-    public void deleteLesson(AppContext appContext) {
+    public void deleteLesson(AppContext appContext, User currentUser) {
         Scanner scanner = appContext.getScanner();
         List<Lesson> lessons = appContext.getList(Lesson.class);
+        List<Classes> classes = appContext.getList(Classes.class);
 
         System.out.println("Danh sách bài học hiện tại: ");
         for (Lesson lesson : lessons) {
@@ -132,12 +148,25 @@ public class LessonService {
         if (lessonToDelete == null) {
             System.out.println("Không tìm thấy bài học với ID: " + lessonId);
         } else {
+            // Tìm lớp học mà bài học thuộc về
+            Classes classOfLesson = findByIdClass(lessonToDelete.getClass_id(), classes);
+            if (classOfLesson == null) {
+                System.out.println("Không tìm thấy lớp học của bài học này.");
+                return;
+            }
+
+            // Kiểm tra xem giáo viên hiện tại có phải là giáo viên phụ trách lớp không
+            if (!classOfLesson.getTeacher_id().equals(currentUser.getId())) {
+                System.out.println("Bạn không có quyền xóa bài học trong lớp này.");
+                return;
+            }
+
             lessons.remove(lessonToDelete);
             System.out.println("Bài học với ID " + lessonId + " đã được xóa.");
         }
     }
 
-    public void swapLessonOrders(AppContext appContext) {
+    public void swapLessonOrders(AppContext appContext, User currentUser) {
         List<Lesson> lessons = appContext.getList(Lesson.class);
         Scanner scanner = appContext.getScanner();
         List<Classes> classes = appContext.getList(Classes.class);
@@ -145,8 +174,16 @@ public class LessonService {
         System.out.print("Nhập class_id của lớp học mà bạn muốn hoán đổi bài học: ");
         String classId = scanner.nextLine();
 
-        if (!exist.isClassExist(classId, classes)) {
+        // Tìm lớp học
+        Classes classOfLesson = findByIdClass(classId, classes);
+        if (classOfLesson == null) {
             System.out.println("Lớp học không tồn tại: " + classId);
+            return;
+        }
+
+        // Kiểm tra xem giáo viên hiện tại có phải là giáo viên phụ trách lớp không
+        if (!classOfLesson.getTeacher_id().equals(currentUser.getId())) {
+            System.out.println("Bạn không có quyền hoán đổi bài học trong lớp này.");
             return;
         }
 
@@ -175,6 +212,7 @@ public class LessonService {
             System.out.println("Các bài học phải thuộc cùng một lớp học.");
             return;
         }
+
         int tempOrder = firstLesson.getOrder();
         firstLesson.setOrder(secondLesson.getOrder());
         secondLesson.setOrder(tempOrder);
@@ -192,5 +230,15 @@ public class LessonService {
         }
         return null;
     }
+
+    public Classes findByIdClass(String id, List<Classes> classes) {
+        for (Classes classRoom : classes) {
+            if (classRoom.getId().equals(id)) {
+                return classRoom;
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
 
 }

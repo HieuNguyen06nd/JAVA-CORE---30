@@ -1,31 +1,55 @@
 [ {
   "id" : "LESS1",
-  "class_id" : "CLASS2",
-  "title" : "hoc hoc",
-  "content" : "haha",
+  "class_id" : "CLASS1",
+  "title" : "Buổi 1: HTML cơ bản",
+  "content" : "Giới thiệu về Lập trình web\nCông cụ sử dụng trong khóa học\nGiới thiệu về HTML\nViết chương trình HTML đầu tiên\nCấu trúc trang HTM",
   "order" : 1
 }, {
   "id" : "LESS2",
-  "class_id" : "CLASS4",
-  "title" : "create sql",
-  "content" : "tao sal ",
-  "order" : 4
-}, {
-  "id" : "LESS3",
-  "class_id" : "CLASS4",
-  "title" : "update sql",
-  "content" : "sua sql",
+  "class_id" : "CLASS1",
+  "title" : "Buổi 2: HTML + CSS cơ bản",
+  "content" : "Table\n# Bài tập : Table\nForm",
   "order" : 2
 }, {
-  "id" : "LESS4",
-  "class_id" : "CLASS4",
-  "title" : "delete sql",
-  "content" : "xoa sql",
+  "id" : "LESS3",
+  "class_id" : "CLASS1",
+  "title" : "Buổi 3: Dàn layout với flex box",
+  "content" : "Giới thiệu về flex box\nFlex box : Layout\nFlex box : Container",
   "order" : 3
 }, {
+  "id" : "LESS4",
+  "class_id" : "CLASS1",
+  "title" : "Buổi 4: Chia layout voi html, css",
+  "content" : "Chia layout voi html, css\nThực hành convert giao diện",
+  "order" : 4
+}, {
   "id" : "LESS5",
-  "class_id" : "CLASS4",
-  "title" : "all sqp",
-  "content" : "asd ahsd",
-  "order" : 7
+  "class_id" : "CLASS2",
+  "title" : "Buổi 1: Introduction to Java",
+  "content" : "Giới thiệu về Java\nĐặc tính và các nền tảng của Java",
+  "order" : 1
+}, {
+  "id" : "LESS6",
+  "class_id" : "CLASS2",
+  "title" : "Buổi 2: Java cơ bản 2",
+  "content" : "Chuỗi (String)\nLớp String trong Java\nLớp Wrapper",
+  "order" : 2
+}, {
+  "id" : "LESS7",
+  "class_id" : "CLASS2",
+  "title" : "Buổi 3: Control flows",
+  "content" : "conditional statements\nswitch case statement\nfor loop",
+  "order" : 3
+}, {
+  "id" : "LESS8",
+  "class_id" : "CLASS2",
+  "title" : "Buổi 4: Methods & Basic arrays",
+  "content" : "Mảng (Array)\nMảng đa chiều\nFor each",
+  "order" : 4
+}, {
+  "id" : "LESS9",
+  "class_id" : "CLASS1",
+  "title" : "test",
+  "content" : "asjdlkjas asdlkjasd",
+  "order" : 5
 } ]

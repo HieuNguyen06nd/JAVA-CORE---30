@@ -1,19 +1,19 @@
 [ {
   "id" : "COU1",
-  "name" : "hocj java",
-  "description" : "as ahjsdla",
+  "name" : "Full Stack Java",
+  "description" : "Khoá học lập trình Full Stack Java bằng Java SpringBoot Fullstack",
   "price" : 2000,
   "mode" : "ONLINE"
 }, {
   "id" : "COU2",
-  "name" : "Course backend",
-  "description" : "hoc la co viec",
+  "name" : "Bootcamp Full Stack Web",
+  "description" : "Lập trình web toàn thời gian\n(Lộ trình chuyên sâu 6 tháng - 10 buổi/tuần)",
   "price" : 3000,
   "mode" : "ONLINE"
 }, {
   "id" : "COU3",
-  "name" : "Course fontend",
-  "description" : "hoc la co viec",
+  "name" : "Course DevOps",
+  "description" : "33 buổi học tương đương gần 3 tháng, được học cùng chuyên gia với những kiến thức có thể áp dụng được ngay vào thực tế công việc",
   "price" : 1299,
   "mode" : "OFFLINE"
 } ]

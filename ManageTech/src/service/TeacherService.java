@@ -145,7 +145,7 @@ public class TeacherService {
         }
     }
 
-    public double calculateSalary(Teacher teacher) {
+    public static double calculateSalary(Teacher teacher) {
         BigDecimal totalSalary = teacher.getSalary();
 
         // Tính toán thưởng dựa trên kinh nghiệm
@@ -165,12 +165,6 @@ public class TeacherService {
 
         // Trả về tổng lương dưới dạng double (nếu cần)
         return totalSalary.doubleValue();
-    }
-
-    public void printTeacherSalary(Teacher teacher) {
-        double salary = calculateSalary(teacher);
-        String message = String.format("Lương của giảng viên %s là: %.2f", teacher.getUsername(), salary);
-        System.out.println(message);
     }
 
 }

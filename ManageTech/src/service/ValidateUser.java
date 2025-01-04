@@ -38,35 +38,13 @@ public class ValidateUser {
         }
         return false;
     }
-    public boolean existUsername(String username, List<User> users){
+    public boolean existUsername(String username, List<User> users) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
-                System.out.println("Username đã tồn tại. Vui lòng chọn username khác.");
-                break;
+                return true; // Trả về true nếu username đã tồn tại
             }
         }
-        return false;
+        return false; // Trả về false nếu username chưa tồn tại
     }
-
-    public static Integer inputInterger(Scanner scanner){
-        try {
-            int n = Integer.parseInt(scanner.nextLine());
-            return n;
-        }catch (Exception e){
-            System.out.println("Lỗi: "+ e);
-            return null;
-        }
-    }
-
-    public static String inputString(Scanner scanner){
-        try {
-            String n = scanner.nextLine();
-            return n;
-        }catch (Exception e){
-            System.out.println("Lỗi: "+ e);
-            return null;
-        }
-    }
-
 
 }

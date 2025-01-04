@@ -32,7 +32,6 @@ public class MenuAdmin {
             System.out.println("5. Quản lý Class");
             System.out.println("7. Tìm kiếm");
             System.out.println("0. Thoát");
-            System.out.print("Chọn chức năng: ");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
@@ -73,10 +72,9 @@ public class MenuAdmin {
             System.out.println("3. Xóa học viên");
             System.out.println("4. Hiển thị danh sách học viên");
             System.out.println("5. Quay lại");
-            System.out.print("Chọn chức năng: ");
-            int choose = utils.inputInt(scanner, " Mời lựa chọn...");
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
 
-            switch (choice) {
+            switch (choose) {
                 case 1:
                     users.add(studentService.inputStudent());
                     break;
@@ -108,10 +106,9 @@ public class MenuAdmin {
             System.out.println("5. Hiển thị danh sách lớp giảng viên đang dạy");
             System.out.println("6. Xếp lớp cho giảng viên");
             System.out.println("9. Quay lại");
-            System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
 
-            switch (choice) {
+            switch (choose) {
                 case 1:
                     users.add(teacherService.inputTeacher());
                     break;
@@ -140,7 +137,6 @@ public class MenuAdmin {
     }
     public void manageCourses(AppContext appContext, User user) {
         Scanner scanner = appContext.getScanner();
-        List<Course> courses = appContext.getList(Course.class);
         while (true) {
             System.out.println("\n====== QUẢN LÝ KHÓA HỌC ======");
             System.out.println("1. Thêm khóa học");
@@ -148,9 +144,8 @@ public class MenuAdmin {
             System.out.println("3. Xóa khóa học");
             System.out.println("4. Hiển thị danh sách khóa học");
             System.out.println("5. Quay lại");
-            System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(scanner.nextLine());
-            switch (choice) {
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
+            switch (choose) {
                 case 1:
                     courseService.inputCourse(appContext);
                     break;
@@ -170,44 +165,6 @@ public class MenuAdmin {
             }
         }
     }
-    public void manageLesson(AppContext appContext) {
-        Scanner scanner = appContext.getScanner();
-
-        while (true) {
-            System.out.println("\n====== QUẢN LÝ LESSON ======");
-            System.out.println("1. Tạo lesson");
-            System.out.println("2. Cập nhật lesson");
-            System.out.println("3. Xóa lesson theo ID");
-            System.out.println("4. Đổi chỗ hai bài học theo thứ tự");
-            System.out.println("7. Hiển thị danh sách lesson theo lớp");
-            System.out.println("9. Quay lại");
-            System.out.print("Chọn chức năng: ");
-
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            switch (choice) {
-                case 1:
-                    lessonService.inputLesson(appContext);
-                    break;
-                case 2:
-                    lessonService.changeLesson(appContext);
-                    break;
-                case 3:
-                    lessonService.deleteLesson(appContext);
-                    break;
-                case 4:
-                    lessonService.swapLessonOrders(appContext);
-                    break;
-                case 7:
-                    printService.printLessonByClass(appContext);
-                    break;
-                case 9:
-                    return;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
-            }
-        }
-    }
     public void manageClass(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
         while (true) {
@@ -220,10 +177,8 @@ public class MenuAdmin {
             System.out.println("6. Hiển thị danh sách Lớp học");
             System.out.println("7. Thay đổi giáo viên Lớp học");
             System.out.println("9. Quay lại");
-            System.out.print("Chọn chức năng: ");
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            switch (choice) {
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
+            switch (choose) {
                 case 1:
                     // Tạo lớp học
                     classService.inputClass(appContext);
@@ -266,11 +221,9 @@ public class MenuAdmin {
             System.out.println("3. Xóa blog theo ID");
             System.out.println("7. Hiển thị danh sách blog");
             System.out.println("9. Quay lại");
-            System.out.print("Chọn chức năng: ");
 
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            switch (choice) {
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
+            switch (choose) {
                 case 1:
                     blogs.add(blogService.inpuBlog(appContext,user));
                     break;
@@ -313,9 +266,7 @@ public class MenuAdmin {
                 System.out.println("5 - Thay đổi Role");
                 System.out.println("6 - Quay lại");
                 System.out.println("0 - Thoát chương trình");
-                System.out.print("Chọn chức năng: ");
-                int choose = Integer.parseInt(scanner.nextLine());
-
+                int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
                 switch (choose) {
                     case 1:
                         userService.changeUsername(user);

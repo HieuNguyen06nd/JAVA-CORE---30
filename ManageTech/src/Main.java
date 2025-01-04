@@ -39,7 +39,10 @@ public class Main {
         }
 
         // Hiển thị menu chính
-        new Menu().displayMenu();
+        while (true){
+            new Menu().displayMenu();
+        }
+
     }
 
 }

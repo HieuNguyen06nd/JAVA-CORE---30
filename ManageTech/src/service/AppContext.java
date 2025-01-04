@@ -9,11 +9,13 @@ public class AppContext {
     private Scanner scanner;
     private Map<Class<?>, List<?>> dataStore; // Sử dụng Map để quản lý danh sách
     private final List<Object> services; // Danh sách các dịch vụ
+    private User currentUser; // Biến lưu trữ người dùng hiện tại
 
     private AppContext() {
         this.scanner = new Scanner(System.in);
         this.dataStore = new HashMap<>();
         this.services = new ArrayList<>();
+        this.currentUser = null; // Khởi tạo currentUser là null
     }
 
     public static AppContext getInstance() {
@@ -35,7 +37,6 @@ public class AppContext {
     public <T> void clearList(Class<T> clazz) {
         dataStore.remove(clazz);
     }
-
 
     // Phương thức quản lý Users
     public void setUsers(List<User> users) {
@@ -126,5 +127,23 @@ public class AppContext {
 
     public List<Blog> getBlogs() {
         return getList(Blog.class);
+    }
+
+    // Phương thức lấy userId của người dùng hiện tại
+    public String getCurrentUserId() {
+        if (currentUser != null) {
+            return currentUser.getId(); // Giả sử lớp User có phương thức getId()
+        }
+        return null; // Trả về null nếu chưa có người dùng đăng nhập
+    }
+
+    // Phương thức đặt người dùng hiện tại (sau khi đăng nhập thành công)
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    // Phương thức đăng xuất người dùng hiện tại
+    public void logout() {
+        this.currentUser = null;
     }
 }

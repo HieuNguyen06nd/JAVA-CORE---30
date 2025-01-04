@@ -1,5 +1,6 @@
 package service;
 
+import entities.Student;
 import entities.User;
 import enums.Role;
 import exist.Utils;
@@ -58,8 +59,12 @@ public class UserService {
             }
         }
 
-        // Thêm người dùng mới
-        users.add(new User(username, password, email, Role.STUDENT));
+        String educationLevel;
+        System.out.print("Nhập trình độ học vấn: ");
+        educationLevel = scanner.nextLine();
+
+        Student student = new Student(username, password, email, Role.STUDENT, educationLevel);
+        users.add(student);
         System.out.println("Đăng ký thành công!");
     }
 
@@ -89,7 +94,6 @@ public class UserService {
             System.out.println("Sai password");
             System.out.println("1 - Đăng nhập lại\n" +
                     "2 - Quên mật khẩu");
-            System.out.println("Mời lựa chọn");
             int choose = utils.inputInt(scanner, "Mời lựa chọn: ");
             switch (choose) {
                 case 1:
@@ -104,6 +108,7 @@ public class UserService {
         } else {
             String message = String.format("Chào mừng %s, bạn có thể thực hiện các công việc sau:", user.getUsername());
             System.out.println(message);
+            appContext.setCurrentUser(user);
             Menu menu = new Menu();
             menu.loginMenu(appContext, user); // Hiển thị menu đăng nhập
         }

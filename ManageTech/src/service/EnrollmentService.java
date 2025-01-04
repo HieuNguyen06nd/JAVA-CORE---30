@@ -4,6 +4,7 @@ import entities.Course;
 import entities.Enrollments;
 import entities.User;
 import enums.Role;
+import view.Menu;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,11 +15,21 @@ public class EnrollmentService {
     private UserService userService = new UserService();
     private CourseService courseService = new CourseService();
 
-    public void enrollCourse(String userId, AppContext context) {
+    public void enrollCourse(AppContext context) {
         List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
         Scanner scanner = context.getScanner();
         List<Course> courses = context.getList(Course.class); // Lấy danh sách courses từ AppContext
         List<Enrollments> enrollments = context.getList(Enrollments.class); // Lấy danh sách enrollments từ AppContext
+
+        // Lấy userId từ context (ví dụ: từ phiên đăng nhập hiện tại)
+        String userId = context.getCurrentUserId();
+
+        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+        if (userId == null || userId.isEmpty()) {
+            System.out.println("Bạn chưa đăng nhập. Vui lòng đăng nhập hoặc đăng ký.");
+            new Menu();
+            return;
+        }
 
         User user = userService.findById(userId, users);
         if (user == null) {

@@ -1,12 +1,14 @@
 package view;
 
+import entities.Enrollments;
 import entities.User;
 import enums.Role;
 import exist.Utils;
 import service.AppContext;
+import service.EnrollmentService;
+import service.PrintService;
 import service.UserService;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -14,37 +16,51 @@ public class Menu {
     private final UserService userService;
     private final MenuAdmin menuAdmin;
     private final MenuStudent menuStudent;
-    private final MenuCustomer menuCustomer;
     private final MenuTeacher menuTeacher;
+    private final PrintService printService;
+    private final EnrollmentService enrollmentService;
     Utils utils = new Utils();
 
     public Menu() {
         this.userService = new UserService();
         this.menuAdmin = new MenuAdmin();
         this.menuStudent = new MenuStudent();
-        this.menuCustomer = new MenuCustomer();
         this.menuTeacher = new MenuTeacher();
+        this.printService = new PrintService();
+        this.enrollmentService = new EnrollmentService();
     }
 
     public void displayMenu() {
         AppContext appContext = AppContext.getInstance();
         System.out.println("1 - Đăng nhập\n" +
                 "2 - Đăng ký\n" +
+                "3 - Xem khóa hoc của trung tâm\n" +
+                "4 - Xem blog\n" +
+                "5 - Đăng ký khóa học\n" +
                 "0 - Thoát chương trình");
-        System.out.println("Mời lựa chọn");
         selectDisplayMenu(appContext);
     }
 
     public void selectDisplayMenu(AppContext appContext) {
         Scanner scanner = appContext.getScanner();
         try {
-            int choose = utils.inputInt(scanner, " Mời lựa chọn...");
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
             switch (choose) {
                 case 1:
                     userService.signIn();
                     break;
                 case 2:
                     userService.signUp();
+                    break;
+                case 3:
+                    printService.printAllCourse(appContext);
+                    break;
+                case 4:
+                    printService.printAllBlogs(appContext);
+                    break;
+                case 5:
+                    printService.printAllCourse(appContext);
+                    enrollmentService.enrollCourse(appContext);
                     break;
                 case 0:
                     System.exit(0);
@@ -80,9 +96,6 @@ public class Menu {
                 break;
             case TEACHER:
                 menuTeacher.displayTeacher(appContext, user);
-                break;
-            case CUSTOMER:
-                menuCustomer.displayCustomer(appContext, user);
                 break;
             default:
                 System.out.println("Lỗi: Vai trò không hợp lệ.");

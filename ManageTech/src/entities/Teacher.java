@@ -39,4 +39,20 @@ public class Teacher extends User {
     public List<Major> getMajors() {
         return majors;
     }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setMajors(List<Major> majors) {
+        this.majors = majors;
+    }
 }

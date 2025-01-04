@@ -3,7 +3,7 @@
   "teacher_id" : "USER3",
   "student_id" : "USER2",
   "lesson_id" : "LESS1",
-  "score" : 9.0,
+  "score" : 6.0,
   "created_at" : [ 2025, 1, 4 ],
   "update_at" : [ 2025, 1, 4 ]
 }, {
@@ -52,6 +52,102 @@
   "student_id" : "USER4",
   "lesson_id" : "LESS4",
   "score" : 9.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S8",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS2",
+  "score" : 10.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S9",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS4",
+  "score" : 10.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S10",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS9",
+  "score" : 1.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S11",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS5",
+  "score" : 8.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S12",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS6",
+  "score" : 6.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S13",
+  "teacher_id" : "USER3",
+  "student_id" : "USER7",
+  "lesson_id" : "LESS6",
+  "score" : 9.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S14",
+  "teacher_id" : "USER3",
+  "student_id" : "USER6",
+  "lesson_id" : "LESS6",
+  "score" : 7.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S15",
+  "teacher_id" : "USER3",
+  "student_id" : "USER4",
+  "lesson_id" : "LESS6",
+  "score" : 9.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S16",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS7",
+  "score" : 99.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S17",
+  "teacher_id" : "USER3",
+  "student_id" : "USER7",
+  "lesson_id" : "LESS7",
+  "score" : 3.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S18",
+  "teacher_id" : "USER3",
+  "student_id" : "USER6",
+  "lesson_id" : "LESS7",
+  "score" : 5.0,
+  "created_at" : [ 2025, 1, 4 ],
+  "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S19",
+  "teacher_id" : "USER3",
+  "student_id" : "USER4",
+  "lesson_id" : "LESS7",
+  "score" : 99.0,
   "created_at" : [ 2025, 1, 4 ],
   "update_at" : [ 2025, 1, 4 ]
 } ]

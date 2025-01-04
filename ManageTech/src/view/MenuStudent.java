@@ -25,11 +25,11 @@ public class MenuStudent {
             System.out.println("2. Xem Lớp học");
             System.out.println("3. Xem khóa học đã đăng ký");
             System.out.println("4. Xem điểm cá nhân theo lớp");
+            System.out.println("5. Xem bài giảng");
             System.out.println("6. Đăng ký khóa học");
             System.out.println("7. Thanh toán khóa học");
             System.out.println("0. Thoát");
-            System.out.print("Chọn chức năng: ");
-            int choose = utils.inputInt(scanner, " Mời lựa chọn...");
+            int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
             switch (choose) {
                 case 1:
                     loginMenu(context, user);
@@ -44,9 +44,12 @@ public class MenuStudent {
                 case 4:
                     printService.printStudentScoresByUser(context, user);
                     break;
+                case 5:
+                    printService.printClassesAndLessonsForStudent(context, user);
+                    break;
                 case 6:
                     printService.printAllCourse(context);
-                    enrollmentService.enrollCourse(user.getId(), context);
+                    enrollmentService.enrollCourse(context);
                     break;
                 case 7:
                     printService.printCourseByUserId(user.getId(), context, 0);
@@ -73,7 +76,7 @@ public class MenuStudent {
     public void selectLoginMenu(AppContext context, User user) {
         Scanner scanner = context.getScanner();
 
-        int choose = utils.inputInt(scanner, " Mời lựa chọn...");
+        int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
         switch (choose) {
             case 1:
                 userService.changeUsername(user);
