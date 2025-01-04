@@ -1,7 +1,6 @@
 package service;
 
 import entities.*;
-
 import java.util.*;
 
 public class AppContext {
@@ -125,6 +124,18 @@ public class AppContext {
         getList(Blog.class).addAll(blogs);
     }
 
+    public void setATMCards(List<ATMCard> atmCards) {
+        if (atmCards == null) {
+            throw new IllegalArgumentException("Danh sách thẻ ATM không được null.");
+        }
+        clearList(ATMCard.class); // Xóa danh sách cũ (nếu có)
+        getList(ATMCard.class).addAll(atmCards); // Thêm danh sách mới
+    }
+
+    public List<ATMCard> getATMCards() {
+        return getList(ATMCard.class);
+    }
+
     public List<Blog> getBlogs() {
         return getList(Blog.class);
     }
@@ -145,5 +156,24 @@ public class AppContext {
     // Phương thức đăng xuất người dùng hiện tại
     public void logout() {
         this.currentUser = null;
+    }
+
+    // Phương thức đăng ký dịch vụ vào AppContext
+    public void registerService(Object service) {
+        if (service == null) {
+            throw new IllegalArgumentException("Dịch vụ không được null.");
+        }
+        services.add(service);
+    }
+
+    // Phương thức lấy dịch vụ từ AppContext
+    @SuppressWarnings("unchecked")
+    public <T> T getService(Class<T> serviceClass) {
+        for (Object service : services) {
+            if (serviceClass.isInstance(service)) {
+                return (T) service;
+            }
+        }
+        throw new IllegalStateException("Dịch vụ " + serviceClass.getSimpleName() + " chưa được đăng ký.");
     }
 }

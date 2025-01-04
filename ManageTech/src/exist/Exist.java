@@ -4,10 +4,15 @@ import entities.*;
 import enums.Role;
 import service.AppContext;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Exist {
+    private AppContext context= AppContext.getInstance();
+
     public boolean isClassExist(String classId, List<Classes> classRooms) {
         for (Classes classes : classRooms) {
             if (classes.getId().equals(classId)) {
@@ -74,7 +79,7 @@ public class Exist {
         return false;
     }
 
-    public boolean isAlreadyEnrolled(String userId, String courseId, ArrayList<Enrollments> enrollments) {
+    public boolean isAlreadyEnrolled(String userId, String courseId, List<Enrollments> enrollments) {
         for (Enrollments enrollment : enrollments) {
             if (enrollment.getUser_id().equals(userId) && enrollment.getCourse_id().equals(courseId)) {
                 return true;
@@ -96,7 +101,57 @@ public class Exist {
         return false;
     }
 
+    public boolean isUserHasCard(String user_id) {
+        List<ATMCard> atmCards = context.getList(ATMCard.class);
+        for (ATMCard card : atmCards) {
+            if (card.getUser_id().equals(user_id)) {
+                return true; // Người dùng đã có thẻ
+            }
+        }
+        return false; // Người dùng chưa có thẻ
+    }
 
+    public boolean isCardNumberUnique(String cardNumber) {
+        List<ATMCard> atmCards = context.getList(ATMCard.class);
+        for (ATMCard card : atmCards) {
+            if (card.getCardNumber().equals(cardNumber)) {
+                return false; // Số thẻ đã tồn tại
+            }
+        }
+        return true; // Số thẻ là duy nhất
+    }
+
+    public boolean isValidCardNumber(String cardNumber) {
+        // Biểu thức chính quy: chỉ chứa số và có độ dài từ 12 đến 16 ký tự
+        return cardNumber.matches("\\d{12,16}");
+    }
+
+    // Phương thức kiểm tra mã PIN chỉ chứa 4 chữ số
+    public boolean isValidPin(String pin) {
+        // Biểu thức chính quy: chỉ chứa 4 chữ số
+        return pin.matches("\\d{4}");
+    }
+
+    public boolean isValidExpiryDate(String expiryDate) {
+        // Biểu thức chính quy: định dạng MM/yy
+        if (!expiryDate.matches("\\d{2}/\\d{2}")) {
+            return false; // Không đúng định dạng
+        }
+
+        // Phân tích ngày hết hạn
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+            YearMonth expiry = YearMonth.parse(expiryDate, formatter);
+
+            // Lấy ngày hiện tại
+            YearMonth current = YearMonth.now();
+
+            // Kiểm tra xem ngày hết hạn có lớn hơn hoặc bằng ngày hiện tại không
+            return !expiry.isBefore(current);
+        } catch (DateTimeParseException e) {
+            return false; // Ngày hết hạn không hợp lệ
+        }
+    }
 
 
 }

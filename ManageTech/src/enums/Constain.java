@@ -13,4 +13,5 @@ public class Constain {
     public static final String ENROLLMENTS_FILE_PATH = "managedata/enrollments.json";
     public static final String SCORES_FILE_PATH = "managedata/scores.json";
     public static final String BLOGS_FILE_PATH = "managedata/blogs.json";
+    public static final String ATM_CARDS_FILE_PATH = "managedata/atm.json";
 }

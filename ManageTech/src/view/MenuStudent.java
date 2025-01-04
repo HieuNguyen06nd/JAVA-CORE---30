@@ -2,10 +2,7 @@ package view;
 
 import entities.User;
 import exist.Utils;
-import service.AppContext;
-import service.EnrollmentService;
-import service.PrintService;
-import service.UserService;
+import service.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +12,9 @@ public class MenuStudent {
     UserService userService = new UserService();
     PrintService printService = new PrintService();
     EnrollmentService enrollmentService = new EnrollmentService();
+    ATMCardService atmCardService= new ATMCardService();
     Utils utils = new Utils();
+
 
     public void displayStudent(AppContext context, User user) {
         Scanner scanner = context.getScanner();
@@ -28,6 +27,7 @@ public class MenuStudent {
             System.out.println("5. Xem bài giảng");
             System.out.println("6. Đăng ký khóa học");
             System.out.println("7. Thanh toán khóa học");
+            System.out.println("8. Thêm thẻ ATM");
             System.out.println("0. Thoát");
             int choose = utils.inputInt(scanner, " Mời lựa chọn: ");
             switch (choose) {
@@ -53,7 +53,10 @@ public class MenuStudent {
                     break;
                 case 7:
                     printService.printCourseByUserId(user.getId(), context, 0);
-                    enrollmentService.makePayment(user.getId(), context);
+                    enrollmentService.payForCourse(context);
+                    break;
+                case 8:
+                    atmCardService.inputATMCardDetails();
                     break;
                 case 0:
                     System.exit(1);

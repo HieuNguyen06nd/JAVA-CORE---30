@@ -132,6 +132,17 @@ public class DataManager {
             System.out.println("File " + Constain.BLOGS_FILE_PATH + " không tồn tại hoặc không thể đọc. Tạo tệp mới.");
             JsonHandler.writeToFile(Constain.BLOGS_FILE_PATH, new ArrayList<Blog>(), true);
         }
+        // Đọc danh sách thẻ ATM từ tệp atm_cards.json
+        if (JsonHandler.isFileReadable(Constain.ATM_CARDS_FILE_PATH)) {
+            List<ATMCard> atmCards = JsonHandler.readFromFile(Constain.ATM_CARDS_FILE_PATH, new TypeReference<>() {});
+            if (atmCards != null) {
+                appContext.setATMCards(atmCards);
+            }
+        } else {
+            System.out.println("File " + Constain.ATM_CARDS_FILE_PATH + " không tồn tại hoặc không thể đọc. Tạo tệp mới.");
+            JsonHandler.writeToFile(Constain.ATM_CARDS_FILE_PATH, new ArrayList<>(), true);
+        }
+
 
     }
 
@@ -230,7 +241,15 @@ public class DataManager {
             System.out.println("Danh sách blog trống, không ghi vào tệp.");
         }
 
+        List<ATMCard> atmCards = appContext.getList(ATMCard.class);
+        if (!atmCards.isEmpty()) {
+            JsonHandler.writeToFile(Constain.ATM_CARDS_FILE_PATH, atmCards, true);
+        } else {
+            System.out.println("Danh sách thẻ ATM trống, không ghi vào tệp.");
+        }
+
         System.out.println("Lưu dữ liệu thành công!");
     }
+
 
 }

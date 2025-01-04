@@ -1,0 +1,15 @@
+[ {
+  "cardNumber" : "123456789987",
+  "cardHolderName" : "NGUYEN HIEU",
+  "expiryDate" : "11/26",
+  "pin" : 1107,
+  "balance" : 50000,
+  "user_id" : "USER4"
+}, {
+  "cardNumber" : "452156587425",
+  "cardHolderName" : "NGUYEN HIEU",
+  "expiryDate" : "11/29",
+  "pin" : 1107,
+  "balance" : 48701,
+  "user_id" : "USER2"
+} ]
