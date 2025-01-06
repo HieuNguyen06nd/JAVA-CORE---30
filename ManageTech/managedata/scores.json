@@ -150,4 +150,12 @@
   "score" : 99.0,
   "created_at" : [ 2025, 1, 4 ],
   "update_at" : [ 2025, 1, 4 ]
+}, {
+  "id" : "S20",
+  "teacher_id" : "USER3",
+  "student_id" : "USER2",
+  "lesson_id" : "LESS3",
+  "score" : 99.0,
+  "created_at" : [ 2025, 1, 6 ],
+  "update_at" : [ 2025, 1, 6 ]
 } ]

@@ -68,18 +68,27 @@ public class ScoreService {
             }
 
             // Nhập điểm cho học sinh
-            System.out.print("Nhập điểm cho học sinh " + student.getUsername() + " (" + studentId + ") (Nhập '99' nếu học sinh nghỉ): ");
             double scoreValue;
-            try {
-                scoreValue = Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Điểm không hợp lệ. Vui lòng nhập lại.");
-                continue;
+            while (true) {
+                System.out.print("Nhập điểm cho " + student.getUsername() + " (" + studentId + ") (Nhập '99' nếu học sinh nghỉ): ");
+                try {
+                    scoreValue = Double.parseDouble(scanner.nextLine());
+                    if (scoreValue == 99) {
+                        break; // Cho phép nhập 99 nếu học sinh nghỉ
+                    }
+                    if (scoreValue < 0 || scoreValue > 10) {
+                        System.out.println("Điểm phải nằm trong khoảng từ 0 đến 10. Vui lòng nhập lại.");
+                    } else {
+                        break; // Thoát vòng lặp nếu điểm hợp lệ
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Điểm không hợp lệ. Vui lòng nhập lại.");
+                }
             }
 
             // Kiểm tra nếu học sinh nghỉ (điểm là 99)
             if (scoreValue == 99) {
-                System.out.println("Học sinh " + student.getUsername() + " nghỉ học. Điểm được ghi là 99.");
+                System.out.println("Học sinh " + student.getUsername() + " nghỉ học.");
             }
 
             // Tìm xem học sinh đã có điểm cho bài học này chưa
