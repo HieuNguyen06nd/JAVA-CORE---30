@@ -13,6 +13,7 @@ public class MenuStudent {
     PrintService printService = new PrintService();
     EnrollmentService enrollmentService = new EnrollmentService();
     ATMCardService atmCardService= new ATMCardService();
+    ScoreService scoreService= new ScoreService();
     Utils utils = new Utils();
 
 
@@ -23,7 +24,7 @@ public class MenuStudent {
             System.out.println("1. Quản lý thông tin cá nhân");
             System.out.println("2. Xem Lớp học");
             System.out.println("3. Xem khóa học đã đăng ký");
-            System.out.println("4. Xem điểm cá nhân theo lớp");
+            System.out.println("4. Xem điểm cá nhân theo lớp ");
             System.out.println("5. Xem bài giảng");
             System.out.println("6. Đăng ký khóa học");
             System.out.println("7. Thanh toán khóa học");

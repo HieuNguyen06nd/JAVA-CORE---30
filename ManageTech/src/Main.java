@@ -18,7 +18,6 @@ public class Main {
 
 
     private static final AppContext appContext = AppContext.getInstance();
-
     public static void main(String[] args) {
         // Đăng ký Shutdown Hook để lưu dữ liệu trước khi thoát
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

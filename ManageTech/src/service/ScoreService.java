@@ -1,9 +1,6 @@
 package service;
 
-import entities.Classes;
-import entities.Lesson;
-import entities.Score;
-import entities.User;
+import entities.*;
 import exist.Exist;
 
 import java.time.LocalDate;
@@ -11,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ScoreService {
 
@@ -107,32 +105,38 @@ public class ScoreService {
         }
     }
 
-    public void calculateAverageScoreForStudent(AppContext context, String studentId) {
-        // Lấy danh sách bài học và điểm từ AppContext
-        List<Lesson> lessons = context.getList(Lesson.class);
-        List<Score> scores = context.getList(Score.class);
+    public double calculateAverageScoreInClass(AppContext context, String studentId, String classId) {
+        // Lấy danh sách bài học thuộc lớp này
+        List<Lesson> lessonsInClass = getLessonsByClassId(context, classId);
 
         double totalScore = 0;
         int totalLessons = 0;
 
-        for (Lesson lesson : lessons) {
-            // Tìm điểm của học sinh trong bài học này
+        // Duyệt qua từng bài học, tính tổng điểm
+        for (Lesson lesson : lessonsInClass) {
             Score score = findScoreByStudentAndLesson(studentId, lesson.getId(), context);
-            if (score != null && score.getScore() != 99) { // Bỏ qua điểm 99
+            if (score != null && score.getScore() != 99) { // Bỏ qua điểm 99 (nghỉ học)
                 totalScore += score.getScore();
                 totalLessons++;
             }
         }
 
         // Tính điểm trung bình
-        double averageScore = (totalLessons > 0) ? totalScore / totalLessons : 0;
-
-        // Hiển thị kết quả
-        System.out.println("=== Điểm trung bình của học sinh " + studentId + " ===");
-        System.out.println("Tổng số bài học có điểm (không tính điểm nghỉ): " + totalLessons);
-        System.out.println("Điểm trung bình: " + String.format("%.2f", averageScore));
-        System.out.println("----------------------------------------");
+        return (totalLessons > 0) ? totalScore / totalLessons : 0;
     }
+
+    private List<Lesson> getLessonsByClassId(AppContext context, String classId) {
+        List<Lesson> allLessons = context.getList(Lesson.class);
+        List<Lesson> lessonsInClass = new ArrayList<>();
+        for (Lesson lesson : allLessons) {
+            if (lesson.getClass_id().equals(classId)) {
+                lessonsInClass.add(lesson);
+            }
+        }
+        return lessonsInClass;
+    }
+
+    // Phương thức hỗ trợ để tìm điểm của học sinh trong một bài học cụ thể
 
     public Score findScoreByStudentAndLesson(String studentId, String lessonId, AppContext appContext) {
         for (Score score : appContext.getList(Score.class)) {

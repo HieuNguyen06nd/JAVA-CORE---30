@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class PrintService {
     private Utils utils = new Utils();
+    private ScoreService scoreService = new ScoreService();
 
     // User
     public void printInfo(AppContext appContext, Role role) {
@@ -697,6 +698,10 @@ public class PrintService {
             System.out.printf("| %-" + lessonWidth + "s | %-" + scoreWidth + "s |\n", lessonTitle, score);
         }
         System.out.println("+" + "-".repeat(lessonWidth + 2) + "+" + "-".repeat(scoreWidth + 2) + "+");
+        // Tính và in ra điểm trung bình của học sinh trong lớp này
+        double averageScore = scoreService.calculateAverageScoreInClass(context, student.getId(), selectedClass.getId());
+        System.out.println("Điểm trung bình của học sinh " + student.getUsername() + " trong lớp " + selectedClass.getName() + ": " + String.format("%.2f", averageScore));
+        System.out.println("========================================");
     }
 
     public void displayLessonsWithStudentsAndScores(AppContext context, String classId) {

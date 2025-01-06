@@ -21,13 +21,11 @@ public class EnrollmentService {
     Exist exist = new Exist();
 
     public void enrollCourse(AppContext context) {
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa
         String userId = context.getCurrentUserId();
 
-        // Lấy thông tin người dùng
         User user = userService.findById(userId, context.getUsers());
         if (user == null) {
-            System.out.println("Người dùng không tồn tại.");
+            System.out.println("Bạn cần đăng nhập để thực hiện chức năng này.");
             return;
         }
 
@@ -60,7 +58,6 @@ public class EnrollmentService {
 
         System.out.println("Bạn đã đăng ký khóa học thành công, nhưng chưa thanh toán.");
 
-        // Hỏi người dùng có muốn thanh toán ngay không
         if (promptForPaymentConfirmation(context.getScanner())) {
             // Xử lý thanh toán
             boolean paymentSuccess = processPaymentMethod(userId, course.getPrice(), context);
@@ -78,10 +75,9 @@ public class EnrollmentService {
     }
     public void payForCourse(AppContext context) {
         Scanner scanner = context.getScanner();
-        List<Enrollments> enrollments = context.getList(Enrollments.class); // Lấy danh sách đăng ký
-        List<Course> courses = context.getList(Course.class); // Lấy danh sách khóa học
+        List<Enrollments> enrollments = context.getList(Enrollments.class);
+        List<Course> courses = context.getList(Course.class);
 
-        // Lấy userId từ context (ví dụ: từ phiên đăng nhập hiện tại)
         String userId = context.getCurrentUserId();
 
         // Nhập ID khóa học cần thanh toán
@@ -209,29 +205,6 @@ public class EnrollmentService {
         user.setBudget(user.getBudget().subtract(amount));
         System.out.println("Thanh toán bằng số dư ví thành công.");
         return true;
-    }
-
-    public void rechargeBudget(String userId, AppContext context) {
-        List<User> users = context.getList(User.class); // Lấy danh sách users từ AppContext
-        Scanner scanner = context.getScanner();
-
-        User user = userService.findById(userId, users);
-        if (user == null) {
-            System.out.println("Người dùng không tồn tại.");
-            return;
-        }
-
-        System.out.println("Nhập số tiền bạn muốn nạp vào ngân sách:");
-        BigDecimal amount = scanner.nextBigDecimal();
-        scanner.nextLine();
-
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            System.out.println("Số tiền nạp vào phải lớn hơn 0.");
-            return;
-        }
-
-        user.setBudget(user.getBudget().add(amount));
-        System.out.println("Nạp tiền thành công! Số tiền trong ngân sách của bạn hiện tại: " + user.getBudget() + " VNĐ.");
     }
 
     private Enrollments createEnrollment(String userId, String courseId, AppContext context) {
