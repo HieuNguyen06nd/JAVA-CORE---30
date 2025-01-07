@@ -11,8 +11,7 @@
 - ---- Quản lý thông tin cá nhân
 - ---- Xem khóa học, ...
 - ---- Chấm điểm cho học sinh mình dạy
-- ---- Điểm danh học viên
-- ---- Tạo lesson
+- ---- Quản lý lesson
 - ---- Xem thông tim học sinh mình dạy
 - ---- Xem thoogn tin lương
 - ---- Đăng bài trên blog
