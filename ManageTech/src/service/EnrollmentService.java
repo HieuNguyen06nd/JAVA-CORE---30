@@ -30,6 +30,7 @@ public class EnrollmentService {
         }
 
         // Nhập ID khóa học
+        System.out.print("Nhập ID khóa học: ");
         String courseId = context.getScanner().nextLine();
         if (courseId == null || courseId.isEmpty()) {
             System.out.println("ID khóa học không hợp lệ.");

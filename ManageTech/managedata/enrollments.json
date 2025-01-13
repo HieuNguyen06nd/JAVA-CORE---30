@@ -13,4 +13,9 @@
   "user_id" : "USER2",
   "course_id" : "COU3",
   "status" : 0
+}, {
+  "id" : "EN4",
+  "user_id" : "USER2",
+  "course_id" : "COU2",
+  "status" : 0
 } ]
