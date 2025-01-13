@@ -30,7 +30,6 @@ public class MenuAdmin {
             System.out.println("3. Quản lý Giáo viên");
             System.out.println("4. Quản lý Blog");
             System.out.println("5. Quản lý Class");
-            System.out.println("7. Tìm kiếm");
             System.out.println("0. Thoát");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
