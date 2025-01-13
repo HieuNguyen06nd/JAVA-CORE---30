@@ -145,8 +145,6 @@ public class ScoreService {
         return lessonsInClass;
     }
 
-    // Phương thức hỗ trợ để tìm điểm của học sinh trong một bài học cụ thể
-
     public Score findScoreByStudentAndLesson(String studentId, String lessonId, AppContext appContext) {
         for (Score score : appContext.getList(Score.class)) {
             if (score.getStudent_id().equals(studentId) && score.getLesson_id().equals(lessonId)) {
