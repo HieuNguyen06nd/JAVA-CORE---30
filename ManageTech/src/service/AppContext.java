@@ -153,27 +153,5 @@ public class AppContext {
         this.currentUser = user;
     }
 
-    // Phương thức đăng xuất người dùng hiện tại
-    public void logout() {
-        this.currentUser = null;
-    }
 
-    // Phương thức đăng ký dịch vụ vào AppContext
-    public void registerService(Object service) {
-        if (service == null) {
-            throw new IllegalArgumentException("Dịch vụ không được null.");
-        }
-        services.add(service);
-    }
-
-    // Phương thức lấy dịch vụ từ AppContext
-    @SuppressWarnings("unchecked")
-    public <T> T getService(Class<T> serviceClass) {
-        for (Object service : services) {
-            if (serviceClass.isInstance(service)) {
-                return (T) service;
-            }
-        }
-        throw new IllegalStateException("Dịch vụ " + serviceClass.getSimpleName() + " chưa được đăng ký.");
-    }
 }
