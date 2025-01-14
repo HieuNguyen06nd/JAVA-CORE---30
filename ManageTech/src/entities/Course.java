@@ -66,14 +66,4 @@ public class Course {
         this.mode = mode;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", mode=" + mode +
-                '}';
-    }
 }
