@@ -15,13 +15,12 @@ public class MenuAdmin {
     TeacherService teacherService = new TeacherService();
     PrintService printService = new PrintService();
     CourseService courseService = new CourseService();
-    LessonService lessonService = new LessonService();
     ClassService classService = new ClassService();
     BlogService blogService = new BlogService();
     Utils utils = new Utils();
 
     public void displayAdmin(AppContext appContext, User user) {
-        Scanner scanner = appContext.getScanner();  // Lấy Scanner từ AppContext
+        Scanner scanner = appContext.getScanner();
 
         while (true) {
             System.out.println("\n====== MENU CHỨC NĂNG ======");
@@ -31,7 +30,7 @@ public class MenuAdmin {
             System.out.println("4. Quản lý Blog");
             System.out.println("5. Quản lý Class");
             System.out.println("0. Thoát");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = utils.inputInt(scanner, " Mời lựa chọn: ");
             switch (choice) {
                 case 1:
                     manageStudents(appContext);
@@ -47,9 +46,6 @@ public class MenuAdmin {
                     break;
                 case 5:
                     manageClass(appContext);
-                    break;
-                case 7:
-
                     break;
                 case 0:
                     System.exit(1);  // Thoát chương trình

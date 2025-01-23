@@ -1,16 +1,13 @@
 package entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import enums.Role;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+
 
 public class User {
-    private static int autoId = 0; // Biến static để tự động tăng ID
+    private static int autoId = 0;
 
     private String id; // Trường id
     private String username;
@@ -41,16 +38,6 @@ public class User {
     // Phương thức tạo ID tự động
     private String generateId() {
         return "USER" + ++autoId;
-    }
-
-    // Cập nhật autoId dựa trên danh sách users
-    public static void updateAutoId(List<User> users) {
-        int maxId = users.stream()
-                .map(user -> user.getId().replace("USER", ""))
-                .mapToInt(Integer::parseInt)
-                .max()
-                .orElse(0);
-        autoId = maxId;
     }
 
     // Getter và Setter
