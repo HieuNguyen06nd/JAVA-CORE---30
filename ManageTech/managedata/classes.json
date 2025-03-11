@@ -25,4 +25,13 @@
   "start_date" : [ 2025, 2, 9 ],
   "end_date" : [ 2025, 4, 22 ],
   "schedule" : "Thứ 2, 4, 6"
+}, {
+  "id" : "CLASS6",
+  "name" : "hieu",
+  "course_id" : "COU2",
+  "teacher_id" : "USER5",
+  "student_id" : [ "USER2" ],
+  "start_date" : [ 2025, 2, 20 ],
+  "end_date" : [ 2025, 5, 2 ],
+  "schedule" : "Thứ 3, 5, 7"
 } ]

@@ -4,7 +4,7 @@
   "password" : "Anhhieu123@",
   "email" : "ahha@gmail.com",
   "role" : "STUDENT",
-  "budget" : 8000,
+  "budget" : 5000,
   "created_at" : [ 2025, 1, 4 ],
   "education_level" : "12/12"
 }, {
@@ -52,4 +52,13 @@
   "budget" : 10000,
   "created_at" : [ 2025, 1, 4 ],
   "education_level" : "dai hoc"
+}, {
+  "id" : "USER11",
+  "username" : "Hieu",
+  "password" : "Anhhieu1",
+  "email" : "hieu@gmail.com",
+  "role" : "STUDENT",
+  "budget" : 10000,
+  "created_at" : [ 2025, 1, 24 ],
+  "education_level" : "12"
 } ]
